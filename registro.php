@@ -147,8 +147,8 @@ $roles = $base_de_datos->query("SELECT * FROM rol")->fetchAll(PDO::FETCH_ASSOC);
 </main>
 </body>
 
-<script src="../java/pass.js"></script>
-    <script src="../java/alertas.js"></script>
-    <script src="../java/validaciones.js"></script>
+<script src="java/pass.js"></script>
+    <script src="java/alertas.js"></script>
+    <script src="java/validaciones.js"></script>
 
 </html>

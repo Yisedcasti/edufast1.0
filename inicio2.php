@@ -13,22 +13,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_SESSION['rol'])) {
                 switch ($_SESSION['rol']) {
                     case 1:
-                        header("Location: administrador/pag_principal.php");
+                        header("Location: administrador/pag_principa.php");
                         exit();
                     case 2:
                         header("Location: coordinador/pag_principal.php");
                         exit();
                         case 3:
-                            header("Location: rector/mascotas.php");
+                            header("Location: rector/pag_principal.php");
                             exit();
                             case 4:
-                                header("Location: secretaria/mascotas.php");
+                                header("Location: secretaria/pag_principal.php");
                                 exit();
                                 case 5:
-                                    header("Location: profesor/mascotas.php");
+                                    header("Location: profesor/pag_principal.php");
                                     exit();
                                     case 6:
-                                        header("Location: estudiante/mascotas.php");
+                                        header("Location: estudiante/pag_principal.php");
                                         exit();
                     default:
                         header("Location: error.php");

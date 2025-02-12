@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_SESSION['rol'])) {
                 switch ($_SESSION['rol']) {
                     case 1:
-                        header("Location: administrador/pag_principa.php");
+                        header("Location: administrador/pag_principal.php");
                         exit();
                     case 2:
                         header("Location: coordinador/pag_principal.php");

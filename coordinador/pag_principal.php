@@ -70,7 +70,7 @@ if (!isset($_SESSION['userId'])) {
                                 <i class="fas fa-user me-2"></i><?php echo $_SESSION['user']; ?> <?php echo $_SESSION['usera']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="cerrar.php">Salir</a></li>
+                                <li><a class="dropdown-item" href="../cerrar.php">Salir</a></li>
                             </ul>
                         </li>
                     </ul>

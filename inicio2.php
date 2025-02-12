@@ -34,12 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         header("Location: error.php");
                         exit();
                 }
-            } else {
-                $error_message = "Rol no definido.";
-            }
         } else {
             $error_message = "Usuario o contraseña incorrectos.";
         }
+         } else {
+                $error_message = "Rol no definido.";
+            }
     } else {
         $error_message = "Por favor, completa todos los campos.";
     }

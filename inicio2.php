@@ -10,18 +10,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!empty($user) && !empty($pass)) {
         if ($tareasDB->logeo($user, $pass)) {
-            // Asegurarse de que $_SESSION['rol'] tiene un valor válido
             if (isset($_SESSION['rol'])) {
-                // Redirigir según el rol
-                if ($_SESSION['rol'] == 1) {  // Aquí se comparan solo los valores, sin importar el tipo
-                    header("Location: administrador/pag_principal.php");
-                    exit();
-                } elseif ($_SESSION['rol'] == 2) {
-                    header("Location: user/mascotas.php");
-                    exit();
-                } else {
-                    header("Location: error.php");
-                    exit();
+                switch ($_SESSION['rol']) {
+                    case 1:
+                        header("Location: administrador/pag_principal.php");
+                        exit();
+                    case 2:
+                        header("Location: coordinador/pag_principal.php");
+                        exit();
+                        case 3:
+                            header("Location: rector/mascotas.php");
+                            exit();
+                            case 4:
+                                header("Location: secretaria/mascotas.php");
+                                exit();
+                                case 5:
+                                    header("Location: profesor/mascotas.php");
+                                    exit();
+                                    case 6:
+                                        header("Location: estudiante/mascotas.php");
+                                        exit();
+                    default:
+                        header("Location: error.php");
+                        exit();
                 }
             } else {
                 $error_message = "Rol no definido.";
@@ -32,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $error_message = "Por favor, completa todos los campos.";
     }
+    
 }
 ?>
 <!DOCTYPE html>

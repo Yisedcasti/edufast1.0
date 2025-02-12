@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_SESSION['rol'])) {
                 // Redirigir según el rol
                 if ($_SESSION['rol'] == 1) {  // Aquí se comparan solo los valores, sin importar el tipo
-                    header("Location: pag_principal.php");
+                    header("Location: administrador/pag_principal.php");
                     exit();
                 } elseif ($_SESSION['rol'] == 2) {
                     header("Location: user/mascotas.php");
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <header class="navbar navbar-expand-lg bg-body-tertiary containernav shadow">
         <div class="container d-flex justify-content-between align-items-center">
             <a class="navbar-brand fw-bold text-success d-flex align-items-center gap-2" href="#">
-                <img src="../imagenes/logo.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                <img src=" imagenes/logo.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
                 <span class="text-white">EDUFAST</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"

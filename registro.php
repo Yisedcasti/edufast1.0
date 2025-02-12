@@ -20,7 +20,7 @@ $roles = $base_de_datos->query("SELECT * FROM rol")->fetchAll(PDO::FETCH_ASSOC);
         <div class="container d-flex justify-content-between align-items-center">
             <!-- Logo -->
             <a class="navbar-brand fw-bold text-success d-flex align-items-center gap-2" href="#">
-                <img src="../imagenes/logo.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                <img src="imagenes/logo.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
                 <span class="text-white">EDUFAST</span>
             </a>
 
@@ -34,7 +34,7 @@ $roles = $base_de_datos->query("SELECT * FROM rol")->fetchAll(PDO::FETCH_ASSOC);
                 <div class="navbar-nav ms-auto fs-5">
                 <ul class="nav justify-content-end">
   <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="../index.php">Index</a>
+    <a class="nav-link active" aria-current="page" href="index.php">Index</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="inicio2.php">Inicio Sesiòn</a>

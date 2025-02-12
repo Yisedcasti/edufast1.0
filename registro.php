@@ -1,5 +1,5 @@
 <?php
-require('conexion.php');
+require_once 'conexion.php';
 
 // Obtener roles desde la base de datos
 $roles = $base_de_datos->query("SELECT * FROM rol")->fetchAll(PDO::FETCH_ASSOC);
@@ -11,7 +11,7 @@ $roles = $base_de_datos->query("SELECT * FROM rol")->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/registro.css">
+    <link rel="stylesheet" href="css/registro.css">
     <title>Registro</title>
 </head>
 <body>
@@ -37,7 +37,7 @@ $roles = $base_de_datos->query("SELECT * FROM rol")->fetchAll(PDO::FETCH_ASSOC);
     <a class="nav-link active" aria-current="page" href="../index.php">Index</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="http://localhost:3000/Login">Inicio Sesiòn</a>
+    <a class="nav-link" href="inicio2.php">Inicio Sesiòn</a>
   </li>
 </ul>
                 </div>

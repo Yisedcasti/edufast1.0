@@ -1,5 +1,5 @@
 <?php
-include_once "../administrador/php/publicaciones/configuracion/Conexion.php";
+include_once "Conexion.php";
 $sentencia = $base_de_datos->prepare(" SELECT * FROM public_eventos 
 INNER JOIN registro ON registro.num_doc = Public_eventos.registro_num_doc");
 $sentencia->execute();
@@ -55,11 +55,11 @@ $publicacionesNoticias = $sentencia->fetchAll(PDO::FETCH_OBJ);
                 </div>
                 <div class="col-lg-6 col-md-12 text-center">
                     <!-- Imagen responsiva -->
-                    <img src="../administrador/imagenes/logo.png" class="rounded img-fluid" alt="logo" style="max-width: 420px; height: auto;">
+                    <img src="../edufast/imagenes/logo.png" class="rounded img-fluid" alt="logo" style="max-width: 420px; height: auto;">
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-6 text-center  mb-5">
-                    <a href="http://localhost:3000/Login" class="btn btn-dark btn-lg" role="button">Iniciar Sesión</a>
+                    <a href="inicio2.php" class="btn btn-dark btn-lg" role="button">Iniciar Sesión</a>
 
                     </div>
                 </div>

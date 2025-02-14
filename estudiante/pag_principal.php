@@ -28,7 +28,7 @@ if (!isset($_SESSION['userId'])) {
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">EDUFAST</div>
             <div class="list-group list-group-flush my-3">
 
-                <a href="registro/view/index_registros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Perfil</a>
+                <a href="registro/view/perfil.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Perfil</a>
                 <a href="registro/view/index_registros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">observador</a>
 
                 <a href="asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>

@@ -28,24 +28,24 @@ if (!isset($_SESSION['userId'])) {
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">EDUFAST</div>
             <div class="list-group list-group-flush my-3">
 
-                <a href="../php/publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
+                <a href="publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
 
-                <a href="../php/registro/view/index_registros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Registro</a>
+                <a href="registro/view/index_registros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Registro</a>
 
-                <a href="../php/jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
+                <a href="jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
 
-                <a href="../php/grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
+                <a href="grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
 
-                <a href="../php/cursos/curso.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Cursos</a>
+                <a href="cursos/curso.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Cursos</a>
 
-                <a href="../php/asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
+                <a href="asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
 
-                <a href="../php/materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
+                <a href="materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
 
-                <a href="../php/logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
-                <a href="../php/actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
-                <a href="../php/notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
-                <a href="../php/Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
+                <a href="logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
+                <a href="actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
+                <a href="notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
+                <a href="Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
             </div>
         </div>
 
@@ -91,7 +91,7 @@ if (!isset($_SESSION['userId'])) {
                         <h1 class="card-title">Profesor</h1>
                     </div>
                     <div class="card-footer text-center contenedor">
-                        <a href="../php/registro/view/registros.php?id_rol=5" class="btn btn-dark">Registros</a>
+                        <a href="registro/view/registros.php?id_rol=5" class="btn btn-dark">Registros</a>
                     </div>
                 </div>
             </section>
@@ -103,7 +103,7 @@ if (!isset($_SESSION['userId'])) {
                         <h1 class="card-title">Materias</h1>
                     </div>
                     <div class="card-footer text-center">
-                        <a href="../php/materiaphp/materia.php" class="btn btn-dark">Materias</a>
+                        <a href="materiaphp/materia.php" class="btn btn-dark">Materias</a>
                     </div>
                 </div>
             </section>
@@ -115,7 +115,7 @@ if (!isset($_SESSION['userId'])) {
                         <h1 class="card-title">Alumno</h1>
                     </div>
                     <div class="card-footer text-center contenedor">
-                        <a href="../php/registro/view/registros.php?id_rol=6"" class="btn btn-dark">Regsitros</a>
+                        <a href="registro/view/registros.php?id_rol=6"" class="btn btn-dark">Regsitros</a>
                     </div>
                 </div>
             </section>
@@ -127,7 +127,7 @@ if (!isset($_SESSION['userId'])) {
                         <h1 class="card-title">Jornadas</h1>
                     </div>
                     <div class="card-footer text-center">
-                        <a href="../php/jornadas/vistas/jornadas.php" class="btn btn-dark">Jornadas</a>
+                        <a href="jornadas/vistas/jornadas.php" class="btn btn-dark">Jornadas</a>
                     </div>
                 </div>
             </section>
@@ -139,7 +139,7 @@ if (!isset($_SESSION['userId'])) {
                         <h1 class="card-title">Grados</h1>
                     </div>
                     <div class="card-footer text-center">
-                        <a href="../php/grados/vistas/grados.php" class="btn btn-dark">Grados</a>
+                        <a href="grados/vistas/grados.php" class="btn btn-dark">Grados</a>
                     </div>
                 </div>
             </section>
@@ -151,7 +151,7 @@ if (!isset($_SESSION['userId'])) {
                         <h1 class="card-title">Cursos</h1>
                     </div>
                     <div class="card-footer text-center">
-                        <a href="../php/cursos/curso.php" class="btn btn-dark">Cursos</a>
+                        <a href="cursos/curso.php" class="btn btn-dark">Cursos</a>
                     </div>
                 </div>
             </section>

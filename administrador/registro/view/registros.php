@@ -5,6 +5,7 @@ if (!isset($_SESSION['userId'])) {
     header("Location: ../index.php");
     exit();
 }
+include_once "../funciones/consulta.php";
 
 ?>
 <!DOCTYPE html>
@@ -16,9 +17,8 @@ if (!isset($_SESSION['userId'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../css/nav.css"/>
+    <link rel="stylesheet" href="../../../css/nav.css"/>
     <link rel="stylesheet" href="../css/principal.css"/>
-  
     <title>Pagina Principal</title>
 </head>
 <body>
@@ -28,17 +28,17 @@ if (!isset($_SESSION['userId'])) {
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">EDUFAST</div>
             <div class="list-group list-group-flush my-3">
 
-                <a href="../php/registro/view/index_registros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Perfil</a>
-                <a href="../php/registro/view/index_registros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">observador</a>
-
-                <a href="../php/asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
-
-                <a href="../php/materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
-
-                <a href="../php/logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
-                <a href="../php/actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
-                <a href="../php/notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
-                <a href="../php/Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
+            <a href="../../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</>
+                <a href=" index_registros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Registro</a>
+                <a href="../../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
+                <a href="../../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
+                <a href="../../asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
+                <a href="../../materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
+                <a href="../../logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
+                <a href="../../notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
+                <a href="../../Observador/view/vista_o.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
+                <a href="../../Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
+                <a href="../../../admin/pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Volver</a>            
             </div>
         </div>
 
@@ -46,7 +46,7 @@ if (!isset($_SESSION['userId'])) {
             <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-align-left fs-4 me-3" id="menu-toggle"></i>
-                    <h2 class="fs-2 m-0">Bienvenido</h2>
+                    <h2 class="fs-2 m-0">Bienvenid@</h2>
                 </div>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -63,7 +63,7 @@ if (!isset($_SESSION['userId'])) {
                                 <i class="fas fa-user me-2"></i><?php echo $_SESSION['user']; ?> <?php echo $_SESSION['usera']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="../cerrar.php">Salir</a></li>
+                                <li><a class="dropdown-item" href="../../../admin/cerrar.php">Salir</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -73,22 +73,28 @@ if (!isset($_SESSION['userId'])) {
 			<div class="container mt-5">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h1>Welcome estudiante <?php echo $_SESSION['user']; ?> </h1>
-                        <p class="lead"> En este espacio podras consultar tus datos, tu observador, poder llevar un control de tus notas y inasistencias y podras tambien poder descargar el boletin cuando se ha permitido y muchas cosas màs que iras decubriendo </p>
-                    </div>
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4  ">
+                        <h1 class="mb-3">Registros</h1>
+                        <div class="table-responsive">
+                        <table class="table table-hover rounded shadow table-bordered table-striped">
+                        <thead>    
+                        <tr>
+                            <th>Numero de Documento</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><?php foreach ($registros as $registro) : ?>
+                                <td class="text-center"> <a class="text-reset" href="perfil.php?num_doc=<?php echo $registro->num_doc; ?>"><?php echo $registro->num_doc; ?></a></td>
+                                <td class="text-center"><?php echo $registro->nombres?></td>
+                                <td class="text-center"><?php echo $registro->apellidos?></td>
+                    </tr>
+                    <?php endforeach; ?>
 
-            <section class="col">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-check-circle fs-1"></i>
-                        <h1 class="card-title">Materias</h1>
+                    </tbody>
+                        </table>
                     </div>
-                    <div class="card-footer text-center">
-                        <a href="../php/materiaphp/materia.php" class="btn btn-dark">Materias</a>
                     </div>
-                </div>
-            </section>
         </div>
     </main>
                 </div>

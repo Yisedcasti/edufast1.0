@@ -80,7 +80,7 @@ if (!isset($_SESSION['userId'])) {
 			<div class="container mt-5">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h1>Hola <?php echo $_SESSION['user']; ?> </h1>
+                        <h1>Welrcome cordinado <?php echo $_SESSION['user']; ?> </h1>
                         <p class="lead"> En este espacio podra  hacer varias cosas, podras registrar a los estudiantes, profesores, coordinadores y poderles asignar materias, cursos, grados, tener una asistencia y listado de los alumnos y muchas cosas màs. </p>
                     </div>
                     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4  ">
@@ -115,7 +115,7 @@ if (!isset($_SESSION['userId'])) {
                         <h1 class="card-title">Alumno</h1>
                     </div>
                     <div class="card-footer text-center contenedor">
-                        <a href="registro/view/registros.php?id_rol=6"" class="btn btn-dark">Regsitros</a>
+                        <a href="registro/view/registros.php?id_rol=6" class="btn btn-dark">Regsitros</a>
                     </div>
                 </div>
             </section>

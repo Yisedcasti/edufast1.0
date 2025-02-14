@@ -57,10 +57,7 @@ if (!isset($_SESSION['userId'])) {
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="index_registros.php">Volver</a>
-  </li>
-                        <li class="nav-item dropdown">
+                    <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user me-2"></i><?php echo $_SESSION['user']; ?> <?php echo $_SESSION['usera']; ?>
@@ -82,8 +79,16 @@ if (!isset($_SESSION['userId'])) {
         <div class="card shadow">
           <div class="card-body text-center">
             <?php foreach ($perfiles as $perfil): ?>
-            <img src="<?php echo "../../../imagenes/" . htmlspecialchars($perfil->foto_perfil); ?>" 
+                <div class="foto">
+            <img class="rounded-5 mt-5" src="<?php echo "../../../imagenes/" . htmlspecialchars($perfil->foto_perfil); ?>" 
             alt="Imagen de Perfil" class="profile-img mb-3" style="width: 100px;">
+            </div>
+            <style>
+                .foto{
+                    width: 80px;
+                    height: 0px;
+                }
+            </style>
         <input type="hidden" name="foto_perfil" value="<?php echo htmlspecialchars($perfil->foto_perfil); ?>">
             <input type="text" 
                name="evento" 
@@ -118,8 +123,7 @@ if (!isset($_SESSION['userId'])) {
             <div class="mt-4">
               <a href="#" class="btn btn-success btn-sm me-2">
                 <i class="bi bi-linkedin"></i> Actualizar
-              </a>
-              <a href="../../observador/vistas/observador.php?num_doc=<?php echo htmlspecialchars($perfil->num_doc) ?>">Datos restantes</a>
+              </a>    
             </div>
             <?php endforeach; ?>
           </div>

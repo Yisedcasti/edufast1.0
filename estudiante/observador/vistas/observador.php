@@ -1,5 +1,12 @@
 <?php
-require_once "../funciones/consultar.php"
+session_start();
+if (!isset($_SESSION['userId'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
+    header("Location: ../index.php");
+    exit();
+}
+ include_once "../funciones/consulta.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,7 +89,7 @@ require_once "../funciones/consultar.php"
                     <div class="col-md-12 text-center">
                     <main class="main-container ">
                         <?php
-                        
+
                         $num_doc = isset($_GET['num_doc']) ? $_GET['num_doc'] : null;
                         
                         if ($num_doc !== null) {

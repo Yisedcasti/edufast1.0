@@ -71,52 +71,80 @@ if (!isset($_SESSION['userId'])) {
 			<div class="container">
                 <div class="row">
                     <div class="cols-1 cols-md-2 cols-lg-3 g-4  ">
-                    <div class="container">
+                    <div class="container perfil">
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card shadow">
           <div class="card-body text-center">
             <?php foreach ($perfiles as $perfil): ?>
-                <div class="foto">
-            <img class="rounded-5 mt-5" src="<?php echo "../../../imagenes/" . htmlspecialchars($perfil->foto_perfil); ?>" 
+                <div class="foto mb-4">
+            <img class="rounded-5 mt-5 mb-2" src="<?php echo "../../../imagenes/" . htmlspecialchars($perfil->foto_perfil); ?>" 
             alt="Imagen de Perfil" class="profile-img mb-3" style="width: 100px;">
+            <input type="hidden" name="foto_perfil" value="<?php echo htmlspecialchars($perfil->foto_perfil); ?>">
+            <input type="file" name="nueva_img" class="form-control form-control-sm">
             </div>
             <style>
-                .foto{
-                    width: 80px;
-                    height: 0px;
+                .perfil{
+                    width: 1000px;
+                    margin-bottom: 90px;
                 }
             </style>
-        <input type="hidden" name="foto_perfil" value="<?php echo htmlspecialchars($perfil->foto_perfil); ?>">
-            <input type="text" 
-               name="evento" 
-               value="<?php echo htmlspecialchars($perfil->nombres); ?> <?php echo htmlspecialchars($perfil->apellidos); ?>" 
-               class="form-control border-0 bg-transparent text-center fs-4">
+     <div class="d-flex align-items-center gap-3">
+    <label class="col-form-label fs-6">Nombres y apellidos :</label>
+    <p class="fs-5 mb-0 text-end"><?php echo htmlspecialchars($perfil->nombres); ?> <?php echo htmlspecialchars($perfil->apellidos); ?></p>
+</div>
 
-               <input type="text" 
-               name="evento" 
-               value="<?php echo htmlspecialchars($perfil->celular); ?> " 
-               class="form-control border-0 bg-transparent text-center fs-5">
+<div class="d-flex align-items-center gap-3">
+    <label class="col-form-label fs-6">Número de documento :</label>
+    <p class="fs-5 mb-0 text-end"><?php echo htmlspecialchars($perfil->num_doc); ?></p>
+</div>
 
-               <input type="text" 
-               name="evento" 
-               value="<?php echo htmlspecialchars($perfil->telefono); ?> " 
-               class="form-control border-0 bg-transparent text-center fs-5"></a>
+<div class="d-flex align-items-center gap-3">
+    <label class="col-form-label fs-6">Número de documento :</label>
+    <p class="fs-5 mb-0 text-end"><?php echo htmlspecialchars($perfil->tipo_doc); ?></p>
+</div>
 
-               <input type="text" 
-               name="evento" 
-               value="<?php echo htmlspecialchars($perfil->direccion); ?> " 
-               class="form-control border-0 bg-transparent text-center fs-5"></a>
+<div class="d-flex align-items-center gap-3">
+   <label class="col-form-label fs-6">Celular:</label>
+   <input type="text" 
+         id="celular"
+         name="celular" 
+         value="<?php echo htmlspecialchars($perfil->celular); ?>" 
+         class="form-control fs-5 border-0 bg-transparent shadow-none text-start">
+</div>
 
-               <input type="text" 
-               name="evento" 
-               value="<?php echo htmlspecialchars($perfil->correo); ?>" 
-               class="form-control border-0 bg-transparent text-center fs-5">
+<div class="d-flex align-items-center gap-3">
+   <label class="col-form-label fs-6">Telefono:</label>
+   <input type="text" 
+         id="Telefono"
+         name="Telefono" 
+         value="<?php echo htmlspecialchars($perfil->telefono); ?>" 
+         class="form-control fs-5 border-0 bg-transparent shadow-none text-start">
+</div>
+  
+<div class="d-flex align-items-center gap-3">
+   <label class="col-form-label fs-6">Direcciòn:</label>
+   <input type="text" 
+         id="Telefono"
+         name="Telefono" 
+         value="<?php echo htmlspecialchars($perfil->direccion); ?> " 
+         class="form-control fs-5 border-0 bg-transparent shadow-none text-start">
+</div>
+<div class="d-flex align-items-center gap-3">
+   <label class="col-form-label fs-6">Correo:</label>
+   <input type="text" 
+         id="Telefono"
+         name="Telefono" 
+         value="<?php echo htmlspecialchars($perfil->correo); ?>" 
+         class="form-control fs-5 border-0 bg-transparent shadow-none text-start">
+</div>
 
-               <input type="text" 
-               name="evento" 
-               value="<?php echo htmlspecialchars($perfil->jornada); ?>" 
-               class="form-control border-0 bg-transparent text-center fs-5">
+<div class="d-flex align-items-center gap-3">
+   <label class="col-form-label fs-6"> Jornada:</label>
+   <p class="fs-5 mb-0 text-end"><?php echo htmlspecialchars($perfil->jornada); ?></p>
+</div>
+
+               
             <!-- Enlaces de redes sociales -->
             <div class="mt-4">
               <a href="#" class="btn btn-success btn-sm me-2">

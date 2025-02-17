@@ -82,7 +82,7 @@ require_once "../funciones/consultar.php"
                     <div class="col-md-12 text-center">
                     <main class="main-container ">
                         <?php
-                        require_once "../configuracion/conexion.php";
+                        
                         $num_doc = isset($_GET['num_doc']) ? $_GET['num_doc'] : null;
                         
                         if ($num_doc !== null) {

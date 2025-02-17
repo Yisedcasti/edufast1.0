@@ -75,7 +75,7 @@ $Estado,
 $Registro_num_doc,
 $registro_rol_id_rol,	
 $registro_jornada_id_jornada ]);
-if($resultado === TRUE){  header(header: "Location: logros.php?status=success");
+if($resultado === TRUE){  header(header: "Location: ../vistas/observador.php?status=success");
 	exit();
 }
 else {  header("Location: ../vistas/observador.php?status=error");

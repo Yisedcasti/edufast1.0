@@ -5,8 +5,7 @@ if (!isset($_SESSION['userId'])) {
     header("Location: ../index.php");
     exit();
 }
- include_once "../funciones/consulta.php";
-
+include_once "../funciones/consultar.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,8 +88,13 @@ if (!isset($_SESSION['userId'])) {
                     <div class="col-md-12 text-center">
                     <main class="main-container ">
                         <?php
+                        include_once "../configuracion/conexion.php";
+if (!isset($_SESSION["userId"])) {
+    exit("¡ID no especificado en la sesión!");
+}
 
-                        $num_doc = isset($_GET['num_doc']) ? $_GET['num_doc'] : null;
+$num_doc = isset($_GET['num_doc']) ? $_GET['num_doc'] : $_SESSION["userId"];
+
                         
                         if ($num_doc !== null) {
                             // Verificar en la tabla de estudiantes
@@ -130,7 +134,7 @@ if (!isset($_SESSION['userId'])) {
                 <div class='row g-3'>
                     <div class='col-md-2'>
                         <label for='grado' class='form-label'>Grado</label>
-                          <select class='form-select' id='frecuencia' name='id_jornada'>";
+                          <select class='form-select' id='frecuencia' name='id_grado'>";
                         foreach ($grados as $grado) {
                             $selected = ($matricula['grado_id_grado'] == $grado['id_grado']) ? 'selected' : '';
                             echo "<option value='" . htmlspecialchars($grado['id_grado'], ENT_QUOTES) . "' $selected>"
@@ -143,7 +147,7 @@ echo "
                     </div>
                     <div class='col-md-2'>
                         <label for='curso' class='form-label'>Curso</label>
-                          <select class='form-select' id='frecuencia' name='id_jornada'>";
+                          <select class='form-select' id='frecuencia' name='id_cursos'>";
                         foreach ($cursos as $curso) {
                             $selected = ($matricula['cursos_id_cursos'] == $curso['id_cursos']) ? 'selected' : '';
                             echo "<option value='" . htmlspecialchars($curso['id_cursos'], ENT_QUOTES) . "' $selected>"

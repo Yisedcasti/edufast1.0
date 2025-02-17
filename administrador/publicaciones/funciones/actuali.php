@@ -1,17 +1,15 @@
 <?php
 try {
-    // Incluir la conexión a la base de datos
     include_once "../configuracion/conexion.php";
     
-    // Obtener los valores del formulario
     $id_evento = $_POST["id_evento"];
     $evento = $_POST["evento"];
     $fecha_evento = $_POST["fecha_evento"];
-    $img_actual = $_POST["img_actual"];  // Imagen actual (campo oculto)
+    $img_actual = $_POST["img_actual"]; 
     
     // Inicializar la variable para la nueva imagen
     $img = $img_actual; // Si no se sube una nueva imagen, mantendremos la anterior
-    
+
     // Verificar si se ha subido una nueva imagen
     if (isset($_FILES['nueva_img']) && $_FILES['nueva_img']['error'] === UPLOAD_ERR_OK) {
         // Obtenemos el nombre del archivo y la ruta temporal

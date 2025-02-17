@@ -76,19 +76,24 @@ if (!isset($_SESSION['userId'])) {
       <div class="col-md-8">
         <div class="card shadow">
           <div class="card-body text-center">
+
+          <form action="../funciones/actualizarDatos.php" method="POST" enctype="multipart/form-data">
+
             <?php foreach ($perfiles as $perfil): ?>
                 <div class="foto mb-4">
             <img class="rounded-5 mt-5 mb-2" src="<?php echo "../../../imagenes/" . htmlspecialchars($perfil->foto_perfil); ?>" 
-            alt="Imagen de Perfil" class="profile-img mb-3" style="width: 100px;">
+            alt="Imagen de Perfil" class="profile-img mb-3" style="width: 100px; height: auto;">
             <input type="hidden" name="foto_perfil" value="<?php echo htmlspecialchars($perfil->foto_perfil); ?>">
             <input type="file" name="nueva_img" class="form-control form-control-sm">
             </div>
+
             <style>
                 .perfil{
                     width: 1000px;
                     margin-bottom: 90px;
                 }
             </style>
+
      <div class="d-flex align-items-center gap-3">
     <label class="col-form-label fs-6">Nombres y apellidos :</label>
     <p class="fs-5 mb-0 text-end"><?php echo htmlspecialchars($perfil->nombres); ?> <?php echo htmlspecialchars($perfil->apellidos); ?></p>
@@ -97,6 +102,9 @@ if (!isset($_SESSION['userId'])) {
 <div class="d-flex align-items-center gap-3">
     <label class="col-form-label fs-6">Número de documento :</label>
     <p class="fs-5 mb-0 text-end"><?php echo htmlspecialchars($perfil->num_doc); ?></p>
+    <input type="hidden" 
+         name="num_doc" 
+         value="<?php echo htmlspecialchars($perfil->num_doc); ?>" >
 </div>
 
 <div class="d-flex align-items-center gap-3">
@@ -117,7 +125,7 @@ if (!isset($_SESSION['userId'])) {
    <label class="col-form-label fs-6">Telefono:</label>
    <input type="text" 
          id="Telefono"
-         name="Telefono" 
+         name="telefono" 
          value="<?php echo htmlspecialchars($perfil->telefono); ?>" 
          class="form-control fs-5 border-0 bg-transparent shadow-none text-start">
 </div>
@@ -125,16 +133,16 @@ if (!isset($_SESSION['userId'])) {
 <div class="d-flex align-items-center gap-3">
    <label class="col-form-label fs-6">Direcciòn:</label>
    <input type="text" 
-         id="Telefono"
-         name="Telefono" 
+         id="direccion"
+         name="direccion" 
          value="<?php echo htmlspecialchars($perfil->direccion); ?> " 
          class="form-control fs-5 border-0 bg-transparent shadow-none text-start">
 </div>
 <div class="d-flex align-items-center gap-3">
    <label class="col-form-label fs-6">Correo:</label>
    <input type="text" 
-         id="Telefono"
-         name="Telefono" 
+         id="correo"
+         name="correo" 
          value="<?php echo htmlspecialchars($perfil->correo); ?>" 
          class="form-control fs-5 border-0 bg-transparent shadow-none text-start">
 </div>
@@ -147,11 +155,10 @@ if (!isset($_SESSION['userId'])) {
                
             <!-- Enlaces de redes sociales -->
             <div class="mt-4">
-              <a href="#" class="btn btn-success btn-sm me-2">
-                <i class="bi bi-linkedin"></i> Actualizar
-              </a>    
+            <button type="submit" class="btn btn-secondary">Editar</button>   
             </div>
             <?php endforeach; ?>
+            </form>
           </div>
         </div>
       </div>

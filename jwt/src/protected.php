@@ -12,6 +12,7 @@ $authHeader = $headers['Authorization'] ?? '';
 
 if(!$authHeader || !preg_match('/Bearner\s(\s+)/', $authHeader, $matches))
 {
-    
+    echo json_encode(['error' => 'Token no proporcionado']);
+
 }
 ?>

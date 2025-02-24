@@ -15,7 +15,27 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
         echo json_encode(array("error" => "Faltan Datos"));
         exit;
     }
+        $stmt = $pdo->prepare("SELECT * FROM registro WHERE num_doc = :num_doc");
+        $stmt->execute('num_doc', $num_doc);
+        $user = $stmt->fetch(PDO ::FETCH_ASSOC);
     
-}
+        if($user && password_verify($contraseña, $user['contraseña'])){
+            $payload - [
+             "num_doc" => $user['num_doc'],
+             "rol" => $user['rol_id_rol'],
+             "exp" => time() + 3600
+            ];
+
+            $jwt = JWT::encode($payload, $SECRET_KEY, 'HS256');
+
+            echo json_encode(['token' => $jwt]);
+    
+            } else {
+                echo json_encode(['error' => "Credenciales incorrectas"]);
+            }
+
+    }
+ 
+
 
 ?>

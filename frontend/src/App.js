@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './principal.css';
+import './imagenes/logo.png';
 
 const App = () => {
   const [publicacionesEventos, setPublicacionesEventos] = useState([]);

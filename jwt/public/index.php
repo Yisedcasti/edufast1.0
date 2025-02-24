@@ -1,7 +1,7 @@
 <?php
 session_start();
-if(!isset($_SESSION['user'])){
-    header('lacation:../src/protected.php');
+if(!isset($_SESSION['num_doc'])){
+    header('Location: ../src/protected.php');
     exit;
 }
 ?>
@@ -18,14 +18,14 @@ if(!isset($_SESSION['user'])){
 <body>
     
 <h2>Iniciar sesion</h2>
-<form action="login.php" method="post">
+<form action="login.php" action="post">
 <input type="number" name="num_doc" placeholder="numero de documento" required>
 <input type="password" name="contraseña" placeholder="contraseña" required>
 <button type="submit">Ingresar</button>
 </form>
 
 <h2>Registro</h2>
-<form action="register.php" method="post" >
+<form action="register.php" action="post" >
             <div class="form-group">
                 <span class="label">Rol</span>
                 <select name="id_rol" id="id_rol"  class="input" required>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['userId'])) {
+if (!isset($_SESSION['user'])) {
     $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
     header("Location: ../index.php");
     exit();

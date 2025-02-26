@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
         $hashedpassword - password_hash($password, PASSWORD_BCRYPT);
         
         try{
-            $stmt = $pdo->prepare("INSERT INTO registro (num_doc, tipo_doc, nombres, apellidos, celular, telefono, direccion, correo, contraseña) VALUES (:num_doc, :tipo_doc, :nombres, :apellidos, :celular, :telefono, :direccion, :correo, :contraseña)");
+            $stmt = $pdo->prepare("INSERT INTO registro (num_doc, tipo_doc, nombres, apellidos, celular, telefono, direccion, correo, contraseña) VALUES (:num_doc, :tipo_doc, :nombres, :apellidos, :celular, :telefono, :direccion, :correo, :pass)");
             $stmt->execute(['num_doc' => $num_doc, 'tipo_doc' => $tipo_doc, 'nombres' => $nombres, 'apellidos' => $apellidos, 'celular' => $celular, 'telefono' => $telefono, 'direccion' => $direccion, 'correo' => $correo, 'contraseña' => $hashedpassword ]);
         }
         catch(PDOException $e){

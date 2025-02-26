@@ -37,7 +37,7 @@ $roles = $base_de_datos->query("SELECT * FROM rol")->fetchAll(PDO::FETCH_ASSOC);
     <a class="nav-link active" aria-current="page" href="index.php">Index</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="inicio2.php">Inicio Sesiòn</a>
+    <a class="nav-link" href="jwt/public/inicio2.php">Inicio Sesiòn</a>
   </li>
 </ul>
                 </div>

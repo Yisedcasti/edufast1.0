@@ -59,7 +59,7 @@ $publicacionesNoticias = $sentencia->fetchAll(PDO::FETCH_OBJ);
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-6 text-center  mb-5">
-                    <a href="inicio2.php" class="btn btn-dark btn-lg" role="button">Iniciar Sesión</a>
+                    <a href="jwt/public/inicio2.php" class="btn btn-dark btn-lg" role="button">Iniciar Sesión</a>
 
                     </div>
                 </div>

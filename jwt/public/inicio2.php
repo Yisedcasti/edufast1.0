@@ -33,7 +33,7 @@ if(!isset($_SESSION['user'])){
                 <div class="navbar-nav ms-auto fs-5">
                     <ul class="nav justify-content-end">
                         <li class="nav-item">
-                            <a class="nav-link active" href="index.php">Index</a>
+                            <a class="nav-link active" href="../../index.php">Index</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="../../registro.php">Registrarse</a>

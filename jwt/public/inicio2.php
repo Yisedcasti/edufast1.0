@@ -1,10 +1,3 @@
-<?php
-session_start();
-if(!isset($_SESSION['user'])){
-    header('Location: ../src/protected.php');
-    exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -57,13 +50,13 @@ if(!isset($_SESSION['user'])){
 
                 <div class="mb-3">
                     <label for="user" class="form-label ps-3"><b>Usuario:</b></label>
-                    <input type="text" class="form-control" name="num_doc" placeholder="Ingresa tu numero de documento" required>
+                    <input type="text" class="form-control" name="user" placeholder="Ingresa tu usuario" required>
                     <small class="form-text">Asegúrate de introducir el usuario correcto.</small>
                 </div>
 
                 <div class="mb-3">
                     <label for="pass" class="form-label ps-3"><b>Contraseña:</b></label>
-                    <input type="password" class="form-control" name="contraseña" placeholder="Ingresa tu contraseña" required>
+                    <input type="password" class="form-control" name="pass" placeholder="Ingresa tu contraseña" required>
                     <small class="form-text">Asegúrate de introducir la contraseña correcta.</small>
                 </div>
 

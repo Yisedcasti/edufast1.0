@@ -56,7 +56,7 @@
 
                 <div class="mb-3">
                     <label for="pass" class="form-label ps-3"><b>Contraseña:</b></label>
-                    <input type="password" class="form-control" name="contraseña" placeholder="Ingresa tu contraseña" required>
+                    <input type="password" class="form-control" name="pass" placeholder="Ingresa tu contraseña" required>
                     <small class="form-text">Asegúrate de introducir la contraseña correcta.</small>
                 </div>
 

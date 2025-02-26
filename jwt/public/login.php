@@ -12,9 +12,9 @@ $SECRET_KEY = $config['SECRET_KEY'];
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $num_doc = $_POST['num_doc'] ?? null;
-    $contraseña = $_POST['contraseña'] ?? null;
+    $pass = $_POST['pass'] ?? null;
 
-    if (!$num_doc || !$contraseña) {
+    if (!$num_doc || !$pass) {
         echo json_encode(["error" => "Faltan datos"]);
         exit;
     }
@@ -24,11 +24,13 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $stmt->execute(['num_doc' => $num_doc]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user && password_verify($contraseña, $user['pass'])) {
+    if ($user && password_verify($pass, $user['pass'])) {
         // Definir el payload del JWT
         $payload = [
             "num_doc" => $user['num_doc'],
             "rol" => $user['rol_id_rol'],
+            "nombres" => $user['nombres'],
+            "apellidos" => $user['apellidos'],
             "exp" => time() + 3600 // Token válido por 1 hora
         ];
 
@@ -37,7 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         // Guardar el token en una sesión
         session_start();
         $_SESSION['jwt'] = $jwt;
+        $_SESSION['user'] = $user['num_doc'];
         $_SESSION['rol'] = $user['rol_id_rol'];
+        $_SESSION['nombres'] = $user['nombres'];
+        $_SESSION['apellidos'] = $user['apellidos'];
 
         // Redireccionar según el rol del usuario
         switch ($user['rol_id_rol']) {

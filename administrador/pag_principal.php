@@ -2,8 +2,8 @@
 session_start();
 if (!isset($_SESSION['user'])) {
     $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
-    header("Location: ../index.php");
-    exit();
+    header('Location: ../src/protected.php');
+    exit;
 }
 
 ?>
@@ -57,7 +57,7 @@ if (!isset($_SESSION['user'])) {
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['user']; ?> <?php echo $_SESSION['usera']; ?>
+                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="../cerrar.php">Salir</a></li>
@@ -70,7 +70,7 @@ if (!isset($_SESSION['user'])) {
 			<div class="container mt-5 mb-4">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h1>Welcome administrador <?php echo $_SESSION['user']; ?> </h1>
+                        <h1>Welcome administrador <?php echo $_SESSION['nombres']; ?> </h1>
                         <p class="lead"> En este espacio podra  hacer varias cosas, podras registrar a los estudiantes, profesores, coordinadores y poderles asignar materias, cursos, grados, tener una asistencia y listado de los alumnos y muchas cosas màs. </p>
                     </div>
                     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4  ">

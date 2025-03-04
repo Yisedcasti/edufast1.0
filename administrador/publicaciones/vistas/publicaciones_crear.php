@@ -1,11 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
+    header('Location: ../src/protected.php');
+    exit;
+}
 
-// Verificar si la sesión está activa y si el usuario está autenticado
-if (!isset($_SESSION['userId'])) {
-    header("Location: ../../../admi/session.php");
-    exit();
-} 
 ?>
 
 <!DOCTYPE html>
@@ -68,7 +68,7 @@ if (!isset($_SESSION['userId'])) {
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['user']; ?> <?php echo $_SESSION['usera']; ?>
+                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="../../../admin/cerrar.php">Salir</a></li>
@@ -115,7 +115,7 @@ if (!isset($_SESSION['userId'])) {
             <label for="event-date">Fecha del Evento:</label>
             <input id="event-date" class="form-control" type="date" name="fecha_evento" required>
         </div>
-        <input type="hidden" name="registro_num_doc" value="<?php echo $_SESSION['userId']; ?>"> 
+        <input type="hidden" name="registro_num_doc" value="<?php echo $_SESSION['user']; ?>"> 
         <div class="form-group">
             <input class="submit-btn btn btn-dark" type="submit" value="Enviar">
         </div>
@@ -133,7 +133,7 @@ if (!isset($_SESSION['userId'])) {
                         <label for="event-name">Noticia:</label>
                         <textarea class="form-control" name="informacion" id="info" cols="40" rows="9" placeholder="Escribe aquí la información"></textarea>
 </div>
-<input type="hidden" name="registro_num_doc" value="<?php echo $_SESSION['userId']; ?>">
+<input type="hidden" name="registro_num_doc" value="<?php echo $_SESSION['user']; ?>">
                         <div class="form-group">
                             <input class="submit-btn btn btn-dark" type="submit" value="Enviar">
                         </P>

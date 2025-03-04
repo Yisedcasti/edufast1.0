@@ -1,12 +1,11 @@
 <?php
 session_start();
-include_once "../funciones/consulta.php";
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
+    header('Location: ../src/protected.php');
+    exit;
+}
 
-// Verificar si la sesión está activa y si el usuario está autenticado
-if (!isset($_SESSION['userId'])) {
-    header("Location: ../session.php");
-    exit();
-} 
 ?>
 <!DOCTYPE html>
 <html lang="en">

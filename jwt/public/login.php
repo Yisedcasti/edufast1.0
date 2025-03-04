@@ -47,25 +47,25 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         // Redireccionar según el rol del usuario
         switch ($user['rol_id_rol']) {
             case 1:
-                header("Location: ../../administrador/pag_principal.php"); // Página para administradores
+                header("Location: ../../administrador/pag_principal.php"); 
                 break;
             case 2:
-                header("Location: ../profesor/inicio.php"); // Página para profesores
+                header("Location:../../cordinador/pag_principal.php");
                 break;
             case 3:
-                header("Location: ../estudiante/inicio.php"); // Página para estudiantes
+                header("Location: ../../rector/pag_principal.php"); 
                 break;
             case 4:
-                header("Location: ../estudiante/inicio.php"); // Página para estudiantes
+                header("Location: ../../secretaria/pag_principal.php"); 
                 break;
             case 5:
-                header("Location: ../estudiante/inicio.php"); // Página para estudiantes
+                header("Location: ../../profesor/pag_principal.php"); 
                 break;
             case 6:
-                header("Location: ../estudiante/inicio.php"); // Página para estudiantes
+                header("Location: ../../estudiante/pag_principal.php"); 
                 break;
             default:
-                header("Location: ../default.php"); // Página por defecto si no hay un rol válido
+                header("Location: ../default.php"); 
                 break;
         }
         exit;

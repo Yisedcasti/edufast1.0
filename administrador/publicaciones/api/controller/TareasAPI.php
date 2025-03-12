@@ -95,7 +95,7 @@ function response($code = 200, $status = "", $message = ""){
                     $this->response(422, "error", "Nada que guardar, comprobar JSON");
                 }
                 // Verificar que el campo 'tareas_titulo' esté presente en el JSON
-                else if (isset($obj->tareas_titulo)) {
+                else if (isset($obj->titulo)) {
                     // Crear una instancia de TareasDB y llamar a la función actualizar
                     $tareasDB = new TareasDB();
                     $tareasDB->actualizarNoticia(
@@ -127,9 +127,9 @@ function response($code = 200, $status = "", $message = ""){
                 if ($tareasDB->verificarExistenciaById($id)) {
                     $respuesta = $tareasDB->eliminarNoticia($id);
                     if ($respuesta) {
-                        $this->response(204, "success", "Registro Eliminado");
+                        $this->response(204, "success", "Noticia Eliminada");
                     } else {
-                        $this->response(500, "error", "Error al eliminar el registro");
+                        $this->response(500, "error", "Error al eliminar la noticia");
                     }
                     return $respuesta;
                 } else {

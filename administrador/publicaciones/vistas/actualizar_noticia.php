@@ -18,7 +18,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 $result = curl_exec($ch);
 curl_close($ch);
 $registros = json_decode($result,true);
- //var_dump($registros); 
+ var_dump($registros);
 
 
 ?>
@@ -119,34 +119,6 @@ $registros = json_decode($result,true);
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($publicacionesNoticias as $publicacion): ?>
-        <tr>
-        <form action="../funciones/actuali_noticia.php" method="POST" enctype="multipart/form-data">
-    <td>
-        <input type="text" 
-               name="titulo" 
-               value="<?php echo htmlspecialchars($publicacion->titulo); ?>" 
-               class="form-control border-0 bg-transparent text-center">
-    </td>
-    <td>
-        <!-- Campo para la fecha -->
-        <input type="text" 
-               name="info" 
-               value="<?php echo htmlspecialchars($publicacion->info); ?>" 
-               class="form-control border-0 bg-transparent text-center">
-    </td>
-    <td>
-        <input type="hidden" name="id_noticia" value="<?php echo $publicacion->id_noticia; ?>">
-        <!-- Botón para enviar el formulario -->
-        <button type="submit" class="btn"><i class="fas fa-edit"></i></button>
-        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#confirmarModal<?php echo $publicacion->id_noticia ?>">
-        <i class="fas fa-trash-alt"></i></button>
-    </td>
-</form>
-        </tr>
-        <?php endforeach; ?>
-
-        ----
         <?php
             // Mostrar registros
             if(is_array($registros)){
@@ -159,9 +131,13 @@ $registros = json_decode($result,true);
                                value=-" . $registros[$key]["titulo"]. "
                                class='form-control border-0 bg-transparent text-center'>
                     </td>";
-                        echo "<td>" . $registros[$key]["tareas_titulo"]."</td>";
-                        echo "<td>" . $registros[$key]["tareas_descripcion"]."</td>";
-                        echo "<td>" . $registros[$key]["tareas_prioridad"]."</td>";
+                         echo "<td>
+                        <input type='text' 
+                               name='info' 
+                               value=" . $registros[$key]["info"]. " 
+                               class='form-control border-0 bg-transparent text-center'>
+                    </td>";
+
                         echo "<td>" . $rutas->obtenerMenuModificar($registros[$key]["idtareas"])
                             ."&nbsp;&nbsp;&nbsp;&nbsp;"
                             .$rutas->obtenerMenuEliminar($registros[$key]["idtareas"])."</td>";
@@ -175,7 +151,6 @@ $registros = json_decode($result,true);
             }
            
             ?>
-        ----
     </tbody>
 </table>
         </div>

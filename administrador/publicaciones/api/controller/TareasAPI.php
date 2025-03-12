@@ -65,7 +65,7 @@ function response($code = 200, $status = "", $message = ""){
                 $this->response(422, "error","Nada que guardar, comprobar json");
             }
             else if(isset($obj->titulo)){
-                print "el dato es {$obj->tareas_prioridad}";
+                print "el dato es {$obj->titulo}";
                 $tareasDB = new TareasDB();
                 $tareasDB->registrarDatos($obj->titulo,$obj->info, $obj->registro_num_doc);
                 $this->response(200,"sucess","Registro Guardado Correctamente");

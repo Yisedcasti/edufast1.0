@@ -5,7 +5,21 @@ if (!isset($_SESSION['user'])) {
     header('Location: ../src/protected.php');
     exit;
 }
-include_once "../funciones/consulta.php";
+?>
+
+<?php
+require_once "rutas.php";
+$rutas = new Rutas();
+$url = $rutas->obtenerUrlBase(). '/servidor/';
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+$result = curl_exec($ch);
+curl_close($ch);
+$registros = json_decode($result,true);
+ //var_dump($registros); 
+
 
 ?>
 <!DOCTYPE html>

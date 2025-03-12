@@ -119,13 +119,13 @@ function response($code = 200, $status = "", $message = ""){
     // PROCESO ELIMINAR DATOS 
     function ProcesarEliminarNoticia()
     {
-        if (isset($_GET['action']) && isset($_GET['id'])) {
+        if (isset($_GET['action']) && isset($_GET['id_noticia'])) {
             if ($_GET['action'] == 'eliminar') {
-                $id = intval($_GET['id']);
+                $id_noticia = intval($_GET['id_noticia']);
                 $tareasDB = new TareasDB();
                 
-                if ($tareasDB->verificarExistenciaById($id)) {
-                    $respuesta = $tareasDB->eliminarNoticia($id);
+                if ($tareasDB->verificarExistenciaById($id_noticia)) {
+                    $respuesta = $tareasDB->eliminarNoticia($id_noticia);
                     if ($respuesta) {
                         $this->response(204, "success", "Noticia Eliminada");
                     } else {

@@ -67,9 +67,9 @@ class TareasDB{
         return false;
     }
 
-    public function eliminarNoticia($id_noticias)
+    public function eliminarNoticia($id_noticia)
     {
-        if($this->verificarExistenciaById($id_noticias))
+        if($this->verificarExistenciaById($id_noticia))
         {
             $stmt= $this->db->mysqli->prepare("DELETE FROM public_noticias WHERE id_noticia = ? ");
             $stmt->bind_param('i', $id_noticia);

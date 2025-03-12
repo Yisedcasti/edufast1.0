@@ -152,7 +152,13 @@ $registros = json_decode($result,true);
             if(is_array($registros)){
                 foreach ($registros as $key => $value) {
                     echo '<tr>';
-                        echo "<td>" . $registros[$key]["idtareas"]."</td>";
+                    echo'<form action="../funciones/actuali_noticia.php" method="POST" enctype="multipart/form-data">';
+                        echo   "<td>
+                        <input type='text'
+                               name='titulo'
+                               value=-" . $registros[$key]["titulo"]. "
+                               class='form-control border-0 bg-transparent text-center'>
+                    </td>";
                         echo "<td>" . $registros[$key]["tareas_titulo"]."</td>";
                         echo "<td>" . $registros[$key]["tareas_descripcion"]."</td>";
                         echo "<td>" . $registros[$key]["tareas_prioridad"]."</td>";

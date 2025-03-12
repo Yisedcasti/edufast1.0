@@ -145,6 +145,31 @@ $registros = json_decode($result,true);
 </form>
         </tr>
         <?php endforeach; ?>
+
+        ----
+        <?php
+            // Mostrar registros
+            if(is_array($registros)){
+                foreach ($registros as $key => $value) {
+                    echo '<tr>';
+                        echo "<td>" . $registros[$key]["idtareas"]."</td>";
+                        echo "<td>" . $registros[$key]["tareas_titulo"]."</td>";
+                        echo "<td>" . $registros[$key]["tareas_descripcion"]."</td>";
+                        echo "<td>" . $registros[$key]["tareas_prioridad"]."</td>";
+                        echo "<td>" . $rutas->obtenerMenuModificar($registros[$key]["idtareas"])
+                            ."&nbsp;&nbsp;&nbsp;&nbsp;"
+                            .$rutas->obtenerMenuEliminar($registros[$key]["idtareas"])."</td>";
+                    echo "</tr>";
+                }
+
+            }
+            else
+            {
+                echo "Ha ocurrido un error";
+            }
+           
+            ?>
+        ----
     </tbody>
 </table>
         </div>

@@ -1,5 +1,5 @@
 <?php
-require_once "conexion.php";
+require_once "../confi/conexion.php";
 
 class TareasDB{
     private $db;

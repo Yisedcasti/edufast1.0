@@ -1,5 +1,5 @@
 <?php
-require_once "TareasDB.php";
+require_once "../model/TareasDB.php";
 
 class TareasAPI
  {

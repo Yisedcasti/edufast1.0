@@ -68,7 +68,7 @@ include_once "../funciones/consulta.php";
                                 <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="../../../admin/cerrar.php">Salir</a></li>
+                                <li><a class="dropdown-item" href="../../../cerrar.php">Salir</a></li>
                             </ul>
                         </li>
                     </ul>

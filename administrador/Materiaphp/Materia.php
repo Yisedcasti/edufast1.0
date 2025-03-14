@@ -120,8 +120,6 @@ include "consulta.php";
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo htmlspecialchars($materia->materia); ?></h5>
                                     <p class="card-text">Grado: <?php echo htmlspecialchars($materia->grado); ?></p>
-                                    <p class="card-text">Maestro: <?php echo htmlspecialchars($materia->nombres); ?>
-                                        <?php echo htmlspecialchars($materia->profesion); ?></p>
                                     <button type="button" class="btn" data-bs-toggle="modal"
                                         data-bs-target="#actualizar<?= $materia->id_materia ?>">
                                         <i class="fas fa-edit"></i>

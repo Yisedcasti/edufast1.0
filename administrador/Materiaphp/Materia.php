@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
+    header('Location: ../src/protected.php');
+    exit;
+}
 include "consulta.php";
 ?>
 <!DOCTYPE html>
@@ -65,10 +71,10 @@ include "consulta.php";
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i>Maria Camila Torres Jaramillo
+                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Salir</a></li>
+                                <li><a class="dropdown-item" href="../../cerrar.php">Salir</a></li>
                             </ul>
                         </li>
                     </ul>

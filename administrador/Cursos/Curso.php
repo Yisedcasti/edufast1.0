@@ -1,9 +1,11 @@
 <?php 
 include "consultarcurso.php";
+
 session_start();
-if (!isset($_SESSION['userId'])) {
-    header("Location: ../../admin/session.php");
-    exit();
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
+    header('Location: ../src/protected.php');
+    exit;
 }
 ?>
 <!DOCTYPE html>

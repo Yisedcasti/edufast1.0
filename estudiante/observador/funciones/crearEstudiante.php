@@ -32,14 +32,22 @@ if (!empty($missing_fields)) {
 
 include_once"../configuracion/conexion.php";
 
+session_start();
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
+    header('Location: ../src/protected.php');
+    exit;
+}
+
+$Registro_num_doc = $_SESSION["user"]; 
+
+
 $sexo=$_POST["sexo"];
 $fecha_nacimiento=$_POST["fecha_nacimiento"];
 $Eps=$_POST["Eps"];
 $RH=$_POST["RH"];
 $Nivel_educativo=$_POST["Nivel_educativo"];
 $Estado=$_POST["Estado"];
-$Registro_num_doc=$_POST["Registro_num_doc"];
-
 
 $consultar = $base_de_datos->prepare("SELECT 
      rol_id_rol, 

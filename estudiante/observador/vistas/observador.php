@@ -373,47 +373,7 @@ echo "
                             </div>
                         ";
                         }
-                        function mostrarFormularioMatricula($num_doc)
-                        {
-                            // Incluir la conexión a la base de datos
-                            include_once "../funciones/consultar.php";
-
-                            echo "<div class='container mt-5'>
-                                    <h1 class='text-center mb-4'>Formulario de Grados y Cursos</h1>
-                                    <form action='procesar_formulario.php' method='POST' class='shadow p-4 rounded bg-light'>
-                                        <div class='mb-3'>
-                                            <label for='grado' class='form-label'>Grado</label>
-                                            <select name='grado' id='grado' class='form-select' required>
-                                                <option value='' disabled selected>Seleccione un grado</option>";
-                            
-                            // Mostrar los grados obtenidos de la base de datos
-                            foreach ($grados as $grado) {
-                                echo "<option value='" . htmlspecialchars($grado['id_grado'], ENT_QUOTES) . "'>" 
-                                     . htmlspecialchars($grado['grado'], ENT_QUOTES) . "</option>";
-                            }
-                            
-                            echo "      </select>
-                                        </div>
-                            
-                                        <div class='mb-3'>
-                                            <label for='curso' class='form-label'>Curso</label>
-                                            <select name='curso' id='curso' class='form-select' required>
-                                                <option value='' disabled selected>Seleccione un curso</option>";
-                            
-                            // Mostrar los cursos obtenidos de la base de datos
-                            foreach ($cursos as $curso) {
-                                echo "<option value='" . htmlspecialchars($curso['id_cursos'], ENT_QUOTES) . "'>" 
-                                    . htmlspecialchars($curso['curso'], ENT_QUOTES) . "</option>";
-                            }
-                            
-                            echo "      </select>
-                                        </div>
-                            
-                                        <button type='submit' class='btn btn-primary'>Enviar</button>
-                                    </form>
-                                </div>";
-                            
-                        }
+                        
                         ?>
                         
           </main>

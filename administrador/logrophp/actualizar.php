@@ -1,5 +1,4 @@
 <?php
-# Verifica que todos los datos necesarios estén presentes
 if(
     !isset($_POST["nombre_logro"]) || 
     !isset($_POST["descrip_logro"]) || 
@@ -15,16 +14,13 @@ if(
 }
 
 try {
-    # Incluye la conexión a la baxcddse de datos
     include_once "conexion.php";
 
-    # Recoge los datos del formulario
     $codigo_logro = $_POST["codigo_logro"];
     $nombre_logro = $_POST["nombre_logro"];
     $descrip_logro = $_POST["descrip_logro"];
     $id_materia = $_POST["id_materia"];
 
-    # Prepara la sentencia SQL
     $sentencia = $base_de_datos->prepare("UPDATE logro SET nombre_logro = ?, descrip_logro = ?, id_materia = ? WHERE id_logro = ?;");
     
     # Ejecuta la sentencia pasando los valores correspondientes

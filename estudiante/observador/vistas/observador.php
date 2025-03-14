@@ -93,7 +93,7 @@ if (!isset($_SESSION["user"])) {
     exit("¡ID no especificado en la sesión!");
 }
 
-$num_doc = isset($_GET['user']) ? $_GET['user'] : $_SESSION["nombres"];
+$num_doc = isset($_GET['user']) ? $_GET['user'] : $_SESSION["user"];
 
                         
                         if ($num_doc !== null) {

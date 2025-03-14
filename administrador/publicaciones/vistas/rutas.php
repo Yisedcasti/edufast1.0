@@ -7,7 +7,6 @@ class Rutas{
     }
 
     //METODO ONTENER URL BASE
-
     public function obtenerUrlBase(){
 return $this->urlBase;
     }

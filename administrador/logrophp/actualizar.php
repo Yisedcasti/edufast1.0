@@ -3,20 +3,20 @@ if(
     !isset($_POST["nombre_logro"]) || 
     !isset($_POST["descrip_logro"]) || 
     !isset($_POST["id_materia"]) || 
-    !isset($_POST["codigo_logro"])
+    !isset($_POST["id_logro"])
 ) {
     echo "Faltan los siguientes datos:<br>";
     if(!isset($_POST["nombre_logro"])) echo "Falta el nombre del logro.<br>";
     if(!isset($_POST["descrip_logro"])) echo "Falta la descripción del logro.<br>";
     if(!isset($_POST["id_materia"])) echo "Falta la materia.<br>";
-    if(!isset($_POST["codigo_logro"])) echo "Falta el código del logro.<br>";
+    if(!isset($_POST["id_logro"])) echo "Falta el código del logro.<br>";
     exit();
 }
 
 try {
     include_once "conexion.php";
 
-    $codigo_logro = $_POST["codigo_logro"];
+    $id_logro = $_POST["id_logro"];
     $nombre_logro = $_POST["nombre_logro"];
     $descrip_logro = $_POST["descrip_logro"];
     $id_materia = $_POST["id_materia"];
@@ -43,7 +43,7 @@ $area_id_area  = $resultado['area_id_area'];
     WHERE id_logro = ?;");
     
     # Ejecuta la sentencia pasando los valores correspondientes
-    $resultado = $sentencia->execute([$nombre_logro, $descrip_logro, $id_materia, $codigo_logro]);
+    $resultado = $sentencia->execute([$nombre_logro, $descrip_logro, $id_materia, $id_logro]);
 
     # Verifica el resultado
     if($resultado === TRUE) {

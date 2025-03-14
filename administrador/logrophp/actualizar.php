@@ -21,7 +21,26 @@ try {
     $descrip_logro = $_POST["descrip_logro"];
     $id_materia = $_POST["id_materia"];
 
-    $sentencia = $base_de_datos->prepare("UPDATE logro SET nombre_logro = ?, descrip_logro = ?, id_materia = ? WHERE id_logro = ?;");
+    $consultar = $base_de_datos->prepare("SELECT 
+        grado_id_grado, 		
+		area_id_area
+FROM materia WHERE id_materia = ?");
+$consultar->execute([$id_materia]);
+$resultado = $consultar->fetch(PDO::FETCH_ASSOC);
+
+if (!$resultado) {
+    exit("No se encontró información para este docente.");
+}
+
+$grado_id_grado  = $resultado['grado_id_grado'];
+$area_id_area  = $resultado['area_id_area'];
+
+
+    $sentencia = $base_de_datos->prepare("UPDATE logro SET 
+    nombre_logro = ?, 
+    descrip_logro = ?, 
+    id_materia = ? 
+    WHERE id_logro = ?;");
     
     # Ejecuta la sentencia pasando los valores correspondientes
     $resultado = $sentencia->execute([$nombre_logro, $descrip_logro, $id_materia, $codigo_logro]);

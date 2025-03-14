@@ -100,7 +100,7 @@ $num_doc = isset($_GET['user']) ? $_GET['user'] : $_SESSION["nombres"];
                             // Verificar en la tabla de estudiantes
                             $sqlEstudiante = "SELECT * FROM estudiante
                             INNER JOIN registro ON estudiante.registro_num_doc = registro.num_doc
-                             WHERE registro_num_doc = :num_doc";
+                             WHERE num_doc = :num_doc";
                             $stmtEstudiante = $base_de_datos->prepare($sqlEstudiante);
                             $stmtEstudiante->bindParam(':num_doc', $num_doc, PDO::PARAM_STR);
                             $stmtEstudiante->execute();
@@ -291,90 +291,116 @@ echo "
     </div>
     
         </div>";
-                                    }
-                                } else {
-                                    // Si no hay matrículas, mostrar el formulario de matrícula
-                                    echo "Por favor, comunícate con el coordinador para que te asigne el grado y el curso, y así puedas visualizar el observador.";
-                                }
-                            } else {
-                                // Si no hay estudiante, mostrar formulario de registro de estudiante
-                                mostrarFormularioEstudiante($num_doc);
-                            }
-                        } else {
-                            echo "Número de documento no proporcionado.";
-                        }
-                        
-                        function mostrarFormularioEstudiante($num_doc)
-                
-                        {
-                            echo "<div class='container mb-5'>
-                            <h1 class='text-center mb-4'>Formulario Datos adicionales</h1>
-                            <form action='../funciones/crearEstudiante.php' method='POST' class='shadow p-4 rounded bg-light'>
-                            <input type='hidden' name='Registro_num_doc' value='$num_doc'>
-                                <!-- Campo Sexo -->
-                                <div class='mb-3'>
-                                    <label for='sexo' class='form-label'>Sexo</label>
-                                    <select name='sexo' id='sexo' class='form-select' required>
-                                        <option value=' disabled selected>Seleccione el sexo</option>
-                                        <option value='M'>Masculino</option>
-                                        <option value='F'>Femenino</option>
-                                        <option value='O'>Otro</option>
-                                    </select>
-                                </div>
-                                <!-- Campo Fecha de Nacimiento -->
-                                <div class='mb-3'>
-                                    <label for='fecha_nacimiento' class='form-label'>Fecha de Nacimiento</label>
-                                    <input type='date' name='fecha_nacimiento' id='fecha_nacimiento' class='form-control' required 
-                                           oninput='validarFechaNacimiento()'>
-                                    <div id='error_fecha_nacimiento' class='text-danger mt-1'></div>
-                                </div>
-                                <!-- Campo EPS -->
-                                <div class='mb-3'>
-                                    <label for='eps' class='form-label'>EPS</label>
-                                    <input type='text' class='form-control' id='Eps' name='Eps'>
-                                </div>
-                                <!-- Campo RH -->
-                                <div class='mb-3'>
-                                    <label for='rh' class='form-label'>RH</label>
-                                    <select name='RH' id='rh' class='form-select' required>
-                                        <option value=' disabled selected>Seleccione el RH</option>
-                                        <option value='O+'>O+</option>
-                                        <option value='O-'>O-</option>
-                                        <option value='A+'>A+</option>
-                                        <option value='A-'>A-</option>
-                                        <option value='B+'>B+</option>
-                                        <option value='B-'>B-</option>
-                                        <option value='AB+'>AB+</option>
-                                        <option value='AB-'>AB-</option>
-                                    </select>
-                                </div>
-                                <!-- Campo Nivel Educativo -->
-                                <div class='mb-3'>
-                                    <label for='nivel_educativo' class='form-label'>Nivel Educativo</label>
-                                    <select name='Nivel_educativo' id='nivel_educativo' class='form-select' required>
-                                        <option value=' disabled selected>Seleccione el nivel educativo</option>
-                                        <option value='Primaria'>Primaria</option>
-                                        <option value='Secundaria'>Secundaria</option>
-                                    </select>
-                                </div>
-                                <!-- Campo Estado -->
-                                <div class='mb-3'>
-                                    <label for='estado' class='form-label'>Estado</label>
-                                    <select name='Estado' id='estado' class='form-select' required>
-                                        <option value=' disabled selected>Seleccione el estado</option>
-                                        <option value='Nuevo'>Nuevo</option>
-                                        <option value='Antiguo'>Antiguo</option>
-                                        <option value='Repitente'>Repitente</option>
-                                    </select>
-                                </div>
-                                <!-- Botón Enviar -->
-                                <button type='submit' class='btn btn-primary'>Enviar</button>
-                            </form>
-                            </div>
-                        ";
-                        }
-                        
-                        ?>
+    }
+} else {
+    // Si no hay matrículas, mostrar el formulario de matrícula
+    mostrarFormularioMatricula($num_doc);
+}
+} else {
+// Si no hay estudiante, mostrar formulario de registro de estudiante
+mostrarFormularioEstudiante($num_doc);
+}
+} else {
+echo "Número de documento no proporcionado.";
+}
+
+function mostrarFormularioEstudiante($num_doc)
+
+{
+echo "<div class='container mb-5'>
+<h1 class='text-center mb-4'>Formulario Datos adicionales</h1>
+<form action='../funciones/crearEstudiante.php' method='POST' class='shadow p-4 rounded bg-light'>
+<input type='hidden' name='Registro_num_doc' value='$num_doc'>
+<!-- Campo Sexo -->
+<div class='mb-3'>
+    <label for='sexo' class='form-label'>Sexo</label>
+    <select name='sexo' id='sexo' class='form-select' required>
+        <option value=' disabled selected>Seleccione el sexo</option>
+        <option value='M'>Masculino</option>
+        <option value='F'>Femenino</option>
+        <option value='O'>Otro</option>
+    </select>
+</div>
+<!-- Campo Fecha de Nacimiento -->
+<div class='mb-3'>
+    <label for='fecha_nacimiento' class='form-label'>Fecha de Nacimiento</label>
+    <input type='date' name='fecha_nacimiento' id='fecha_nacimiento' class='form-control' required 
+           oninput='validarFechaNacimiento()'>
+    <div id='error_fecha_nacimiento' class='text-danger mt-1'></div>
+</div>
+<!-- Campo EPS -->
+<div class='mb-3'>
+    <label for='eps' class='form-label'>EPS</label>
+    <input type='text' class='form-control' id='Eps' name='Eps'>
+</div>
+<!-- Campo RH -->
+<div class='mb-3'>
+    <label for='rh' class='form-label'>RH</label>
+    <select name='RH' id='rh' class='form-select' required>
+        <option value=' disabled selected>Seleccione el RH</option>
+        <option value='O+'>O+</option>
+        <option value='O-'>O-</option>
+        <option value='A+'>A+</option>
+        <option value='A-'>A-</option>
+        <option value='B+'>B+</option>
+        <option value='B-'>B-</option>
+        <option value='AB+'>AB+</option>
+        <option value='AB-'>AB-</option>
+    </select>
+</div>
+<!-- Campo Nivel Educativo -->
+<div class='mb-3'>
+    <label for='nivel_educativo' class='form-label'>Nivel Educativo</label>
+    <select name='Nivel_educativo' id='nivel_educativo' class='form-select' required>
+        <option value=' disabled selected>Seleccione el nivel educativo</option>
+        <option value='Primaria'>Primaria</option>
+        <option value='Secundaria'>Secundaria</option>
+    </select>
+</div>
+<!-- Campo Estado -->
+<div class='mb-3'>
+    <label for='estado' class='form-label'>Estado</label>
+    <select name='Estado' id='estado' class='form-select' required>
+        <option value=' disabled selected>Seleccione el estado</option>
+        <option value='Nuevo'>Nuevo</option>
+        <option value='Antiguo'>Antiguo</option>
+        <option value='Repitente'>Repitente</option>
+    </select>
+</div>
+<!-- Botón Enviar -->
+<button type='submit' class='btn btn-primary'>Enviar</button>
+</form>
+</div>
+";
+}
+function mostrarFormularioMatricula($num_doc)
+{
+echo "<div class='container mt-5'>
+<h1 class='text-center mb-4'>Formulario de Grados y Cursos</h1>
+<form action='procesar_formulario.php' method='POST' class='shadow p-4 rounded bg-light'>
+<div class='mb-3'>
+    <label for='grado' class='form-label'>Grado</label>
+    <select name='grado' id='grado' class='form-select' required>
+        <option value=' disabled selected>Seleccionew un grado</option>
+        <option value='1'>Grado 1</option>
+        <option value='2'>Grado 2</option>
+    </select>
+</div>
+<div class='mb-3'>
+    <label for='curso' class='form-label'>Curso</label>
+    <select name='curso' id='curso' class='form-select' required>
+        <option value=' disabled selected>Seleccione un curso</option>
+        <option value='A'>Curso A</option>
+        <option value='B'>Curso B</option>
+    </select>
+</div>
+<button type='submit' class='btn btn-primary'>Enviar</button>
+</form>
+</div>
+";
+}
+?>
+
                         
           </main>
                     </div>

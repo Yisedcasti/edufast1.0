@@ -155,7 +155,6 @@ include "consulta.php";
                             </div>
                             <div class="modal-body">
                                 <!--- crear materia-->
-
                                 <form method="post" action="registrarmateria.php">
                                     <div class="mb-3">
                                         <label for="id_curso">Grado</label>

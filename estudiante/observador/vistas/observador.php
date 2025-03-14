@@ -58,10 +58,10 @@ include_once "../funciones/consultar.php";
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i>Maria Camila Torres Jaramillo
+                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Salir</a></li>
+                                <li><a class="dropdown-item" href="../../../cerrar.php">Salir</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -89,11 +89,11 @@ include_once "../funciones/consultar.php";
                     <main class="main-container ">
                         <?php
                         include_once "../configuracion/conexion.php";
-if (!isset($_SESSION["userId"])) {
+if (!isset($_SESSION["user"])) {
     exit("¡ID no especificado en la sesión!");
 }
 
-$num_doc = isset($_GET['num_doc']) ? $_GET['num_doc'] : $_SESSION["userId"];
+$num_doc = isset($_GET['user']) ? $_GET['user'] : $_SESSION["nombres"];
 
                         
                         if ($num_doc !== null) {

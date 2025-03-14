@@ -294,7 +294,7 @@ echo "
                                     }
                                 } else {
                                     // Si no hay matrículas, mostrar el formulario de matrícula
-                                    mostrarFormularioMatricula($num_doc);
+                                    echo "Por favor, comunícate con el coordinador para que te asigne el grado y el curso, y así puedas visualizar el observador.";
                                 }
                             } else {
                                 // Si no hay estudiante, mostrar formulario de registro de estudiante

@@ -100,7 +100,7 @@ $num_doc = isset($_GET['user']) ? $_GET['user'] : $_SESSION["nombres"];
                             // Verificar en la tabla de estudiantes
                             $sqlEstudiante = "SELECT * FROM estudiante
                             INNER JOIN registro ON estudiante.registro_num_doc = registro.num_doc
-                             WHERE estudiante.registro_num_doc = :num_doc";
+                             WHERE registro_num_doc = :num_doc";
                             $stmtEstudiante = $base_de_datos->prepare($sqlEstudiante);
                             $stmtEstudiante->bindParam(':num_doc', $num_doc, PDO::PARAM_STR);
                             $stmtEstudiante->execute();

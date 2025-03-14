@@ -102,8 +102,8 @@ include "consultarLogro.php";
                                         <section class="card">
                                             <section class="card-body">
                                                 <div class="card-color">
-                                                    <p class="card-text text-left"><?php echo htmlspecialchars($logro->id_logro); ?> <h5 class="text-center"><?php echo htmlspecialchars($logro->nombre_logro); ?></h5></p>
-                                                    <p class="card-text text-left"><?php echo htmlspecialchars($logro->materia); ?></p>
+                                                    <p class="card-text text-left">codigo : <?php echo htmlspecialchars($logro->id_logro); ?> <h5 class="text-center"> Nombre : <?php echo htmlspecialchars($logro->nombre_logro); ?></h5></p>
+                                                    <p class="card-text text-center"> Materia : <?php echo htmlspecialchars($logro->materia); ?></p>
                                                     <p class="card-text text-left"><?php echo htmlspecialchars($logro->descripcion_logro); ?></p>
 
                                                     <div class="d-flex justify-content-between">

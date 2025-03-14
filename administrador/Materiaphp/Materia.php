@@ -190,7 +190,9 @@ include "consulta.php";
                 </div>
 
                 <?php foreach ($materias as $materia): ?>
+
                     <!--FORMULARIO aCTUALIZAR-->
+
                     <div class="modal fade" style="font-family: Arial, Helvetica, sans-serif;"
                         id="actualizar<?= $materia->id_materia ?>" data-bs-backdrop="static" data-bs-keyboard="false"
                         tabindex="-1" aria-labelledby="actualizar<?= $materia->id_materia ?>" aria-hidden="true">
@@ -232,25 +234,6 @@ include "consulta.php";
                                             <input name="materia" value="<?php echo htmlspecialchars($materia->materia); ?>"
                                                 class="form-control" id="materia">
                                         </div>
-                                        <div class="mb-3">
-    <label for="docente_info">Profesor y Especialidad</label>
-    <select class="form-control" name="docente_info" id="docente_info" required>
-        <option selected disabled>Seleccionar profesor y especialidad</option>
-        <?php foreach ($registros as $registro): ?>
-            <?php foreach ($docentes as $docente): ?>
-                <option value="<?= $registro['num_doc'] ?>"
-                    <?= $materia->docente_registro_num_doc == $registro['num_doc'] && $materia->docente_id_docente == $docente['id_docente'] ? 'selected' : '' ?>
-                    data-especialidad="<?= $docente['id_docente'] ?>">
-                    <?= $registro['nombres'] . " - " . $docente['profesion'] ?>
-                </option>
-            <?php endforeach; ?>
-        <?php endforeach; ?>
-    </select>
-</div>
-<!-- Campos ocultos para enviar los datos -->
-<input type="hidden" name="docente_registro_num_doc" id="docente_registro_num_doc" value="<?= $materia->docente_registro_num_doc ?>">
-<input type="hidden" name="docente_id_docente" id="docente_id_docente" value="<?= $materia->docente_id_docente ?>">
-                                      
                                         <button type="submit" class="btn btn-primary btnmodal">Actualizar</button>
                                     </form>
                                 </div>

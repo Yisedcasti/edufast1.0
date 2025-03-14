@@ -134,7 +134,7 @@ include "consulta.php";
 
                     <?php endforeach; ?>
 
-                </section> <!-- Cerrar la última fila -->
+                </section> 
 
                 <div class="d-flex justify-content-center mt-5 ">
                     <a class="btn btn-dark mb-5" type="button" data-bs-toggle="modal" data-bs-target="#crear">Crear
@@ -154,6 +154,8 @@ include "consulta.php";
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
+                                <!--- crear materia-->
+
                                 <form method="post" action="registrarmateria.php">
                                     <div class="mb-3">
                                         <label for="id_curso">Grado</label>
@@ -178,25 +180,6 @@ include "consulta.php";
                                         <input placeholder="escriba nombre de la materia" name="materia" type="text"
                                             class="form-control" id="materia">
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="docente_registro_num_doc">Profesor y Especialidad</label>
-                                        <select class="form-control" name="docente_info" id="docente_info" required>
-                                            <option selected disabled>Seleccionar profesor y especialidad</option>
-                                            <?php foreach ($registros as $registro): ?>
-                                                <?php foreach ($docentes as $docente): ?>
-                                                    <option value="<?= $registro['num_doc'] ?>"
-                                                        data-especialidad="<?= $docente['id_docente'] ?>">
-                                                        <?= $registro['nombres'] . " - " . $docente['profesion'] ?>
-                                                    </option>
-                                                <?php endforeach; ?>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-
-                                    <!-- Campos ocultos para enviar los datos -->
-                                    <input type="hidden" name="docente_registro_num_doc" id="docente_registro_num_doc">
-                                    <input type="hidden" name="docente_id_docente" id="docente_id_docente">
-
                                     <button type="submit" class="btn btn-primary btnmodal">Crear</button>
                                 </form>
                             </div>

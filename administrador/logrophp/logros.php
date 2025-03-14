@@ -40,7 +40,6 @@ include "consultarLogro.php";
                 <a href="../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
                 <a href="../materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
                 <a href="../actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
-                <a href="../Observador/view/vista_o.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
                 <a href="../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Volver</a>            </div>
         </div>
 

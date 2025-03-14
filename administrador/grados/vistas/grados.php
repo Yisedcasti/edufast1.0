@@ -1,10 +1,12 @@
 <?php
-include_once "consulta.php";
 session_start();
-if (!isset($_SESSION['userId'])) {
-    header("Location: ../../admin/session.php");
-    exit();
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
+    header('Location: ../src/protected.php');
+    exit;
 }
+
+include_once "consulta.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">

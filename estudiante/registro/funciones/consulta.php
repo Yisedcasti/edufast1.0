@@ -1,11 +1,11 @@
 <?php
 include_once "../configuracion/Conexion.php";
 
-if (!isset($_SESSION["userId"])) {
+if (!isset($_SESSION["user"])) {
     exit("¡ID no especificado en la sesión!");
 }
 
-$num_doc = $_SESSION["userId"]; // Obtener el número de documento de la sesión
+$num_doc = $_SESSION["user"]; // Obtener el número de documento de la sesión
 
 try {
 

@@ -100,7 +100,7 @@ $num_doc = isset($_GET['user']) ? $_GET['user'] : $_SESSION["nombres"];
                             // Verificar en la tabla de estudiantes
                             $sqlEstudiante = "SELECT * FROM estudiante
                             INNER JOIN registro ON estudiante.registro_num_doc = registro.num_doc
-                             WHERE num_doc = :num_doc";
+                             WHERE estudiante.registro_num_doc = :num_doc";
                             $stmtEstudiante = $base_de_datos->prepare($sqlEstudiante);
                             $stmtEstudiante->bindParam(':num_doc', $num_doc, PDO::PARAM_STR);
                             $stmtEstudiante->execute();
@@ -294,7 +294,7 @@ echo "
     }
 } else {
     // Si no hay matrículas, mostrar el formulario de matrícula
-    mostrarFormularioMatricula($num_doc);
+    echo "Por favor, comunícate con el coordinador para que te asigne el grado y el curso, y así puedas visualizar el observador.";
 }
 } else {
 // Si no hay estudiante, mostrar formulario de registro de estudiante
@@ -373,32 +373,7 @@ echo "<div class='container mb-5'>
 </div>
 ";
 }
-function mostrarFormularioMatricula($num_doc)
-{
-echo "<div class='container mt-5'>
-<h1 class='text-center mb-4'>Formulario de Grados y Cursos</h1>
-<form action='procesar_formulario.php' method='POST' class='shadow p-4 rounded bg-light'>
-<div class='mb-3'>
-    <label for='grado' class='form-label'>Grado</label>
-    <select name='grado' id='grado' class='form-select' required>
-        <option value=' disabled selected>Seleccionew un grado</option>
-        <option value='1'>Grado 1</option>
-        <option value='2'>Grado 2</option>
-    </select>
-</div>
-<div class='mb-3'>
-    <label for='curso' class='form-label'>Curso</label>
-    <select name='curso' id='curso' class='form-select' required>
-        <option value=' disabled selected>Seleccione un curso</option>
-        <option value='A'>Curso A</option>
-        <option value='B'>Curso B</option>
-    </select>
-</div>
-<button type='submit' class='btn btn-primary'>Enviar</button>
-</form>
-</div>
-";
-}
+
 ?>
 
                         

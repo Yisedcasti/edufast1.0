@@ -1,5 +1,5 @@
 <?php
-include_once "../api/confi/Conexion.php";
+include_once "../configuracion/Conexion.php";
 
 // Realiza la consulta a la base de datos
 try {

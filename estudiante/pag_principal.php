@@ -73,7 +73,7 @@ if (!isset($_SESSION['user'])) {
 			<div class="container mt-5">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h1>Welcome estudiante <?php echo $_SESSION['user']; ?> </h1>
+                        <h1>Welcome estudiante <?php echo $_SESSION['nombres']; ?> </h1>
                         <p class="lead"> En este espacio podras consultar tus datos, tu observador, poder llevar un control de tus notas y inasistencias y podras tambien poder descargar el boletin cuando se ha permitido y muchas cosas màs que iras decubriendo </p>
                     </div>
                     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4  ">

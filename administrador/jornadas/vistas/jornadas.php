@@ -1,5 +1,11 @@
 <?php
 include_once "consultar.php"; // Incluye el archivo de consulta
+session_start();
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
+    header('Location: ../src/protected.php');
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -138,7 +138,7 @@ include "consulta.php";
 
                 <div class="d-flex justify-content-center mt-5 ">
                     <a class="btn btn-dark mb-5" type="button" data-bs-toggle="modal" data-bs-target="#crear">Crear
-                        Grado</a>
+                        Materia</a>
                 </div>
                 </section>
 

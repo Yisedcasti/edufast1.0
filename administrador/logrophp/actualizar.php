@@ -39,11 +39,14 @@ $area_id_area  = $resultado['area_id_area'];
     $sentencia = $base_de_datos->prepare("UPDATE logro SET 
     nombre_logro = ?, 
     descrip_logro = ?, 
-    id_materia = ? 
+    id_materia = ?,
+    materia_grado_id_grado, 		
+	materia_area_id_area 
     WHERE id_logro = ?;");
     
     # Ejecuta la sentencia pasando los valores correspondientes
-    $resultado = $sentencia->execute([$nombre_logro, $descrip_logro, $id_materia, $id_logro]);
+    $resultado = $sentencia->execute([$nombre_logro, $descrip_logro, $id_materia, $id_logro,$grado_id_grado,
+    $area_id_area ]);
 
     # Verifica el resultado
     if($resultado === TRUE) {

@@ -1,6 +1,6 @@
 <?php
 class Rutas{
-    protected $urlBase = "http://localhost/edufast/administrador/publicaciones/";
+    protected $urlBase = "http://localhost/edufast/administrador/";
 
     public function __construct(){
 

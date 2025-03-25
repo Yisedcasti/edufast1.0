@@ -22,7 +22,7 @@ try {
         $num_doc = (int) $_GET['num_doc']; 
         $sentencia = $base_de_datos->prepare("
             SELECT * FROM registro 
-            INNER JOIN jornada ON registro.jornada_id = jornada.id_jornada
+            INNER JOIN jornada ON registro.jornada_id_jornada = jornada.id_jornada
             WHERE registro.num_doc = :num_doc  
         ");
         $sentencia->bindParam(':num_doc', $num_doc, PDO::PARAM_INT);

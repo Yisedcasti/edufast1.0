@@ -152,7 +152,7 @@ echo "
                         
 
 echo "
-    </select>
+    </select> 
                     </div>
                     <div class='col-md-3'>
                         <label for='frecuencia' class='form-label'>Jornada</label>
@@ -176,6 +176,7 @@ echo "
             </div>
 
             <!-- Información del Estudiante -->
+
             <div class='mb-4'>
                 <h5 class='text-center'>Información del Estudiante</h5>
                 <div class='row g-3'>
@@ -207,6 +208,7 @@ echo "
             </div>
 
             <!-- Información Familiar -->
+
             <div class='mb-4'>
                 <h5 class='text-center'>Identificación Familiar</h5>
                 <div class='row g-3'>
@@ -302,72 +304,8 @@ echo "
                         
                         function mostrarFormularioEstudiante($num_doc)
                 
-                        {
-                            echo "<div class='container mb-5'>
-                            <h1 class='text-center mb-4'>Formulario Datos adicionales</h1>
-                            <form action='../funciones/crearEstudiante.php' method='POST' class='shadow p-4 rounded bg-light'>
-                            <input type='hidden' name='Registro_num_doc' value='$num_doc'>
-                                <!-- Campo Sexo -->
-                                <div class='mb-3'>
-                                    <label for='sexo' class='form-label'>Sexo</label>
-                                    <select name='sexo' id='sexo' class='form-select' required>
-                                        <option value=' disabled selected>Seleccione el sexo</option>
-                                        <option value='M'>Masculino</option>
-                                        <option value='F'>Femenino</option>
-                                        <option value='O'>Otro</option>
-                                    </select>
-                                </div>
-                                <!-- Campo Fecha de Nacimiento -->
-                                <div class='mb-3'>
-                                    <label for='fecha_nacimiento' class='form-label'>Fecha de Nacimiento</label>
-                                    <input type='date' name='fecha_nacimiento' id='fecha_nacimiento' class='form-control' required 
-                                           oninput='validarFechaNacimiento()'>
-                                    <div id='error_fecha_nacimiento' class='text-danger mt-1'></div>
-                                </div>
-                                <!-- Campo EPS -->
-                                <div class='mb-3'>
-                                    <label for='eps' class='form-label'>EPS</label>
-                                    <input type='text' class='form-control' id='Eps' name='Eps'>
-                                </div>
-                                <!-- Campo RH -->
-                                <div class='mb-3'>
-                                    <label for='rh' class='form-label'>RH</label>
-                                    <select name='RH' id='rh' class='form-select' required>
-                                        <option value=' disabled selected>Seleccione el RH</option>
-                                        <option value='O+'>O+</option>
-                                        <option value='O-'>O-</option>
-                                        <option value='A+'>A+</option>
-                                        <option value='A-'>A-</option>
-                                        <option value='B+'>B+</option>
-                                        <option value='B-'>B-</option>
-                                        <option value='AB+'>AB+</option>
-                                        <option value='AB-'>AB-</option>
-                                    </select>
-                                </div>
-                                <!-- Campo Nivel Educativo -->
-                                <div class='mb-3'>
-                                    <label for='nivel_educativo' class='form-label'>Nivel Educativo</label>
-                                    <select name='Nivel_educativo' id='nivel_educativo' class='form-select' required>
-                                        <option value=' disabled selected>Seleccione el nivel educativo</option>
-                                        <option value='Primaria'>Primaria</option>
-                                        <option value='Secundaria'>Secundaria</option>
-                                    </select>
-                                </div>
-                                <!-- Campo Estado -->
-                                <div class='mb-3'>
-                                    <label for='estado' class='form-label'>Estado</label>
-                                    <select name='Estado' id='estado' class='form-select' required>
-                                        <option value=' disabled selected>Seleccione el estado</option>
-                                        <option value='Nuevo'>Nuevo</option>
-                                        <option value='Antiguo'>Antiguo</option>
-                                        <option value='Repitente'>Repitente</option>
-                                    </select>
-                                </div>
-                                <!-- Botón Enviar -->
-                                <button type='submit' class='btn btn-primary'>Enviar</button>
-                            </form>
-                            </div>
-                        ";
+                        { 
+                            echo "Para poder asignar un curso y un grado, el estudiante primero debe completar el formulario con los datos restantes."; 
                         }
                         function mostrarFormularioMatricula($num_doc)
                         {
@@ -377,12 +315,11 @@ echo "
                                 <div class='mb-3'>
                                     <label for='grado' class='form-label'>Grado</label>
                                     <select name='grado' id='grado' class='form-select' required>
-                                        <option value=' disabled selected>Seleccionew un grado</option>
-                                        <option value='1'>Grado 1</option>
-                                        <option value='2'>Grado 2</option>
-                                    </select>
-                                </div>
-                                <div class='mb-3'>
+                                        <option value=' disabled selected>Seleccione un grado</option>";
+                                       
+                                   
+                                 echo "  </select> </div>
+                               <div class='mb-3'>
                                     <label for='curso' class='form-label'>Curso</label>
                                     <select name='curso' id='curso' class='form-select' required>
                                         <option value=' disabled selected>Seleccione un curso</option>

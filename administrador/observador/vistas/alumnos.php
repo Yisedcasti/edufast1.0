@@ -2,10 +2,10 @@
 session_start();
 if (!isset($_SESSION['user'])) {
     $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
-    header("Location: ../index.php");
-    exit();
+    header('Location: ../src/protected.php');
+    exit;
 }
-include_once "../funciones/consulta.php";
+include_once "../funciones/consultar.php";
 
 ?>
 <!DOCTYPE html>
@@ -60,7 +60,7 @@ include_once "../funciones/consulta.php";
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['user']; ?> <?php echo $_SESSION['usera']; ?>
+                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="../../../admin/cerrar.php">Salir</a></li>

@@ -85,7 +85,7 @@ include_once "../funciones/consultar.php";
                         </thead>
                         <tbody>
                             <tr><?php foreach ($registros as $registro) : ?>
-                                <td class="text-center"> <a class="text-reset" href="perfil.php?num_doc=<?php echo $registro->num_doc; ?>"><?php echo $registro->num_doc; ?></a></td>
+                                <td class="text-center"> <a class="text-reset" href="observador.php?num_doc=<?php echo $registro->num_doc; ?>"><?php echo $registro->num_doc; ?></a></td>
                                 <td class="text-center"><?php echo $registro->nombres?></td>
                                 <td class="text-center"><?php echo $registro->apellidos?></td>
                     </tr>

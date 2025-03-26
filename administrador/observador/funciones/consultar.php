@@ -30,6 +30,8 @@ try {
         $perfiles = $sentencia->fetchAll(PDO::FETCH_OBJ);
     }
 
+    
+
     $grados = $base_de_datos->query("SELECT * FROM grado")->fetchAll(PDO::FETCH_ASSOC);
     $cursos = $base_de_datos->query("SELECT * FROM cursos")->fetchAll(PDO::FETCH_ASSOC);
     $jornadas = $base_de_datos->query("SELECT * FROM jornada")->fetchAll(PDO::FETCH_ASSOC);

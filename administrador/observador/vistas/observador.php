@@ -89,6 +89,7 @@ if (!isset($_SESSION['user'])) {
                     <main class="main-container ">
                         <?php
                         require_once "../configuracion/conexion.php";
+                        require_once "../funciones/consultar.php";
                         
                         $num_doc = isset($_GET['num_doc']) ? $_GET['num_doc'] : null;
                         
@@ -317,7 +318,7 @@ echo "
                                             <select name='grado' id='grado' class='form-select' required>
                                                 <option value='' disabled selected>Seleccione un grado</option>";  
 
-                                                foreach ($grados as $grado) {
+                                                foreach ($grados as $grado)  {
                                                     echo '<option value="' . htmlspecialchars($grado['id_grado'], ENT_QUOTES) . '">'
                                                         . htmlspecialchars($grado['grado'], ENT_QUOTES) . '</option>';
                                                 }
@@ -354,36 +355,10 @@ echo "
             <a href="mailto:cedidsanpablobosa7@educacionbogota.edu.co" class="text-white mx-2"><i class="fab fa-google"></i></a>
         </div>
     </footer>
-    <!-- /#page-content-wrapper -->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        var el = document.getElementById("wrapper");
-        var toggleButton = document.getElementById("menu-toggle");
-
-        toggleButton.onclick = function () {
-            el.classList.toggle("toggled");
-        };
-
-        // Validar fecha de naAcimiento
-    function validarFechaNacimiento() {
-        const fechaInput = document.getElementById("fecha_nacimiento");
-        const mensajeError = document.getElementById("error_fecha_nacimiento");
-        const fechaSeleccionada = new Date(fechaInput.value);
-        const hoy = new Date();
-        const edadMinima = new Date(hoy.getFullYear() - 4, hoy.getMonth(), hoy.getDate());
-        
-        if (fechaSeleccionada >= hoy || fechaSeleccionada > edadMinima) {
-            mensajeError.textContent = "La fecha de nacimiento no es válida. Debe ser al menos 4 años menor que hoy.";
-            fechaInput.classList.add("is-invalid");
-        } else {
-            mensajeError.textContent = "";
-            fechaInput.classList.remove("is-invalid");
-        }
-    }
-
-    </script>
+    
 </body>
 
 </html>

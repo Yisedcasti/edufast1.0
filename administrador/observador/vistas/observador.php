@@ -313,7 +313,7 @@ echo "
                                     <form action='#' method='POST' class='shadow p-4 rounded bg-light'>
                                         <div class='mb-3'>
                                             <label for='grado' class='form-label'>Grado</label>
-                                            <select name='grado' id='grado' class='form-select' required>
+                                            <select name='id_grado' id='grado' class='form-select' required>
                                                 <option value='' disabled selected>Seleccione un grado</option>";  
 
                                                 foreach ($grados as $grado) {
@@ -324,7 +324,7 @@ echo "
                             echo "  </select> </div>";
                             echo "<div class='mb-3'>
                                     <label for='curso' class='form-label'>Curso</label>
-                                    <select name='curso' id='curso' class='form-select' required>
+                                    <select name='id_curso' id='curso' class='form-select' required>
                                         <option value='' disabled selected>Seleccione un curso</option>";
                                         foreach ($cursos as $curso) {
                                             echo '<option value="' . htmlspecialchars($curso['id_curso'], ENT_QUOTES) . '">'

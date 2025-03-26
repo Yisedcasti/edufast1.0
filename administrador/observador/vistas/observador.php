@@ -292,7 +292,7 @@ echo "
                                     }
                                 } else {
                                     // Si no hay matrículas, mostrar el formulario de matrícula
-                                    mostrarFormularioMatricula($num_doc);
+                                    mostrarFormularioMatricula($grados, $cursos);
                                 }
                             } else {
                                 // Si no hay estudiante, mostrar formulario de registro de estudiante
@@ -303,11 +303,10 @@ echo "
                         }
                         
                         function mostrarFormularioEstudiante($num_doc)
-                
                         { 
                             echo "Para poder asignar un curso y un grado, el estudiante primero debe completar el formulario con los datos restantes."; 
                         }
-                        function mostrarFormularioMatricula($grados) 
+                        function mostrarFormularioMatricula($grados, $cursos) 
                         {
                             echo "<div class='container mt-5'>
                                     <h1 class='text-center mb-4'>Formulario de Grados y Cursos</h1>
@@ -326,10 +325,13 @@ echo "
                             echo "<div class='mb-3'>
                                     <label for='curso' class='form-label'>Curso</label>
                                     <select name='curso' id='curso' class='form-select' required>
-                                        <option value='' disabled selected>Seleccione un curso</option>
-                                        <option value='A'>Curso A</option>
-                                        <option value='B'>Curso B</option>
-                                    </select>
+                                        <option value='' disabled selected>Seleccione un curso</option>";
+                                        foreach ($cursos as $curso) {
+                                            echo '<option value="' . htmlspecialchars($curso['id_curso'], ENT_QUOTES) . '">'
+                                                . htmlspecialchars($curso['curso'], ENT_QUOTES) . '</option>';
+                                        }
+
+                                    echo "</select>
                                 </div>
                                 <button type='submit' class='btn btn-primary'>Enviar</button>
                             </form>

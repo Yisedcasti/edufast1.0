@@ -311,7 +311,7 @@ echo "
                         {
                             echo "<div class='container mt-5'>
                                     <h1 class='text-center mb-4'>Formulario de Grados y Cursos</h1>
-                                    <form action='#' method='POST' class='shadow p-4 rounded bg-light'>
+                                    <form action='../funciones/crearMatricula.php' method='POST' class='shadow p-4 rounded bg-light'>
                                    <input type='hidden' class='form-control' id='apellido' name='apellido' value='{$datosEstudiante['id_estudiante']}'>
                                         <div class='mb-3'>
                                             <label for='grado' class='form-label'>Grado</label>

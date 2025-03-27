@@ -35,6 +35,10 @@ try {
     $grados = $base_de_datos->query("SELECT * FROM grado ")->fetchAll(PDO::FETCH_ASSOC);
     $cursos = $base_de_datos->query("SELECT * FROM cursos ORDER BY curso ASC")->fetchAll(PDO::FETCH_ASSOC);
     $jornadas = $base_de_datos->query("SELECT * FROM jornada")->fetchAll(PDO::FETCH_ASSOC);
+    $estudiantes = $base_de_datos->query("SELECT * FROM registro 
+    INNER JOIN estudiante ON registro.num_doc = estudiante.registro_num_doc
+    INNER JOIN matricula ON matricula.estudiante_reistro_num_doc = estudiante.registro_num_doc")->fetchAll(PDO::FETCH_ASSOC);
+
 
 } catch (PDOException $e) {
     echo "Error de conexión: " . $e->getMessage();

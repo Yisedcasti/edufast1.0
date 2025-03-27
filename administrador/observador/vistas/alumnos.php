@@ -110,14 +110,23 @@ include_once "../funciones/consultar.php";
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><?php foreach ($estudiantes as $estudiante) : ?>
-                                <td class="text-center"> <a class="text-reset" href="observador.php?num_doc=<?php echo $estudiante->num_doc; ?>"><?php echo $estudiante->num_doc; ?></a></td>
-                                <td class="text-center"><?php echo $estudiante->nombres?></td>
-                                <td class="text-center"><?php echo $estudiante->apellidos?></td>
-                    </tr>
-                    <?php endforeach; ?>
+    <?php foreach ($estudiantes as $estudiante) : ?>
+        <tr>
+            <td class="text-center">
+                <a class="text-reset" href="observador.php?num_doc=<?php echo $estudiante['num_doc']; ?>">
+                    <?php echo $estudiante['registro_num_doc']; ?>
+                </a>
+            </td>
+            <td class="text-center"><?php echo $estudiante['nombres']; ?></td>
+            <td class="text-center"><?php echo $estudiante['apellidos']; ?></td>
+            <td class="text-center"><?php echo $estudiante['nombre_grado']; ?></td>
+            <td class="text-center"><?php echo $estudiante['nombre_curso']; ?></td>
 
-                    </tbody>
+
+        </tr>
+    <?php endforeach; ?>
+</tbody>
+
                         </table>
                     </div>
                     </div>

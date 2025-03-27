@@ -46,7 +46,6 @@ $resultado = $sentencia->execute(
             exit;
         }
         else {
-            header( "location: ../vistas/observador.php");
             echo ("Error al insertar datos");
             exit;
         }

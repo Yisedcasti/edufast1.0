@@ -22,7 +22,7 @@ registro_jornada_id_jornada
 
 $estudiante_registro_num_doc = $resultado['registro_num_doc'];
 $estudiante_registro_rol_id_rol = $resultado['registro_rol_id_rol'];
-$estudiante_registro_jornada_id_jornada = $resultado['registro_jornada_id'];
+$estudiante_registro_jornada_id_jornada = $resultado['registro_jornada_id_jornada'];
 
 $sentencia = $base_de_datos->prepare("INSERT INTO matricula (
 grado_id_grado,

@@ -16,7 +16,7 @@ include "consultarLogro.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../../css/stylsadm.css"/>
+    <link rel="stylesheet" href="../../css/stylscoor.css"/>
     <title>Página Principal</title>
 </head>
 
@@ -90,7 +90,7 @@ include "consultarLogro.php";
                 <div class="row">
                     <main class="main-container">
                         <section class="container">
-                            <h1 class="title text-center mb-5">LOGROS</h1>
+                            <h1 class="title text-center text-white mb-5">LOGROS</h1>
                             <section class="row">
                                 <?php foreach ($logros as $logro): ?>
                                     <section class="col-lg-4 col-md-8 col-sm-8 col-12 mb-4">
@@ -102,7 +102,6 @@ include "consultarLogro.php";
                                                     <p class="card-text text-left"> descripción: <?php echo htmlspecialchars($logro->descripcion_logro); ?></p>
 
                                                     <div class="d-flex justify-content-between">
-                                                        <button type="button" class="btn btn-outline-dark boton-carrito" data-bs-toggle="modal" data-bs-target="#eliminarModal<?=$logro->id_logro?>"><i class="fas fa-trash-alt"></i></button>
                                                         <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#actualizar<?=$logro->id_logro?>"><i class="fas fa-edit"></i></button>
                                                     </div>
                                                 </div>
@@ -194,28 +193,6 @@ include "consultarLogro.php";
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--FORMULARIO ELIMINAR-->
-                            <div class="modal fade" id="eliminarModal<?=$logro->id_logro?>" tabindex="-1" aria-labelledby="eliminarModal<?=$logro->id_logro?>" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="eliminarModal<?=$logro->id_logro?>">Eliminar Logro</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            ¿Estás seguro de que deseas eliminar el logro <strong><?php echo htmlspecialchars($logro->nombre_logro); ?></strong>?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <form method="post" action="eliminarLogro.php">
-                                                <input type="hidden" name="id_logro" value="<?php echo htmlspecialchars($logro->id_logro); ?>">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                <button type="submit" class="btn btn-danger">Eliminar</button>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>

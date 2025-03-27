@@ -73,7 +73,31 @@ include_once "../funciones/consultar.php";
 			<div class="container mt-5">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h1 class="mb-3">Registros</h1>
+                        <h1 class="mb-3">Alumnos sin curso y grado</h1>
+                        <div class="table-responsive">
+                        <table class="table table-hover rounded shadow table-bordered table-striped">
+                        <thead>    
+                        <tr>
+                            <th>Numero de Documento</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><?php foreach ($registros as $registro) : ?>
+                                <td class="text-center"> <a class="text-reset" href="observador.php?num_doc=<?php echo $registro->num_doc; ?>"><?php echo $registro->num_doc; ?></a></td>
+                                <td class="text-center"><?php echo $registro->nombres?></td>
+                                <td class="text-center"><?php echo $registro->apellidos?></td>
+                    </tr>
+                    <?php endforeach; ?>
+
+                    </tbody>
+                        </table>
+                    </div>
+                    </div>
+
+                    <div class="col-md-12 text-center">
+                        <h1 class="mb-3">Alumnos con curso y grado</h1>
                         <div class="table-responsive">
                         <table class="table table-hover rounded shadow table-bordered table-striped">
                         <thead>    

@@ -118,7 +118,7 @@ if (!isset($_SESSION['user'])) {
                                 if (count($datosMatricula) > 0) {
                                     foreach ($datosMatricula as $matricula) {
                                         echo "		<div class='container mt-5'>
-            <div class='container my-5'>
+            <div class='container'>
         <div class='text-center mb-4'>
             <h4><b>OBSERVADOR DEL ESTUDIANTE</b></h4>
         </div>

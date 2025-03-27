@@ -73,7 +73,7 @@ include_once "../funciones/consultar.php";
 			<div class="container mt-5">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h1 class="mb-3">Alumnos sin curso y grado</h1>
+                        <h1 class="mb-3 text-white">Alumnos sin curso y grado</h1>
                         <div class="table-responsive">
                         <table class="table table-hover rounded shadow table-bordered table-striped">
                         <thead>    
@@ -97,7 +97,7 @@ include_once "../funciones/consultar.php";
                     </div>
 
                     <div class="col-md-12 text-center">
-                        <h1 class="mb-3">Alumnos con curso y grado</h1>
+                        <h1 class="mb-3 text-white">Alumnos con curso y grado</h1>
                         <div class="table-responsive">
                         <table class="table table-hover rounded shadow table-bordered table-striped">
                         <thead>    

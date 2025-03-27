@@ -1,37 +1,50 @@
 <?php
-# Verifica que todos los datos necesarios estén presentes
-if(
+if (
     !isset($_POST["nombre_logro"]) || 
     !isset($_POST["descrip_logro"]) || 
     !isset($_POST["id_materia"]) || 
-    !isset($_POST["codigo_logro"])
+    !isset($_POST["id_logro"])
 ) {
     echo "Faltan los siguientes datos:<br>";
-    if(!isset($_POST["nombre_logro"])) echo "Falta el nombre del logro.<br>";
-    if(!isset($_POST["descrip_logro"])) echo "Falta la descripción del logro.<br>";
-    if(!isset($_POST["id_materia"])) echo "Falta la materia.<br>";
-    if(!isset($_POST["codigo_logro"])) echo "Falta el código del logro.<br>";
+    if (!isset($_POST["nombre_logro"])) echo "Falta el nombre del logro.<br>";
+    if (!isset($_POST["descrip_logro"])) echo "Falta la descripción del logro.<br>";
+    if (!isset($_POST["id_materia"])) echo "Falta la materia.<br>";
+    if (!isset($_POST["id_logro"])) echo "Falta el código del logro.<br>";
     exit();
 }
 
 try {
-    # Incluye la conexión a la baxcddse de datos
-    include_once "conexion.php";
+    include_once "conexion.php"; // Asegurar que la conexión se cargue correctamente
 
-    # Recoge los datos del formulario
-    $codigo_logro = $_POST["codigo_logro"];
+    $id_logro = $_POST["id_logro"];
     $nombre_logro = $_POST["nombre_logro"];
     $descrip_logro = $_POST["descrip_logro"];
     $id_materia = $_POST["id_materia"];
 
-    # Prepara la sentencia SQL
-    $sentencia = $base_de_datos->prepare("UPDATE logro SET nombre_logro = ?, descrip_logro = ?, id_materia = ? WHERE id_logro = ?;");
-    
-    # Ejecuta la sentencia pasando los valores correspondientes
-    $resultado = $sentencia->execute([$nombre_logro, $descrip_logro, $id_materia, $codigo_logro]);
+    // Obtener grado y área de la materia
+    $consultar = $base_de_datos->prepare("SELECT grado_id_grado, area_id_area FROM materia WHERE id_materia = ?");
+    $consultar->execute([$id_materia]);
+    $resultado = $consultar->fetch(PDO::FETCH_ASSOC);
 
-    # Verifica el resultado
-    if($resultado === TRUE) {
+    if (!$resultado) {
+        exit("No se encontró información para esta materia.");
+    }
+
+    $grado_id_grado = $resultado['grado_id_grado'];
+    $area_id_area = $resultado['area_id_area'];
+
+    // Corregir la consulta SQL en la sentencia UPDATE
+    $sentencia = $base_de_datos->prepare("UPDATE logro SET 
+        nombre_logro = ?, 
+        descripcion_logro = ?, 
+        materia_id_materia = ?, 
+        materia_grado_id_grado = ?, 
+        materia_area_id_area = ? 
+        WHERE id_logro = ?");
+
+    $resultado = $sentencia->execute([$nombre_logro, $descrip_logro, $id_materia, $grado_id_grado, $area_id_area, $id_logro]);
+
+    if ($resultado) {
         header("Location: logros.php?status=success");
         exit();
     } else {
@@ -40,7 +53,7 @@ try {
     }
 
 } catch (PDOException $e) {
-    # Captura cualquier error de la base de datos
-    error_log("Error de actualización: " . $e->getMessage());
+    echo "Error en la actualización de datos: " . $e->getMessage();
 }
+
 ?>

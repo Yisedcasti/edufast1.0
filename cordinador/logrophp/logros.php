@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
+    header('Location: ../src/protected.php');
+    exit;
+}
 include "consultarLogro.php";
 ?>
 <!DOCTYPE html>
@@ -10,7 +16,7 @@ include "consultarLogro.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../../css/nav.css" />
+    <link rel="stylesheet" href="../../css/stylsadm.css"/>
     <title>Página Principal</title>
 </head>
 
@@ -30,16 +36,11 @@ include "consultarLogro.php";
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">EDUFAST</div>
             <div class="list-group list-group-flush my-3">
                 <a href="../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
-                <a href="../registro/view/index_registros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Registro</a>
                 <a href="../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
                 <a href="../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
-                <a href="../asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
                 <a href="../materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
                 <a href="../actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
-                <a href="../notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
-                <a href="../Observador/view/vista_o.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
-                <a href="../Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
-                <a href="../../admin/pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Volver</a>            </div>
+                <a href="../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Volver</a>            </div>
         </div>
 
         <div id="page-content-wrapper">
@@ -58,12 +59,12 @@ include "consultarLogro.php";
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                            <a class="nav-link dropdown-toggle text-white fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i>Maria Camila Torres Jaramillo
+                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Salir</a></li>
+                                <li><a class="dropdown-item" href="../../cerrar.php">Salir</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -96,9 +97,9 @@ include "consultarLogro.php";
                                         <section class="card">
                                             <section class="card-body">
                                                 <div class="card-color">
-                                                    <p class="card-text text-left"><?php echo htmlspecialchars($logro->id_logro); ?> <h5 class="text-center"><?php echo htmlspecialchars($logro->nombre_logro); ?></h5></p>
-                                                    <p class="card-text text-left"><?php echo htmlspecialchars($logro->materia); ?></p>
-                                                    <p class="card-text text-left"><?php echo htmlspecialchars($logro->descripcion_logro); ?></p>
+                                                    <p class="card-text text-left">codigo : <?php echo htmlspecialchars($logro->id_logro); ?> <h5 class="text-center"> Nombre : <?php echo htmlspecialchars($logro->nombre_logro); ?></h5></p>
+                                                    <p class="card-text text-center"> Materia : <?php echo htmlspecialchars($logro->materia); ?></p>
+                                                    <p class="card-text text-left"> descripción: <?php echo htmlspecialchars($logro->descripcion_logro); ?></p>
 
                                                     <div class="d-flex justify-content-between">
                                                         <button type="button" class="btn btn-outline-dark boton-carrito" data-bs-toggle="modal" data-bs-target="#eliminarModal<?=$logro->id_logro?>"><i class="fas fa-trash-alt"></i></button>
@@ -111,7 +112,7 @@ include "consultarLogro.php";
                                 <?php endforeach; ?>
                             </section>
                             <div class="d-flex justify-content-center mt-5">
-                                <a class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#crear">Crear Grado</a>
+                                <a class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#crear">Crear Logro</a>
                             </div>
                         </section>
 

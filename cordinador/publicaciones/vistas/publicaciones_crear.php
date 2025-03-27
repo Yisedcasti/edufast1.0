@@ -1,11 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
+    header('Location: ../src/protected.php');
+    exit;
+}
 
-// Verificar si la sesión está activa y si el usuario está autenticado
-if (!isset($_SESSION['userId'])) {
-    header("Location: ../../../admi/session.php");
-    exit();
-} 
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +18,7 @@ if (!isset($_SESSION['userId'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="../../../css/publicaciones.css">
-    <link rel="stylesheet" href="../../../css/nav.css"/>
+    <link rel="stylesheet" href="../../../css/stylscoor.css"/>
   
     <title>Pagina Principal</title>
 </head>
@@ -59,16 +59,16 @@ if (!isset($_SESSION['userId'])) {
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
   <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="actualizar_evento.php">Eventos</a>
+    <a class="nav-link  text-white active" aria-current="page" href="actualizar_evento.php">Eventos</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="actualizar_noticia.php">Noticias</a>
+    <a class="nav-link  text-white active" aria-current="page" href="actualizar_noticia.php">Noticias</a>
   </li>
                         
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                            <a class="nav-link dropdown-toggle  text-white fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['user']; ?> <?php echo $_SESSION['usera']; ?>
+                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="../../../admin/cerrar.php">Salir</a></li>
@@ -98,7 +98,7 @@ if (!isset($_SESSION['userId'])) {
                 }
               }
             ?>
-            <h1 class="text-center mb-5">Subir Evento o Noticia </h1>
+            <h1 class="text-center mb-5  text-white">Subir Evento o Noticia </h1>
             <div class="form-container">
             <form action="../funciones/crearevento.php" method="post" enctype="multipart/form-data" class="upload-form">
     <div class="image-upload">
@@ -115,7 +115,7 @@ if (!isset($_SESSION['userId'])) {
             <label for="event-date">Fecha del Evento:</label>
             <input id="event-date" class="form-control" type="date" name="fecha_evento" required>
         </div>
-        <input type="hidden" name="registro_num_doc" value="<?php echo $_SESSION['userId']; ?>"> 
+        <input type="hidden" name="registro_num_doc" value="<?php echo $_SESSION['user']; ?>"> 
         <div class="form-group">
             <input class="submit-btn btn btn-dark" type="submit" value="Enviar">
         </div>
@@ -133,7 +133,7 @@ if (!isset($_SESSION['userId'])) {
                         <label for="event-name">Noticia:</label>
                         <textarea class="form-control" name="informacion" id="info" cols="40" rows="9" placeholder="Escribe aquí la información"></textarea>
 </div>
-<input type="hidden" name="registro_num_doc" value="<?php echo $_SESSION['userId']; ?>">
+<input type="hidden" name="registro_num_doc" value="<?php echo $_SESSION['user']; ?>">
                         <div class="form-group">
                             <input class="submit-btn btn btn-dark" type="submit" value="Enviar">
                         </P>

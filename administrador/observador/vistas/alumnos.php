@@ -105,13 +105,15 @@ include_once "../funciones/consultar.php";
                             <th>Numero de Documento</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
+                            <th>Grado</th>
+                            <th>Curso</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><?php foreach ($registros as $registro) : ?>
-                                <td class="text-center"> <a class="text-reset" href="observador.php?num_doc=<?php echo $registro->num_doc; ?>"><?php echo $registro->num_doc; ?></a></td>
-                                <td class="text-center"><?php echo $registro->nombres?></td>
-                                <td class="text-center"><?php echo $registro->apellidos?></td>
+                            <tr><?php foreach ($estudiantes as $estudiante) : ?>
+                                <td class="text-center"> <a class="text-reset" href="observador.php?num_doc=<?php echo $estudiante->num_doc; ?>"><?php echo $estudiante->num_doc; ?></a></td>
+                                <td class="text-center"><?php echo $estudiante->nombres?></td>
+                                <td class="text-center"><?php echo $estudiante->apellidos?></td>
                     </tr>
                     <?php endforeach; ?>
 

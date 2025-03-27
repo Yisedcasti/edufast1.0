@@ -37,7 +37,7 @@ if (!isset($_SESSION['user'])) {
                 <a href="../notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
                 <a href="../Observador/view/vista_o.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
                 <a href="../Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
-                <a href="../../admin/pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Volver</a>            </div>
+                <a href="../../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Volver</a>            </div>
         </div>
 
         <div id="page-content-wrapper">
@@ -119,18 +119,18 @@ if (!isset($_SESSION['user'])) {
                                     foreach ($datosMatricula as $matricula) {
                                         echo "		<div class='container mt-5'>
             <div class='container'>
-        <div class='text-center mb-4'>
-            <h4><b>OBSERVADOR DEL ESTUDIANTE</b></h4>
+        <div class='text-center mb-4 '>
+            <h2  class='text-white'><b>OBSERVADOR DEL ESTUDIANTE</b></h2>
         </div>
 
-        <form action='gracias.html' method='post'>
+        <form class='mb-3 bg-white bg-opacity-25 p-3' action='gracias.html' method='post'>
             <!-- Información Básica -->
-            <div class='mb-4'>
-                <h5 class='text-center'>Información Básica</h5>
+              <h3 class='text-center'>Información Básica</h3>
+            <div class='mb-5 mt-4'>
                 <div class='row g-3'>
                     <div class='col-md-2'>
                         <label for='grado' class='form-label'>Grado</label>
-                          <select class='form-select' id='frecuencia' name='id_jornada'>";
+                          <select class='form-select ' id='frecuencia' name='id_jornada'>";
                         foreach ($grados as $grado) {
                             $selected = ($matricula['grado_id_grado'] == $grado['id_grado']) ? 'selected' : '';
                             echo "<option value='" . htmlspecialchars($grado['id_grado'], ENT_QUOTES) . "' $selected>"
@@ -176,9 +176,8 @@ echo "
             </div>
 
             <!-- Información del Estudiante -->
-
-            <div class='mb-4'>
-                <h5 class='text-center'>Información del Estudiante</h5>
+              <h3 class='text-center'>Información del Estudiante</h3>
+            <div class='mb-5 mt-4'>
                 <div class='row g-3'>
                     <div class='col-md-3'>
                         <label for='apellido' class='form-label'>Apellidos</label>
@@ -208,9 +207,8 @@ echo "
             </div>
 
             <!-- Información Familiar -->
-
-            <div class='mb-4'>
-                <h5 class='text-center'>Identificación Familiar</h5>
+              <h3 class='text-center'>Identificación Familiar</h3>
+            <div class='mb-5 mt-4'>
                 <div class='row g-3'>
                     <div class='col-md-4'>
                         <label for='nombre_padre' class='form-label'>Nombre del Padre</label>
@@ -256,8 +254,9 @@ echo "
             </div>
 
             <!-- Compromisos -->
-            <div class='mb-4'>
-                <h5 class='text-center'>Compromisos Académicos y Convivenciales</h5>
+            
+            <h3 class='text-center'>Compromisos Académicos y Convivenciales</h3>
+            <div class=' mt-4'>
                 <table class='table table-bordered'>
                     <thead>
                         <tr>
@@ -282,8 +281,8 @@ echo "
 
             <!-- Botones -->
             <div class='text-center'>
-                <button type='submit' class='btn btn-primary'>Enviar</button>
-                <button type='reset' class='btn btn-danger'>Borrar</button>
+                <button type='submit' class='btn btn-dark'>Enviar</button>
+                <button type='reset' class='btn btn-dark'>Borrar</button>
             </div>
         </form>
     </div>

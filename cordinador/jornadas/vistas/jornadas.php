@@ -1,5 +1,12 @@
 <?php
-include_once "consultar.php"; // Incluye el archivo de consulta
+include_once "consultar.php"; 
+session_start();
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
+    header('Location: ../src/protected.php');
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +17,7 @@ include_once "consultar.php"; // Incluye el archivo de consulta
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../../../css/nav.css"/>
+    <link rel="stylesheet" href="../../../css/stylscoor.css"/>
     <title>jornadas</title>
 </head>
 
@@ -49,9 +56,9 @@ include_once "consultar.php"; // Incluye el archivo de consulta
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                            <a class="nav-link dropdown-toggle  text-white fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i>Maria Camila Torres Jaramillo
+                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">Salir</a></li>
@@ -78,8 +85,8 @@ include_once "consultar.php"; // Incluye el archivo de consulta
                         }
                       }
                     ?>
-                <main class="container mt-5 ">
-        <h1 class="text-center mb-4">Gestión de Jornadas</h1>
+                <main class="container">
+        <h1 class="text-center mb-4  text-white">Gestión de Jornadas</h1>
 
         <!-- Verificar si hay jornadas -->
         <?php if (!empty($jornadas)) : ?>

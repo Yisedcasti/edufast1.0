@@ -17,7 +17,7 @@ if (!isset($_SESSION['user'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../../css/stylsadm.css"/>
+    <link rel="stylesheet" href="../../css/stylscoor.css"/>
     <title>Pagina Principal</title>
 </head>
 
@@ -83,7 +83,7 @@ if (!isset($_SESSION['user'])) {
                 <div class="row">
                     <div class="col-md-12 text-center">
                     <main class="main-container">
-        <h1 class="text-dark mt-2 mb-5">Cursos Existentes</h1>
+        <h1 class="text-white mt-2 mb-5">Cursos Existentes</h1>
         <div class="container">
   <?php 
   $gradoActual = null; // Varaible que rastrea el grado actual

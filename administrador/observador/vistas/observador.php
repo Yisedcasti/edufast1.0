@@ -292,7 +292,7 @@ echo "
                                     }
                                 } else {
                                     // Si no hay matrículas, mostrar el formulario de matrícula
-                                    mostrarFormularioMatricula($grados, $cursos);
+                                    mostrarFormularioMatricula($grados, $cursos, $datosEstudiante);
                                 }
                             } else {
                                 // Si no hay estudiante, mostrar formulario de registro de estudiante
@@ -301,16 +301,18 @@ echo "
                         } else {
                             echo "Número de documento no proporcionado.";
                         }
+
                         
                         function mostrarFormularioEstudiante($num_doc)
                         { 
                             echo "Para poder asignar un curso y un grado, el estudiante primero debe completar el formulario con los datos restantes."; 
                         }
-                        function mostrarFormularioMatricula($grados, $cursos) 
+                        function mostrarFormularioMatricula($grados, $cursos, $datosEstudiante) 
                         {
                             echo "<div class='container mt-5'>
                                     <h1 class='text-center mb-4'>Formulario de Grados y Cursos</h1>
                                     <form action='#' method='POST' class='shadow p-4 rounded bg-light'>
+                                   <input type='text' class='form-control' id='apellido' name='apellido' value='{$datosEstudiante['id_estudiante']}'>
                                         <div class='mb-3'>
                                             <label for='grado' class='form-label'>Grado</label>
                                             <select name='id_grado' id='grado' class='form-select' required>

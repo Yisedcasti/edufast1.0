@@ -41,10 +41,11 @@ $resultado = $sentencia->execute(
         $estudiante_registro_num_doc,
         $estudiante_registro_rol_id_rol,
         $estudiante_registro_jornada_id_jornada]);
-        if ($resultado === TRUE ) {
-            header( "location: ../vistas/observador.php");
+        if ($resultado === TRUE) {
+            header("Location: ../vistas/observador.php?num_doc=" . urlencode($estudiante_registro_num_doc));
             exit;
         }
+        
         else {
             echo ("Error al insertar datos");
             exit;

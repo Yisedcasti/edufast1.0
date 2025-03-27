@@ -329,7 +329,7 @@ echo "
                                     <select name='id_curso' id='curso' class='form-select' required>
                                         <option value='' disabled selected>Seleccione un curso</option>";
                                         foreach ($cursos as $curso) {
-                                            echo '<option value="' . htmlspecialchars($curso['id_curso'], ENT_QUOTES) . '">'
+                                            echo '<option value="' . htmlspecialchars($curso['id_cursos'], ENT_QUOTES) . '">'
                                                 . htmlspecialchars($curso['curso'], ENT_QUOTES) . '</option>';
                                         }
 

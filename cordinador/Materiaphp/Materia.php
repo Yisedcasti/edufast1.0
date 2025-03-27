@@ -16,7 +16,7 @@ include "consulta.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../../css/stylsadm.css">
+    <link rel="stylesheet" href="../../css/stylscoor.css"/>
     <title>Pagina Principal</title>
 </head>
 
@@ -93,7 +93,7 @@ include "consulta.php";
 }
 ?>
                 <section class="container ms-4">
-                    <h1 class="title text-center mb-5">Materias</h1>
+                    <h1 class="title text-center text-white mb-5">Materias</h1>
 
                     <?php
                     $areaActual = null;
@@ -118,10 +118,6 @@ include "consulta.php";
                                     <button type="button" class="btn" data-bs-toggle="modal"
                                         data-bs-target="#actualizar<?= $materia->id_materia ?>">
                                         <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button type="button" class="btn" data-bs-toggle="modal"
-                                        data-bs-target="#eliminarModal<?= $materia->id_materia ?>">
-                                        <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </div>
                             </div>
@@ -238,34 +234,6 @@ include "consulta.php";
                             </div>
                         </div>
                     </div>
-
-                    <!--Modal eliminar--->
-                <div class="modal fade" style="font-family: Arial, Helvetica, sans-serif;"
-                    id="eliminarModal<?= $materia->id_materia ?>" data-bs-backdrop="static" data-bs-keyboard="false"
-                    tabindex="-1" aria-labelledby="eliminarModalLabel <?= $materia->id_materia ?>" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title text-center"><b>Eliminar Materia</b></h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>¿Está seguro que desea eliminar la Materia <b>
-                                        <?= $materia->materia ?>
-                                    </b>? Esta acción no se puede deshacer.</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal">Cancelar</button>
-                                <form method="POST" action="eliminarmateria.php">
-                                    <input type="hidden" name="id_materia" value="<?= $materia->id_materia ?>">
-                                    <button type="submit" class="btn btn-danger">Eliminar</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <?php endforeach; ?>
             </main>

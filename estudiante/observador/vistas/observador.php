@@ -125,13 +125,13 @@ $num_doc = isset($_GET['user']) ? $_GET['user'] : $_SESSION["user"];
                                         echo "		<div class='container mt-5'>
             <div class='container my-5'>
         <div class='text-center mb-4'>
-            <h4><b>OBSERVADOR DEL ESTUDIANTE</b></h4>
+            <h2><b>OBSERVADOR DEL ESTUDIANTE</b></h2>
         </div>
 
         <form action='gracias.html' method='post'>
             <!-- Información Básica -->
-            <div class='mb-4'>
-                <h5 class='text-center'>Información Básica</h5>
+            <h3 class='text-center'>Información Básica</h3>
+            <div class='mb-5 mt-4'>
                 <div class='row g-3'>
                      <div class='col-md-3'>
     <label for='estudiante' class='form-label'>Grado</label>
@@ -155,8 +155,8 @@ $num_doc = isset($_GET['user']) ? $_GET['user'] : $_SESSION["user"];
             </div>
 
             <!-- Información del Estudiante -->
-            <div class='mb-4'>
-                <h5 class='text-center'>Información del Estudiante</h5>
+            <h3 class='text-center'>Información del Estudiante</h3>
+            <div class='mb-5 mt-4'>
                 <div class='row g-3'>
                     <div class='col-md-3'>
                         <label for='apellido' class='form-label'>Apellidos</label>
@@ -186,8 +186,8 @@ $num_doc = isset($_GET['user']) ? $_GET['user'] : $_SESSION["user"];
             </div>
 
             <!-- Información Familiar -->
-            <div class='mb-4'>
-                <h5 class='text-center'>Identificación Familiar</h5>
+            <h3 class='text-center'>Información Familiar</h3>
+            <div class='mb-5 mt-4'>
                 <div class='row g-3'>
                     <div class='col-md-4'>
                         <label for='nombre_padre' class='form-label'>Nombre del Padre</label>
@@ -233,8 +233,8 @@ $num_doc = isset($_GET['user']) ? $_GET['user'] : $_SESSION["user"];
             </div>
 
             <!-- Compromisos -->
-            <div class='mb-4'>
-                <h5 class='text-center'>Compromisos Académicos y Convivenciales</h5>
+            <h3 class='text-center'>Compromisos Académicos y Convivenciales</h3>
+            <div class=' mt-4'>
                 <table class='table table-bordered'>
                     <thead>
                         <tr>
@@ -259,8 +259,8 @@ $num_doc = isset($_GET['user']) ? $_GET['user'] : $_SESSION["user"];
 
             <!-- Botones -->
             <div class='text-center'>
-                <button type='submit' class='btn btn-primary'>Enviar</button>
-                <button type='reset' class='btn btn-danger'>Borrar</button>
+                <button type='submit' class='btn btn-dark'>Enviar</button>
+                <button type='reset' class='btn btn-dark'>Borrar</button>
             </div>
         </form>
     </div>

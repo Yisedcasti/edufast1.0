@@ -93,12 +93,12 @@ include "consultarLogro.php";
                             <h1 class="title text-center mb-5">LOGROS</h1>
                             <section class="row">
                                 <?php foreach ($logros as $logro): ?>
-                                    <section class="col-lg-4 col-md-8 col-sm-8 col-12 mb-4">
+                                    <section class="col-lg-4 col-md-12 col-sm-8 col-12 mb-4">
                                         <section class="card">
                                             <section class="card-body">
                                                 <div class="card-color">
                                                     <p class="card-text text-left">codigo : <?php echo htmlspecialchars($logro->id_logro); ?> <h5 class="text-center"> Nombre : <?php echo htmlspecialchars($logro->nombre_logro); ?></h5></p>
-                                                    <p class="card-text text-center"> Materia : <?php echo htmlspecialchars($logro->materia); ?></p><p class="card-text text-center"> Grado : <?php echo htmlspecialchars($logro->grado); ?></p>
+                                                    <p class="card-text text-center"> Materia : <?php echo htmlspecialchars($logro->materia); ?></p><p class="card-text text-center"> Grado : <?php echo htmlspecialchars($logro->id_grado); ?></p>
                                                     <p class="card-text text-left"> descripción: <?php echo htmlspecialchars($logro->descripcion_logro); ?></p>
 
                                                     <div class="d-flex justify-content-between">

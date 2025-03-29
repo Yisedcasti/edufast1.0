@@ -92,7 +92,7 @@ include "consulta.php";
   }
 }
 ?>
-                <section class="container ms-4">
+                <section class="container ms-1 ">
                     <h1 class="title text-center mb-5">Materias</h1>
 
                     <?php

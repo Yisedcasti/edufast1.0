@@ -5,7 +5,7 @@ try {
     $sentencia = $base_de_datos->prepare(" SELECT logro.*, materia.*, grado.*
 FROM logro
 INNER JOIN materia ON materia.id_materia = logro.materia_id_materia
-INNER JOIN grado ON grado.id_grado = materia.grado_id_grado
+INNER JOIN grado ON grado.id_grado = logro.grado_id_grado
 ");
     $sentencia->execute();
     $logros = $sentencia->fetchAll(PDO::FETCH_OBJ);

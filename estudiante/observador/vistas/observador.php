@@ -100,6 +100,7 @@ $num_doc = isset($_GET['user']) ? $_GET['user'] : $_SESSION["user"];
                             // Verificar en la tabla de estudiantes
                             $sqlEstudiante = "SELECT * FROM estudiante
                             INNER JOIN registro ON estudiante.registro_num_doc = registro.num_doc
+                            INNER JOIN jornada ON registro.jornada_id_jornada = jornada.id_jornada
                              WHERE registro_num_doc = :num_doc";
                             $stmtEstudiante = $base_de_datos->prepare($sqlEstudiante);
                             $stmtEstudiante->bindParam(':num_doc', $num_doc, PDO::PARAM_STR);
@@ -132,48 +133,22 @@ $num_doc = isset($_GET['user']) ? $_GET['user'] : $_SESSION["user"];
             <div class='mb-4'>
                 <h5 class='text-center'>Información Básica</h5>
                 <div class='row g-3'>
-                    <div class='col-md-2'>
-                        <label for='grado' class='form-label'>Grado</label>
-                          <select class='form-select' id='frecuencia' name='id_grado'>";
-                        foreach ($grados as $grado) {
-                            $selected = ($matricula['grado_id_grado'] == $grado['id_grado']) ? 'selected' : '';
-                            echo "<option value='" . htmlspecialchars($grado['id_grado'], ENT_QUOTES) . "' $selected>"
-                                . htmlspecialchars($grado['grado'], ENT_QUOTES) . "</option>";
-                        }
-                        
+                     <div class='col-md-3'>
+    <label for='estudiante' class='form-label'>Grado</label>
+    <input type='text' class='form-control text-center' id='director' name='director' value='{$matricula['grado']}' disabled >
+</div>
+                     <div class='col-md-3'>
+    <label for='estudiante' class='form-label'>Curso</label>
+    <input type='text' class='form-control text-center' id='director' name='director' value='{$matricula['curso']}' disabled >
+</div>
 
-echo "
-    </select>
-                    </div>
-                    <div class='col-md-2'>
-                        <label for='curso' class='form-label'>Curso</label>
-                          <select class='form-select' id='frecuencia' name='id_cursos'>";
-                        foreach ($cursos as $curso) {
-                            $selected = ($matricula['cursos_id_cursos'] == $curso['id_cursos']) ? 'selected' : '';
-                            echo "<option value='" . htmlspecialchars($curso['id_cursos'], ENT_QUOTES) . "' $selected>"
-                                . htmlspecialchars($curso['curso'], ENT_QUOTES) . "</option>";
-                        }
-                        
-
-echo "
-    </select>
-                    </div>
-                    <div class='col-md-3'>
-                        <label for='frecuencia' class='form-label'>Jornada</label>
-                        <select class='form-select' id='frecuencia' name='id_jornada'>";
-                        foreach ($jornadas as $jornada) {
-                            $selected = ($datosEstudiante['registro_jornada_id_jornada'] == $jornada['id_jornada']) ? 'selected' : '';
-                            echo "<option value='" . htmlspecialchars($jornada['id_jornada'], ENT_QUOTES) . "' $selected>"
-                                . htmlspecialchars($jornada['jornada'], ENT_QUOTES) . "</option>";
-                        }
-                        
-
-echo "
-    </select>
-                    </div>
+                     <div class='col-md-3'>
+    <label for='estudiante' class='form-label'>Jornada</label>
+    <input type='text' class='form-control text-center' id='director' name='director' value='{$datosEstudiante['jornada']}' disabled >
+</div>
                    <div class='col-md-3'>
     <label for='estudiante' class='form-label'>Estado</label>
-    <input type='text' class='form-control' id='director' name='director' value='{$datosEstudiante['Estado']}'>
+    <input type='text' class='form-control text-center' id='director' name='director' value='{$datosEstudiante['Estado']}' disabled >
 </div>
 
                 </div>
@@ -185,27 +160,27 @@ echo "
                 <div class='row g-3'>
                     <div class='col-md-3'>
                         <label for='apellido' class='form-label'>Apellidos</label>
-                        <input type='text' class='form-control' id='apellido' name='apellido' value='{$datosEstudiante['apellidos']}'>
+                        <input type='text' class='form-control text-center' id='apellido' name='apellido' value='{$datosEstudiante['apellidos']}' disabled>
                     </div>
                     <div class='col-md-3'>
                         <label for='nombre' class='form-label'>Nombres</label>
-                        <input type='text' class='form-control' id='nombre' name='nombre' value='{$datosEstudiante['nombres']}'> 
+                        <input type='text' class='form-control text-center' id='nombre' name='nombre' value='{$datosEstudiante['nombres']}' disabled > 
                     </div>
                     <div class='col-md-3'>
                         <label for='nacimiento' class='form-label'>Fecha de Nacimiento</label>
-                        <input type='date' class='form-control' id='nacimiento' name='nacimiento' value='{$datosEstudiante['fecha_nacimiento']}'>
+                        <input type='date' class='form-control text-center' id='nacimiento' name='nacimiento' value='{$datosEstudiante['fecha_nacimiento']}' disabled>
                     </div>
                     <div class='col-md-3'>
                         <label for='nombre' class='form-label'>Genero</label>
-                        <input type='text' class='form-control' id='nombre' name='nombre' value='{$datosEstudiante['sexo']}'> 
+                        <input type='text' class='form-control text-center' id='nombre' name='nombre' value='{$datosEstudiante['sexo']}' disabled> 
                     </div>
                     <div class='col-md-3'>
                         <label for='nombre' class='form-label'>RH</label>
-                        <input type='text' class='form-control' id='nombre' name='nombre' value='{$datosEstudiante['RH']}'> 
+                        <input type='text' class='form-control text-center' id='nombre' name='nombre' value='{$datosEstudiante['RH']}' disabled> 
                     </div>
                     <div class='col-md-3'>
                         <label for='nombre' class='form-label'>Eps</label>
-                        <input type='text' class='form-control' id='nombre' name='nombre' value='{$datosEstudiante['Eps']}'> 
+                        <input type='text' class='form-control text-center' id='nombre' name='nombre' value='{$datosEstudiante['Eps']}' disabled > 
                     </div>
                 </div>
             </div>

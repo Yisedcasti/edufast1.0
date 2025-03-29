@@ -23,7 +23,7 @@ if ($num_doc !== null) {
         $stmt_logro = $base_de_datos->prepare($sql_logro);
         $stmt_logro->bindParam(':grado_id_grado', $grado_id_grado, PDO::PARAM_INT);
         $stmt_logro->execute();
-        $resultado = $stmt_logro->fetchAll(PDO::FETCH_ASSOC);
+        $logros = $stmt_logro->fetchAll(PDO::FETCH_ASSOC);
 
     } else {
         echo "No se encontró un grado asociado al usuario.";

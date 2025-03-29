@@ -98,7 +98,7 @@ include "consultarLogro.php";
                                             <section class="card-body">
                                                 <div class="card-color">
                                                     <p class="card-text text-left">codigo : <?php echo htmlspecialchars($logro->id_logro); ?> <h5 class="text-center"> Nombre : <?php echo htmlspecialchars($logro->nombre_logro); ?></h5></p>
-                                                    <p class="card-text text-center"> Materia : <?php echo htmlspecialchars($logro->materia); ?></p>
+                                                    <p class="card-text text-center"> Materia : <?php echo htmlspecialchars($logro->materia); ?></p><p class="card-text text-center"> Grado : <?php echo htmlspecialchars($logro->grado); ?></p>
                                                     <p class="card-text text-left"> descripción: <?php echo htmlspecialchars($logro->descripcion_logro); ?></p>
 
                                                     <div class="d-flex justify-content-between">
@@ -139,7 +139,16 @@ include "consultarLogro.php";
                                                 <textarea placeholder="Escribe la descripción del logro" name="descrip_logro" class="form-control" id="descriplogro" rows="3"></textarea>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="id_materia">Actividad</label>
+                                        <label for="id_curso">Grado</label>
+                                        <select class="form-control" name="grado_id_grado" id="grado_id_grado" required>
+                                            <option selected disabled>Seleccionar grado</option>
+                                            <?php foreach ($grados as $grado): ?>
+                                                <option value="<?= $grado['id_grado'] ?>"><?= $grado['grado'] ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                            <div class="mb-3">
+                                                <label for="id_materia">Materia</label>
                                                 <select class="form-control" name="id_materia" id="id_materia" required>
                                                     <option selected disabled>Seleccionar Materia</option>
                                                     <?php foreach ($materias as $materia): ?>

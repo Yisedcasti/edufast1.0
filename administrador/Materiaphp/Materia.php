@@ -190,7 +190,10 @@ include "consulta.php";
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                
+                                <div class="modal-body">
+                                    <form method="POST" action="actualizar.php">
+                                        <input type="hidden" name="id_materia" value="<?= $materia->id_materia ?>">
+                                        
                                         <div class="mb-3">
                                             <label for="area_id_area">area</label>
                                             <select class="form-control" name="area_id_area" id="area_id_area" required>

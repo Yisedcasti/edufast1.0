@@ -114,7 +114,6 @@ include "consulta.php";
                                 </h4>
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo htmlspecialchars($materia->materia); ?></h5>
-                                    <p class="card-text">Grado: <?php echo htmlspecialchars($materia->grado); ?></p>
                                     <button type="button" class="btn" data-bs-toggle="modal"
                                         data-bs-target="#actualizar<?= $materia->id_materia ?>">
                                         <i class="fas fa-edit"></i>
@@ -151,15 +150,7 @@ include "consulta.php";
                             <div class="modal-body">
                                 <!--- crear materia-->
                                 <form method="post" action="registrarmateria.php">
-                                    <div class="mb-3">
-                                        <label for="id_curso">Grado</label>
-                                        <select class="form-control" name="grado_id_grado" id="grado_id_grado" required>
-                                            <option selected disabled>Seleccionar grado</option>
-                                            <?php foreach ($grados as $grado): ?>
-                                                <option value="<?= $grado['id_grado'] ?>"><?= $grado['grado'] ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
+                                    
                                     <div class="mb-3">
                                         <label for="id_curso">area</label>
                                         <select class="form-control" name="area_id_area" id="area_id_area" required>
@@ -199,19 +190,7 @@ include "consulta.php";
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
-                                    <form method="POST" action="actualizar.php">
-                                        <input type="hidden" name="id_materia" value="<?= $materia->id_materia ?>">
-                                        <div class="mb-3">
-                                            <label for="grado_id_grado">grado</label>
-                                            <select class="form-control" name="grado_id_grado" id="grado_id_grado" required>
-                                                <option selected disabled>Seleccionar grado</option>
-                                                <?php foreach ($grados as $grado): ?>
-                                                    <option value="<?= $grado['id_grado'] ?>"
-                                                        <?= $materia->id_grado == $grado['id_grado'] ? 'selected' : '' ?>>                                                        <?= $grado['grado'] ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
+                                
                                         <div class="mb-3">
                                             <label for="area_id_area">area</label>
                                             <select class="form-control" name="area_id_area" id="area_id_area" required>

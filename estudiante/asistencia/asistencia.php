@@ -1,28 +1,14 @@
 <?php
 session_start();
-include_once "consultar.php";
-if (!isset($_SESSION['userId'])) {
-    header("Location: ../../admin/session.php");
-    exit();
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
+    header('Location: ../src/protected.php');
+    exit;
 }
-
- $id_matricula = isset($_GET['id_matricula']) ? $_GET['id_matricula'] : null;
-    
- if ($id_matricula !== null) {
-     $sql = "SELECT * FROM asistencia
-     INNER JOIN matricula ON asistencia.matricula_id_matricula = matricula.id_matricula 
-     INNER JOIN registro ON asistencia.matricula_estudiante_registro_num_doc  = registro.num_doc
-     WHERE matricula_id_matricula = :id_matricula";
-     $stmt = $base_de_datos->prepare($sql);
-     $stmt->bindParam(':id_matricula', $id_matricula, PDO::PARAM_INT);
-     $stmt->execute();
-     $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
-     
- } else {
-     echo "ID de matrícula no proporcionado.";
- }
+require 'consultar.php';
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,17 +28,14 @@ if (!isset($_SESSION['userId'])) {
         <div class="listado" id="sidebar-wrapper">
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">EDUFAST</div>
             <div class="list-group list-group-flush my-3">
-                <a href="../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
-                <a href="../registro/view/index_registros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Registro</a>
-                <a href="../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
-                <a href="../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
-                <a href="../materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
+                <a href="../registro/view/perfil.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Perfil</a>
+                <a href="../observador/vistas/observador.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">observador</a>
+                <a href="../asistencia/asistencia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
                 <a href="../logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
                 <a href="../actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
                 <a href="../notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
-                <a href="../Observador/view/vista_o.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
                 <a href="../Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
-                <a href="../../admin/pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Volver</a>
+                <a href="../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Volver</a>
             </div>
         </div>
 
@@ -77,7 +60,7 @@ if (!isset($_SESSION['userId'])) {
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['user']; ?> <?php echo $_SESSION['usera']; ?>
+                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="../../admin/cerrar.php">Salir</a></li>
@@ -114,103 +97,18 @@ if (!isset($_SESSION['userId'])) {
                 <tr>
                     <th  class="text-center">Asistencia</th>
                     <th  class="text-center">Fecha_asistencia</th>
-                    <th  class="text-center">Alumno</th>
-                    <th  class="text-center">Acciones</th>
                 </tr>
                 <?php foreach ($resultado as $fila) { ?>
     <tr>
         <td class="cursos text-center mt-3"><?php echo htmlspecialchars($fila['asistencia']); ?></td>
         <td class="cursos text-center mt-3"><?php echo htmlspecialchars($fila['fecha_asistencia']); ?></td>
-        <td class="cursos text-center mt-3"><?php echo htmlspecialchars($fila['nombres']); ?> <?php echo htmlspecialchars($fila['apellidos']); ?></td>
-        <td class="text-center">
-            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#actualizarModal<?php echo $fila['idAsistencia']; ?>"><i class="fas fa-edit"></i></button>
-            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#confirmarModal<?php echo $fila['idAsistencia']; ?>"><i class="fas fa-trash-alt"></i></button>
-        </td>
     </tr>
 <?php } ?>
             </table>
         </section>
         
 
-<!-- actualizar -->
-<?php foreach($asistencias as $asistencia): ?>
-<div class="modal fade" id="actualizarModal<?php echo $asistencia->idAsistencia ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Actualizar Asistencia</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="formActualizar" method="POST" action="Actualizar.php">
-                    <input type="hidden" name="idAsistencia" id="idAsistencia" value="<?php echo $asistencia->idAsistencia ?>">
-                    <div class="form-group mt-3">
-    <label for="registro_num_doc" class="form-label">Estudiante</label>
-    <input type="text" class="form-control border-dark bg-transparent text-center" id="nombre" name="nombre" value="<?php echo $asistencia->nombres ?> <?php echo $asistencia->apellidos ?>" readonly>
-    <input type="hidden" class="form-control border-dark bg-transparent text-center" id="matricula_id_matricula" name="matricula_id_matricula" value="<?php echo $asistencia->matricula_id_matricula ?> " readonly>
-      </div>
-                    <div class="mb-3 mt-3">
-                        <label for="fecha_asistencia" class="form-label">Fecha Asistencia</label>
-                        <input type="text" class="form-control border-dark bg-transparent text-center" id="fecha_asistencia" name="fecha_asistencia" value="<?php echo $asistencia->fecha_asistencia?>" readonly>
-                    </div>
-                    <div class="mb-3 mt-3">
-    <label for="asistencia" class="form-label">Asistencia</label>
-    <div class="form-check">
-        <input class="form-check-input border-dark" type="radio" name="asistencia" id="Presente" value="Presente" <?php echo ($asistencia->asistencia == 'Presente') ? 'checked' : ''; ?>>
-        <label class="form-check-label" for="Presente">
-            Presente
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input border-dark" type="radio" name="asistencia" id="Ausente" value="Ausente" <?php echo ($asistencia->asistencia == 'Ausente') ? 'checked' : ''; ?>>
-        <label class="form-check-label" for="Ausente">
-            Ausente
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input border-dark" type="radio" name="asistencia" id="justificado" value="Justificado" <?php echo ($asistencia->asistencia == 'Justificado') ? 'checked' : ''; ?>>
-        <label class="form-check-label" for="Justificado">
-            Justificado
-        </label>
-    </div>
-</div>
 
-            
-                    <div class="modal-footer mt-3 justify-content-center">
-                    <button type="submit" class="btn btn-success">Actualizar</button>
-        </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<?php endforeach; ?>
-
-
-                            <!--Eliminar-->
-<?php foreach($asistencias as $asistencia): ?>
-    <div class="modal fade" id="confirmarModal<?php echo $asistencia->idAsistencia ?>" tabindex="-1" role="dialog" aria-labelledby="confirmarModalLabel<?php echo $asistencia->idAsistencia ?>" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmarModalLabel<?php echo $asistencia->idAsistencia?>">Confirmar Eliminación <?php echo $asistencia->asistencia ?> </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ¿Estás seguro de que deseas eliminar este registro?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form method="POST" action="eliminar.php">
-                        <input type="hidden" name="idAsistencia" value="<?php echo $asistencia->idAsistencia ?>">
-                        <input type="hidden" class="form-control border-dark bg-transparent text-center" id="matricula_id_matricula" name="matricula_id_matricula" value="<?php echo $asistencia->matricula_id_matricula ?> " readonly>
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-<?php endforeach; ?>
 </main>
 </div>
 </div>

@@ -7,8 +7,7 @@ $descrip_logro=$_POST["descrip_logro"];
 $grado_id_grado=$_POST["grado_id_grado"];
 $id_materia=$_POST["id_materia"];
 
-$consultar = $base_de_datos->prepare("SELECT 
-        grado_id_grado, 		
+$consultar = $base_de_datos->prepare("SELECT  		
 		area_id_area
 FROM materia WHERE id_materia = ?");
 $consultar->execute([$id_materia]);

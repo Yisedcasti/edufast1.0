@@ -25,7 +25,7 @@ try {
     $id_materia = $_POST["id_materia"];
 
     // Obtener grado y área de la materia
-    $consultar = $base_de_datos->prepare("SELECT grado_id_grado, area_id_area FROM materia WHERE id_materia = ?");
+    $consultar = $base_de_datos->prepare("SELECT area_id_area FROM materia WHERE id_materia = ?");
     $consultar->execute([$id_materia]);
     $resultado = $consultar->fetch(PDO::FETCH_ASSOC);
 

@@ -94,11 +94,11 @@ include "consultarLogro.php";
                                 <?php foreach ($logros as $logro): ?>
                                     <section class="col-lg-4 col-md-8 col-sm-8 col-12 mb-4">
                                         <section class="card">
-                                            <section class="card-body">
+                                        <section class="card-body">
                                                 <div class="card-color">
-                                                    <p class="card-text text-left"><?php echo htmlspecialchars($logro->id_logro); ?> <h5 class="text-center"><?php echo htmlspecialchars($logro->nombre_logro); ?></h5></p>
-                                                    <p class="card-text text-left"><?php echo htmlspecialchars($logro->materia); ?></p>
-                                                    <p class="card-text text-left"><?php echo htmlspecialchars($logro->descripcion_logro); ?></p>
+                                                    <p class="card-text text-left">codigo : <?php echo htmlspecialchars($logro->id_logro); ?> <h5 class="text-center"> Nombre : <?php echo htmlspecialchars($logro->nombre_logro); ?></h5></p>
+                                                    <p class="card-text text-left"> descripción: <?php echo htmlspecialchars($logro->descripcion_logro); ?></p>
+                                                    <p class="card-text text-left"> Materia : <?php echo htmlspecialchars($logro->materia); ?></p><p class="text-left"> Grado : <?php echo htmlspecialchars($logro->grado); ?></p>
 
                                                     <div class="d-flex justify-content-between">
                                                         <button type="button" class="btn btn-outline-dark boton-carrito" data-bs-toggle="modal" data-bs-target="#eliminarModal<?=$logro->id_logro?>"><i class="fas fa-trash-alt"></i></button>
@@ -115,111 +115,7 @@ include "consultarLogro.php";
                             </div>
                         </section>
 
-                        <!--FORMULARIO CREAR-->
-                        <div class="modal fade" id="crear" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tituloformulario" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title text-center" id="tituloformulario"><b>Crear Logro</b></h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form method="post" action="registrarLogro.php">
-                                            <div class="mb-3">
-                                                <label for="codLogro" class="form-label">Código Logro</label>
-                                                <input placeholder="Escribe el código del logro" name="id_logro" type="number" class="form-control" id="codLogro">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="nameLogro" class="form-label">Nombre del Logro</label>
-                                                <input placeholder="Escribe el título del logro" name="nombre_logro" type="text" class="form-control" id="nameLogro">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="descripLogro" class="form-label">Descripción del Logro</label>
-                                                <textarea placeholder="Escribe la descripción del logro" name="descrip_logro" class="form-control" id="descriplogro" rows="3"></textarea>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="id_materia">Actividad</label>
-                                                <select class="form-control" name="id_materia" id="id_materia" required>
-                                                    <option selected disabled>Seleccionar Materia</option>
-                                                    <?php foreach ($materias as $materia): ?>
-                                                        <option value="<?= $materia['id_materia'] ?>"><?= $materia['materia'] ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary btnmodal">Crear</button>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--FORMULARIO ACTUALIZAR-->
-                        <?php foreach ($logros as $logro): ?>
-                            <div class="modal fade" id="actualizar<?=$logro->id_logro?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="actualizar<?=$logro->id_logro?>" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="actualizar<?=$logro->id_logro?>"><b>Actualizar Logro</b></h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="post" action="actualizar.php">
-                                                <div class="mb-3">
-                                                    <label for="codLogro" class="form-label">Código Logro</label>
-                                                    <input placeholder="Escribe el código del logro" name="id_logro" value="<?php echo htmlspecialchars($logro->id_logro); ?>" type="number" class="form-control" id="codLogro" >
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="nameLogro" class="form-label">Nombre del Logro</label>
-                                                    <input placeholder="Escribe el título del logro" name="nombre_logro" value="<?php echo htmlspecialchars($logro->nombre_logro); ?>" type="text" class="form-control" id="nameLogro">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="descripLogro" class="form-label">Descripción del Logro</label>
-                                                    <textarea placeholder="Escribe la descripción del logro" name="descrip_logro" class="form-control" id="descriplogro" rows="3"><?php echo htmlspecialchars($logro->descripcion_logro); ?></textarea>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="id_materia">Materia</label>
-                                                    <select class="form-control" name="id_materia" id="id_materia" required>
-                                                        <option selected disabled>Seleccionar Materia</option>
-                                                        <?php foreach ($materias as $materia): ?>
-                                                            <option value="<?= $materia['id_materia'] ?>" <?= $logro->id_materia == $materia['id_materia'] ? 'selected' : '' ?>><?= $materia['materia'] ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary btnmodal">Actualizar</button>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--FORMULARIO ELIMINAR-->
-                            <div class="modal fade" id="eliminarModal<?=$logro->id_logro?>" tabindex="-1" aria-labelledby="eliminarModal<?=$logro->id_logro?>" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="eliminarModal<?=$logro->id_logro?>">Eliminar Logro</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            ¿Estás seguro de que deseas eliminar el logro <strong><?php echo htmlspecialchars($logro->nombre_logro); ?></strong>?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <form method="post" action="eliminarLogro.php">
-                                                <input type="hidden" name="id_logro" value="<?php echo htmlspecialchars($logro->id_logro); ?>">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                <button type="submit" class="btn btn-danger">Eliminar</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
+                        
                     </main>
                 </div>
             </div>

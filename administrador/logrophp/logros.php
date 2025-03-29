@@ -190,6 +190,17 @@ include "consultarLogro.php";
                                                     <textarea placeholder="Escribe la descripción del logro" name="descrip_logro" class="form-control" id="descriplogro" rows="3"><?php echo htmlspecialchars($logro->descripcion_logro); ?></textarea>
                                                 </div>
                                                 <div class="mb-3">
+                                            <label for="grado_id_grado">grado</label>
+                                            <select class="form-control" name="grado_id_grado" id="grado_id_grado" required>
+                                                <option selected disabled>Seleccionar grado</option>
+                                                <?php foreach ($grados as $grado): ?>
+                                                    <option value="<?= $grado['id_grado'] ?>"
+                                                        <?= $logro->id_grado == $grado['id_grado'] ? 'selected' : '' ?>><?= $grado['grado'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+
+                                                <div class="mb-3">
                                                     <label for="id_materia">Materia</label>
                                                     <select class="form-control" name="id_materia" id="id_materia" required>
                                                         <option selected disabled>Seleccionar Materia</option>

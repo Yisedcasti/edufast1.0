@@ -8,7 +8,7 @@ $area_id_area = $_POST["area_id_area"];
 $sentencia = $base_de_datos->prepare("INSERT INTO materia (
     materia,
     area_id_area
-) VALUES (?, ?, ?);");
+) VALUES (?, ?);");
 
 $resultado = $sentencia->execute([$materia, $area_id_area]);
 

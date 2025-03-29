@@ -17,7 +17,6 @@ if (!$resultado) {
     exit("No se encontró información para este docente.");
 }
 
-$grado_id_grado  = $resultado['grado_id_grado'];
 $area_id_area  = $resultado['area_id_area'];
 
 $sentencia = $base_de_datos->prepare("INSERT INTO logro (

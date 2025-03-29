@@ -195,7 +195,7 @@ include "consultarLogro.php";
                                                 <option selected disabled>Seleccionar grado</option>
                                                 <?php foreach ($grados as $grado): ?>
                                                     <option value="<?= $grado['id_grado'] ?>"
-                                                        <?= $logro->id_grado == $grado['id_grado'] ? 'selected' : '' ?>><?= $grado['grado'] ?></option>
+                                                        <?= $logro->id_grado == $grado['id_grado'] ? 'selected' : '' ?>>                                                        <?= $grado['grado'] ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>

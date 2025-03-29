@@ -1,5 +1,6 @@
 <?php
 include "consultarLogro.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

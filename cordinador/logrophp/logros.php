@@ -90,18 +90,19 @@ include "consultarLogro.php";
                 <div class="row">
                     <main class="main-container">
                         <section class="container">
-                            <h1 class="title text-center text-white mb-5">LOGROS</h1>
+                            <h1 class="title text-center mb-5">LOGROS</h1>
                             <section class="row">
                                 <?php foreach ($logros as $logro): ?>
-                                    <section class="col-lg-4 col-md-8 col-sm-8 col-12 mb-4">
+                                    <section class="col-lg-4 col-md-12 col-sm-8 col-12 mb-4">
                                         <section class="card">
                                             <section class="card-body">
                                                 <div class="card-color">
                                                     <p class="card-text text-left">codigo : <?php echo htmlspecialchars($logro->id_logro); ?> <h5 class="text-center"> Nombre : <?php echo htmlspecialchars($logro->nombre_logro); ?></h5></p>
-                                                    <p class="card-text text-center"> Materia : <?php echo htmlspecialchars($logro->materia); ?></p>
                                                     <p class="card-text text-left"> descripción: <?php echo htmlspecialchars($logro->descripcion_logro); ?></p>
+                                                    <p class="card-text text-left"> Materia : <?php echo htmlspecialchars($logro->materia); ?></p><p class="text-left"> Grado : <?php echo htmlspecialchars($logro->grado); ?></p>
 
                                                     <div class="d-flex justify-content-between">
+                                                        <button type="button" class="btn btn-outline-dark boton-carrito" data-bs-toggle="modal" data-bs-target="#eliminarModal<?=$logro->id_logro?>"><i class="fas fa-trash-alt"></i></button>
                                                         <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#actualizar<?=$logro->id_logro?>"><i class="fas fa-edit"></i></button>
                                                     </div>
                                                 </div>
@@ -110,7 +111,7 @@ include "consultarLogro.php";
                                     </section>
                                 <?php endforeach; ?>
                             </section>
-                            <div class="d-flex justify-content-center mt-5">
+                            <div class="d-flex justify-content-center mt-2 mb-4">
                                 <a class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#crear">Crear Logro</a>
                             </div>
                         </section>
@@ -138,7 +139,16 @@ include "consultarLogro.php";
                                                 <textarea placeholder="Escribe la descripción del logro" name="descrip_logro" class="form-control" id="descriplogro" rows="3"></textarea>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="id_materia">Actividad</label>
+                                        <label for="id_curso">Grado</label>
+                                        <select class="form-control" name="grado_id_grado" id="grado_id_grado" required>
+                                            <option selected disabled>Seleccionar grado</option>
+                                            <?php foreach ($grados as $grado): ?>
+                                                <option value="<?= $grado['id_grado'] ?>"><?= $grado['grado'] ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                            <div class="mb-3">
+                                                <label for="id_materia">Materia</label>
                                                 <select class="form-control" name="id_materia" id="id_materia" required>
                                                     <option selected disabled>Seleccionar Materia</option>
                                                     <?php foreach ($materias as $materia): ?>
@@ -180,6 +190,17 @@ include "consultarLogro.php";
                                                     <textarea placeholder="Escribe la descripción del logro" name="descrip_logro" class="form-control" id="descriplogro" rows="3"><?php echo htmlspecialchars($logro->descripcion_logro); ?></textarea>
                                                 </div>
                                                 <div class="mb-3">
+                                            <label for="grado_id_grado">grado</label>
+                                            <select class="form-control" name="grado_id_grado" id="grado_id_grado" required>
+                                                <option selected disabled>Seleccionar grado</option>
+                                                <?php foreach ($grados as $grado): ?>
+                                                    <option value="<?= $grado['id_grado'] ?>"
+                                                        <?= $logro->id_grado == $grado['id_grado'] ? 'selected' : '' ?>>                                                        <?= $grado['grado'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+
+                                                <div class="mb-3">
                                                     <label for="id_materia">Materia</label>
                                                     <select class="form-control" name="id_materia" id="id_materia" required>
                                                         <option selected disabled>Seleccionar Materia</option>
@@ -193,6 +214,28 @@ include "consultarLogro.php";
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--FORMULARIO ELIMINAR-->
+                            <div class="modal fade" id="eliminarModal<?=$logro->id_logro?>" tabindex="-1" aria-labelledby="eliminarModal<?=$logro->id_logro?>" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="eliminarModal<?=$logro->id_logro?>">Eliminar Logro</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Estás seguro de que deseas eliminar el logro <strong><?php echo htmlspecialchars($logro->nombre_logro); ?></strong>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form method="post" action="eliminarLogro.php">
+                                                <input type="hidden" name="id_logro" value="<?php echo htmlspecialchars($logro->id_logro); ?>">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

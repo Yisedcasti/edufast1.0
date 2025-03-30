@@ -82,10 +82,10 @@ if (!isset($_SESSION['user'])) {
 }
 ?>
             <div class="container mt-5">
-                <h1 class="text-center mb-4">Listado de Asistencias por Curso</h1>
+                <h1 class="text-center text-white mb-4">Listado de Asistencias por Curso</h1>
 
                 <div class="mb-4">
-                    <label for="cursoSelect" class="form-label">Curso:</label>
+                    <label for="cursoSelect" class="form-label text-white">Curso:</label>
                     <select id="cursoSelect" class="form-select" onchange="updateTable()">
                         <option value="" disabled selected>Elige un curso</option>
                         <?php foreach ($cursos as $curso): ?>

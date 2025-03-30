@@ -54,7 +54,7 @@ if (!isset($_SESSION['user'])) {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                            <a class="nav-link dropdown-toggle text-white fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
@@ -171,11 +171,11 @@ if (!isset($_SESSION['user'])) {
         const radioJustificado = document.createElement("input");
         radioJustificado.type = "radio";
         radioJustificado.name = `asistencia[${item.id_matricula}]`; 
-         radioJustificado.value = "Presente";  
+         radioJustificado.value = "Justificado";  
 
         const labelAsistio = document.createTextNode(" Asistió ");
         const labelNoAsistio = document.createTextNode(" No Asistió ");
-        const labelJustificado = document.createTextNode("Inasistencia Justificada ");
+        const labelJustificado = document.createTextNode("Justificado ");
 
         cellNombres.appendChild(linkNombres);
         cellApellidos.textContent = item.apellidos;

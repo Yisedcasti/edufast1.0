@@ -3,16 +3,14 @@
 include_once "conexion.php";
 
 $materia = $_POST["materia"];
-$grado_id_grado = $_POST["grado_id_grado"];
 $area_id_area = $_POST["area_id_area"];
 
 $sentencia = $base_de_datos->prepare("INSERT INTO materia (
     materia,
-    grado_id_grado,
     area_id_area
-) VALUES (?, ?, ?);");
+) VALUES (?, ?);");
 
-$resultado = $sentencia->execute([$materia, $grado_id_grado, $area_id_area]);
+$resultado = $sentencia->execute([$materia, $area_id_area]);
 
 if ($resultado) {
     header("Location: Materia.php?status=success");

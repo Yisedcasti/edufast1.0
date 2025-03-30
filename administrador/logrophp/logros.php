@@ -98,7 +98,7 @@ include "consultarLogro.php";
                                             <section class="card-body">
                                                 <div class="card-color">
                                                     <p class="card-text text-left">codigo : <?php echo htmlspecialchars($logro->id_logro); ?> <h5 class="text-center"> Nombre : <?php echo htmlspecialchars($logro->nombre_logro); ?></h5></p>
-                                                    <p class="card-text text-left"> descripción: <?php echo htmlspecialchars($logro->descripcion_logro); ?></p>
+                                                    <p class="card-text text-left">  <?php echo htmlspecialchars($logro->descripcion_logro); ?></p>
                                                     <p class="card-text text-left"> Materia : <?php echo htmlspecialchars($logro->materia); ?></p><p class="text-left"> Grado : <?php echo htmlspecialchars($logro->grado); ?></p>
 
                                                     <div class="d-flex justify-content-between">

@@ -1,13 +1,13 @@
 <?php
-if(!isset($_POST["id_logro"]) || !isset($_POST["nombre_logro"]) || !isset($_POST["descrip_logro"]) || !isset($_POST["id_materia"])) exit();
+if(!isset($_POST["id_logro"]) || !isset($_POST["nombre_logro"]) || !isset($_POST["descrip_logro"]) || !isset($_POST["id_materia"]) || !isset($_POST["grado_id_grado"])) exit();
 include_once"conexion.php";
 $id_logro=$_POST["id_logro"];
 $nombre_logro=$_POST["nombre_logro"];
 $descrip_logro=$_POST["descrip_logro"];
+$grado_id_grado=$_POST["grado_id_grado"];
 $id_materia=$_POST["id_materia"];
 
-$consultar = $base_de_datos->prepare("SELECT 
-        grado_id_grado, 		
+$consultar = $base_de_datos->prepare("SELECT  		
 		area_id_area
 FROM materia WHERE id_materia = ?");
 $consultar->execute([$id_materia]);
@@ -17,7 +17,6 @@ if (!$resultado) {
     exit("No se encontró información para este docente.");
 }
 
-$grado_id_grado  = $resultado['grado_id_grado'];
 $area_id_area  = $resultado['area_id_area'];
 
 $sentencia = $base_de_datos->prepare("INSERT INTO logro (
@@ -25,7 +24,7 @@ $sentencia = $base_de_datos->prepare("INSERT INTO logro (
         nombre_logro, 
         descripcion_logro, 
         materia_id_materia,
-        materia_grado_id_grado, 		
+        grado_id_grado, 		
 		materia_area_id_area ) VALUES (?,?,?,?,?,?)");
 $resultado =  $sentencia->execute([$id_logro ,
 $nombre_logro,

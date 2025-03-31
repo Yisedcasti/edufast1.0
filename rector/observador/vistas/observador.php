@@ -1,5 +1,11 @@
 <?php
-require_once "../funciones/consultar.php"
+require_once "../funciones/consultar.php";
+session_start();
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
+    header('Location: ../src/protected.php');
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +16,7 @@ require_once "../funciones/consultar.php"
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../../../css/nav.css"/>
+    <link rel="stylesheet" href="../../../css/stylsrec.css"/>
     <link rel="stylesheet" href="../../../ob.css"/>
     <title>Pagina Principal</title>
 </head>
@@ -21,17 +27,17 @@ require_once "../funciones/consultar.php"
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">EDUFAST</div>
             <div class="list-group list-group-flush my-3">
 
-                <a href="../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</>
-                <a href="../registro/view/index_registros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Registro</a>
-                <a href="../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
-                <a href="../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
-                <a href="../asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
-                <a href="../materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
-                <a href="../logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
-                <a href="../notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
-                <a href="../Observador/view/vista_o.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
-                <a href="../Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
-                <a href="../../admin/pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Volver</a>            </div>
+                <a href="../../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
+                <a href="../../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
+                <a href="../../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
+                <a href="../../observador/vistas/alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observadores</a>
+                <a href="../../materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
+                <a href="../../logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
+                <a href="../../actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
+                <a href="../../asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
+                <a href="../../notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
+                <a href="../../Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
+                <a href="../../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>            </div>
         </div>
 
         <div id="page-content-wrapper">
@@ -50,12 +56,12 @@ require_once "../funciones/consultar.php"
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                            <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i>Maria Camila Torres Jaramillo
+                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Salir</a></li>
+                                <li><a class="dropdown-item" href="../../../cerrar.php">Salir</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -83,6 +89,7 @@ require_once "../funciones/consultar.php"
                     <main class="main-container ">
                         <?php
                         require_once "../configuracion/conexion.php";
+                        
                         $num_doc = isset($_GET['num_doc']) ? $_GET['num_doc'] : null;
                         
                         if ($num_doc !== null) {
@@ -111,19 +118,19 @@ require_once "../funciones/consultar.php"
                                 if (count($datosMatricula) > 0) {
                                     foreach ($datosMatricula as $matricula) {
                                         echo "		<div class='container mt-5'>
-            <div class='container my-5'>
-        <div class='text-center mb-4'>
-            <h4><b>OBSERVADOR DEL ESTUDIANTE</b></h4>
+            <div class='container'>
+        <div class='text-center mb-4 '>
+            <h2><b>OBSERVADOR DEL ESTUDIANTE</b></h2>
         </div>
 
-        <form action='gracias.html' method='post'>
+        <form class='mb-3 bg-dark bg-opacity-25 p-3' action='gracias.html' method='post'>
             <!-- Información Básica -->
-            <div class='mb-4'>
-                <h5 class='text-center'>Información Básica</h5>
+              <h3 class='text-center'>Información Básica</h3>
+            <div class='mb-5 mt-4'>
                 <div class='row g-3'>
                     <div class='col-md-2'>
                         <label for='grado' class='form-label'>Grado</label>
-                          <select class='form-select' id='frecuencia' name='id_jornada'>";
+                          <select class='form-select ' id='frecuencia' name='id_jornada'>";
                         foreach ($grados as $grado) {
                             $selected = ($matricula['grado_id_grado'] == $grado['id_grado']) ? 'selected' : '';
                             echo "<option value='" . htmlspecialchars($grado['id_grado'], ENT_QUOTES) . "' $selected>"
@@ -145,7 +152,7 @@ echo "
                         
 
 echo "
-    </select>
+    </select> 
                     </div>
                     <div class='col-md-3'>
                         <label for='frecuencia' class='form-label'>Jornada</label>
@@ -169,8 +176,8 @@ echo "
             </div>
 
             <!-- Información del Estudiante -->
-            <div class='mb-4'>
-                <h5 class='text-center'>Información del Estudiante</h5>
+              <h3 class='text-center'>Información del Estudiante</h3>
+            <div class='mb-5 mt-4'>
                 <div class='row g-3'>
                     <div class='col-md-3'>
                         <label for='apellido' class='form-label'>Apellidos</label>
@@ -200,8 +207,8 @@ echo "
             </div>
 
             <!-- Información Familiar -->
-            <div class='mb-4'>
-                <h5 class='text-center'>Identificación Familiar</h5>
+              <h3 class='text-center'>Identificación Familiar</h3>
+            <div class='mb-5 mt-4'>
                 <div class='row g-3'>
                     <div class='col-md-4'>
                         <label for='nombre_padre' class='form-label'>Nombre del Padre</label>
@@ -247,8 +254,9 @@ echo "
             </div>
 
             <!-- Compromisos -->
-            <div class='mb-4'>
-                <h5 class='text-center'>Compromisos Académicos y Convivenciales</h5>
+            
+            <h3 class='text-center'>Compromisos Académicos y Convivenciales</h3>
+            <div class=' mt-4'>
                 <table class='table table-bordered'>
                     <thead>
                         <tr>
@@ -273,8 +281,8 @@ echo "
 
             <!-- Botones -->
             <div class='text-center'>
-                <button type='submit' class='btn btn-primary'>Enviar</button>
-                <button type='reset' class='btn btn-danger'>Borrar</button>
+                <button type='submit' class='btn btn-dark'>Enviar</button>
+                <button type='reset' class='btn btn-dark'>Borrar</button>
             </div>
         </form>
     </div>
@@ -283,7 +291,7 @@ echo "
                                     }
                                 } else {
                                     // Si no hay matrículas, mostrar el formulario de matrícula
-                                    mostrarFormularioMatricula($num_doc);
+                                    mostrarFormularioMatricula($grados, $cursos, $datosEstudiante);
                                 }
                             } else {
                                 // Si no hay estudiante, mostrar formulario de registro de estudiante
@@ -292,101 +300,43 @@ echo "
                         } else {
                             echo "Número de documento no proporcionado.";
                         }
+
                         
                         function mostrarFormularioEstudiante($num_doc)
-                
-                        {
-                            echo "<div class='container mb-5'>
-                            <h1 class='text-center mb-4'>Formulario Datos adicionales</h1>
-                            <form action='../funciones/crearEstudiante.php' method='POST' class='shadow p-4 rounded bg-light'>
-                            <input type='hidden' name='Registro_num_doc' value='$num_doc'>
-                                <!-- Campo Sexo -->
-                                <div class='mb-3'>
-                                    <label for='sexo' class='form-label'>Sexo</label>
-                                    <select name='sexo' id='sexo' class='form-select' required>
-                                        <option value=' disabled selected>Seleccione el sexo</option>
-                                        <option value='M'>Masculino</option>
-                                        <option value='F'>Femenino</option>
-                                        <option value='O'>Otro</option>
-                                    </select>
-                                </div>
-                                <!-- Campo Fecha de Nacimiento -->
-                                <div class='mb-3'>
-                                    <label for='fecha_nacimiento' class='form-label'>Fecha de Nacimiento</label>
-                                    <input type='date' name='fecha_nacimiento' id='fecha_nacimiento' class='form-control' required 
-                                           oninput='validarFechaNacimiento()'>
-                                    <div id='error_fecha_nacimiento' class='text-danger mt-1'></div>
-                                </div>
-                                <!-- Campo EPS -->
-                                <div class='mb-3'>
-                                    <label for='eps' class='form-label'>EPS</label>
-                                    <input type='text' class='form-control' id='Eps' name='Eps'>
-                                </div>
-                                <!-- Campo RH -->
-                                <div class='mb-3'>
-                                    <label for='rh' class='form-label'>RH</label>
-                                    <select name='RH' id='rh' class='form-select' required>
-                                        <option value=' disabled selected>Seleccione el RH</option>
-                                        <option value='O+'>O+</option>
-                                        <option value='O-'>O-</option>
-                                        <option value='A+'>A+</option>
-                                        <option value='A-'>A-</option>
-                                        <option value='B+'>B+</option>
-                                        <option value='B-'>B-</option>
-                                        <option value='AB+'>AB+</option>
-                                        <option value='AB-'>AB-</option>
-                                    </select>
-                                </div>
-                                <!-- Campo Nivel Educativo -->
-                                <div class='mb-3'>
-                                    <label for='nivel_educativo' class='form-label'>Nivel Educativo</label>
-                                    <select name='Nivel_educativo' id='nivel_educativo' class='form-select' required>
-                                        <option value=' disabled selected>Seleccione el nivel educativo</option>
-                                        <option value='Primaria'>Primaria</option>
-                                        <option value='Secundaria'>Secundaria</option>
-                                    </select>
-                                </div>
-                                <!-- Campo Estado -->
-                                <div class='mb-3'>
-                                    <label for='estado' class='form-label'>Estado</label>
-                                    <select name='Estado' id='estado' class='form-select' required>
-                                        <option value=' disabled selected>Seleccione el estado</option>
-                                        <option value='Nuevo'>Nuevo</option>
-                                        <option value='Antiguo'>Antiguo</option>
-                                        <option value='Repitente'>Repitente</option>
-                                    </select>
-                                </div>
-                                <!-- Botón Enviar -->
-                                <button type='submit' class='btn btn-primary'>Enviar</button>
-                            </form>
-                            </div>
-                        ";
+                        { 
+                            echo "Para poder asignar un curso y un grado, el estudiante primero debe completar el formulario con los datos restantes."; 
                         }
-                        function mostrarFormularioMatricula($num_doc)
+                        function mostrarFormularioMatricula($grados, $cursos, $datosEstudiante) 
                         {
                             echo "<div class='container mt-5'>
-                            <h1 class='text-center mb-4'>Formulario de Grados y Cursos</h1>
-                            <form action='procesar_formulario.php' method='POST' class='shadow p-4 rounded bg-light'>
-                                <div class='mb-3'>
-                                    <label for='grado' class='form-label'>Grado</label>
-                                    <select name='grado' id='grado' class='form-select' required>
-                                        <option value=' disabled selected>Seleccionew un grado</option>
-                                        <option value='1'>Grado 1</option>
-                                        <option value='2'>Grado 2</option>
-                                    </select>
-                                </div>
-                                <div class='mb-3'>
+                                    <h1 class='text-center mb-4'>Formulario de Grados y Cursos</h1>
+                                    <form action='../funciones/crearMatricula.php' method='POST' class='shadow p-4 rounded bg-light'>
+                                   <input type='hidden' class='form-control' id='apellido' name='id_estudiante' value='{$datosEstudiante['id_estudiante']}'>
+                                        <div class='mb-3'>
+                                            <label for='grado' class='form-label'>Grado</label>
+                                            <select name='id_grado' id='grado' class='form-select' required>
+                                                <option value='' disabled selected>Seleccione un grado</option>";  
+
+                                                foreach ($grados as $grado) {
+                                                    echo '<option value="' . htmlspecialchars($grado['id_grado'], ENT_QUOTES) . '">'
+                                                        . htmlspecialchars($grado['grado'], ENT_QUOTES) . '</option>';
+                                                }
+
+                            echo "  </select> </div>";
+                            echo "<div class='mb-3'>
                                     <label for='curso' class='form-label'>Curso</label>
-                                    <select name='curso' id='curso' class='form-select' required>
-                                        <option value=' disabled selected>Seleccione un curso</option>
-                                        <option value='A'>Curso A</option>
-                                        <option value='B'>Curso B</option>
-                                    </select>
+                                    <select name='id_curso' id='curso' class='form-select' required>
+                                        <option value='' disabled selected>Seleccione un curso</option>";
+                                        foreach ($cursos as $curso) {
+                                            echo '<option value="' . htmlspecialchars($curso['id_cursos'], ENT_QUOTES) . '">'
+                                                . htmlspecialchars($curso['curso'], ENT_QUOTES) . '</option>';
+                                        }
+
+                                    echo "</select>
                                 </div>
                                 <button type='submit' class='btn btn-primary'>Enviar</button>
                             </form>
-                        </div>
-                        ";
+                        </div>";
                         }
                         ?>
                         

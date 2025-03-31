@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
+    header('Location: ../src/protected.php');
+    exit;
+}
 include "consulta.php";
 ?>
 <!DOCTYPE html>
@@ -10,7 +16,7 @@ include "consulta.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../../css/nav.css" />
+    <link rel="stylesheet" href="../../css/stylsrec.css"/>
     <title>Pagina Principal</title>
 </head>
 
@@ -35,16 +41,12 @@ include "consulta.php";
 
             </div>
                 <a href="../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
-                <a href="../registro/view/index_registros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Registro</a>
                 <a href="../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
                 <a href="../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
-                <a href="../asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
+                <a href="../observador/vistas/alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
                 <a href="../logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
                 <a href="../actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
-                <a href="../notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
-                <a href="../Observador/view/vista_o.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
-                <a href="../Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
-                <a href="../../admin/pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Volver</a>
+                <a href="../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>
         </div>
 
         <div id="page-content-wrapper">
@@ -63,12 +65,12 @@ include "consulta.php";
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                            <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i>Maria Camila Torres Jaramillo
+                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Salir</a></li>
+                                <li><a class="dropdown-item" href="../../cerrar.php">Salir</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -91,7 +93,7 @@ include "consulta.php";
   }
 }
 ?>
-                <section class="container ms-4">
+                <section class="container ms-1 ">
                     <h1 class="title text-center mb-5">Materias</h1>
 
                     <?php
@@ -113,9 +115,6 @@ include "consulta.php";
                                 </h4>
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo htmlspecialchars($materia->materia); ?></h5>
-                                    <p class="card-text">Grado: <?php echo htmlspecialchars($materia->grado); ?></p>
-                                    <p class="card-text">Maestro: <?php echo htmlspecialchars($materia->nombres); ?>
-                                        <?php echo htmlspecialchars($materia->profesion); ?></p>
                                     <button type="button" class="btn" data-bs-toggle="modal"
                                         data-bs-target="#actualizar<?= $materia->id_materia ?>">
                                         <i class="fas fa-edit"></i>
@@ -130,11 +129,11 @@ include "consulta.php";
 
                     <?php endforeach; ?>
 
-                </section> <!-- Cerrar la última fila -->
+                </section> 
 
                 <div class="d-flex justify-content-center mt-5 ">
                     <a class="btn btn-dark mb-5" type="button" data-bs-toggle="modal" data-bs-target="#crear">Crear
-                        Grado</a>
+                        Materia</a>
                 </div>
                 </section>
 
@@ -150,16 +149,9 @@ include "consulta.php";
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
+                                <!--- crear materia-->
                                 <form method="post" action="registrarmateria.php">
-                                    <div class="mb-3">
-                                        <label for="id_curso">Grado</label>
-                                        <select class="form-control" name="grado_id_grado" id="grado_id_grado" required>
-                                            <option selected disabled>Seleccionar grado</option>
-                                            <?php foreach ($grados as $grado): ?>
-                                                <option value="<?= $grado['id_grado'] ?>"><?= $grado['grado'] ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
+                                    
                                     <div class="mb-3">
                                         <label for="id_curso">area</label>
                                         <select class="form-control" name="area_id_area" id="area_id_area" required>
@@ -174,25 +166,6 @@ include "consulta.php";
                                         <input placeholder="escriba nombre de la materia" name="materia" type="text"
                                             class="form-control" id="materia">
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="docente_registro_num_doc">Profesor y Especialidad</label>
-                                        <select class="form-control" name="docente_info" id="docente_info" required>
-                                            <option selected disabled>Seleccionar profesor y especialidad</option>
-                                            <?php foreach ($registros as $registro): ?>
-                                                <?php foreach ($docentes as $docente): ?>
-                                                    <option value="<?= $registro['num_doc'] ?>"
-                                                        data-especialidad="<?= $docente['id_docente'] ?>">
-                                                        <?= $registro['nombres'] . " - " . $docente['profesion'] ?>
-                                                    </option>
-                                                <?php endforeach; ?>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-
-                                    <!-- Campos ocultos para enviar los datos -->
-                                    <input type="hidden" name="docente_registro_num_doc" id="docente_registro_num_doc">
-                                    <input type="hidden" name="docente_id_docente" id="docente_id_docente">
-
                                     <button type="submit" class="btn btn-primary btnmodal">Crear</button>
                                 </form>
                             </div>
@@ -204,7 +177,9 @@ include "consulta.php";
                 </div>
 
                 <?php foreach ($materias as $materia): ?>
+
                     <!--FORMULARIO aCTUALIZAR-->
+
                     <div class="modal fade" style="font-family: Arial, Helvetica, sans-serif;"
                         id="actualizar<?= $materia->id_materia ?>" data-bs-backdrop="static" data-bs-keyboard="false"
                         tabindex="-1" aria-labelledby="actualizar<?= $materia->id_materia ?>" aria-hidden="true">
@@ -219,16 +194,7 @@ include "consulta.php";
                                 <div class="modal-body">
                                     <form method="POST" action="actualizar.php">
                                         <input type="hidden" name="id_materia" value="<?= $materia->id_materia ?>">
-                                        <div class="mb-3">
-                                            <label for="grado_id_grado">grado</label>
-                                            <select class="form-control" name="grado_id_grado" id="grado_id_grado" required>
-                                                <option selected disabled>Seleccionar grado</option>
-                                                <?php foreach ($grados as $grado): ?>
-                                                    <option value="<?= $grado['id_grado'] ?>"
-                                                        <?= $materia->id_grado == $grado['id_grado'] ? 'selected' : '' ?>>                                                        <?= $grado['grado'] ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
+                                        
                                         <div class="mb-3">
                                             <label for="area_id_area">area</label>
                                             <select class="form-control" name="area_id_area" id="area_id_area" required>
@@ -246,25 +212,6 @@ include "consulta.php";
                                             <input name="materia" value="<?php echo htmlspecialchars($materia->materia); ?>"
                                                 class="form-control" id="materia">
                                         </div>
-                                        <div class="mb-3">
-    <label for="docente_info">Profesor y Especialidad</label>
-    <select class="form-control" name="docente_info" id="docente_info" required>
-        <option selected disabled>Seleccionar profesor y especialidad</option>
-        <?php foreach ($registros as $registro): ?>
-            <?php foreach ($docentes as $docente): ?>
-                <option value="<?= $registro['num_doc'] ?>"
-                    <?= $materia->docente_registro_num_doc == $registro['num_doc'] && $materia->docente_id_docente == $docente['id_docente'] ? 'selected' : '' ?>
-                    data-especialidad="<?= $docente['id_docente'] ?>">
-                    <?= $registro['nombres'] . " - " . $docente['profesion'] ?>
-                </option>
-            <?php endforeach; ?>
-        <?php endforeach; ?>
-    </select>
-</div>
-<!-- Campos ocultos para enviar los datos -->
-<input type="hidden" name="docente_registro_num_doc" id="docente_registro_num_doc" value="<?= $materia->docente_registro_num_doc ?>">
-<input type="hidden" name="docente_id_docente" id="docente_id_docente" value="<?= $materia->docente_id_docente ?>">
-                                      
                                         <button type="submit" class="btn btn-primary btnmodal">Actualizar</button>
                                     </form>
                                 </div>

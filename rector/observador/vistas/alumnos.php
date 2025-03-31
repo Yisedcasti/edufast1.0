@@ -1,11 +1,11 @@
 <?php
-include_once "../funciones/consulta.php";
 session_start();
 if (!isset($_SESSION['user'])) {
     $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
     header('Location: ../src/protected.php');
     exit;
 }
+include_once "../funciones/consultar.php";
 
 ?>
 <!DOCTYPE html>
@@ -18,7 +18,7 @@ if (!isset($_SESSION['user'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="../../../css/stylsrec.css"/>
-  
+    <link rel="stylesheet" href="../css/principal.css"/>
     <title>Pagina Principal</title>
 </head>
 <body>
@@ -27,8 +27,8 @@ if (!isset($_SESSION['user'])) {
         <div class="listado" id="sidebar-wrapper">
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">EDUFAST</div>
             <div class="list-group list-group-flush my-3">
-            </div>
-                <a href="publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
+
+                <a href="../../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
                 <a href="../../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
                 <a href="../../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
                 <a href="../../observador/vistas/alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observadores</a>
@@ -38,14 +38,15 @@ if (!isset($_SESSION['user'])) {
                 <a href="../../asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
                 <a href="../../notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
                 <a href="../../Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
-                <a href="../../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>
+                <a href="../../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>            
+            </div>
         </div>
 
         <div id="page-content-wrapper">
             <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-align-left fs-4 me-3" id="menu-toggle"></i>
-                    <h2 class="fs-2 m-0">Bienvenido</h2>
+                    <h2 class="fs-2 m-0">Bienvenid@</h2>
                 </div>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -56,11 +57,8 @@ if (!isset($_SESSION['user'])) {
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="actualizar_evento.php">Eventos</a>
-  </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown"
+                            <a class="nav-link dropdown-toggle  fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
@@ -74,85 +72,65 @@ if (!isset($_SESSION['user'])) {
 
 			<div class="container mt-5">
                 <div class="row">
-                    <div class="cols-1 cols-md-2 cols-lg-3 g-4  ">
-                        <?php
-                        if (isset($_GET['status'])) {
-                            if ($_GET['status'] == 'success') {
-                                echo '<div class="alert alert-success alert-dismissible fade show" role="alert" id="autoCloseAlert">
-                                        ¡Accion realizada exitosamente!
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                      </div>';
-                            } elseif ($_GET['status'] == 'error') {
-                                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert" id="autoCloseAlert">
-                                        Algo salió mal. Por favor verifique los datos y vuelva a intentarlo.
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                      </div>';
-                            }
-                          }
-                        ?>
-<section class="main-container">
-        <h1 class="titulo mb-4 text-center"> Actualizar Noticias</h1>
+                    <div class="col-md-12 text-center">
+                        <h1 class="mb-3 ">Alumnos sin curso y grado</h1>
+                        <div class="table-responsive">
+                        <table class="table table-hover rounded shadow table-bordered table-striped">
+                        <thead>    
+                        <tr>
+                            <th>Numero de Documento</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><?php foreach ($registros as $registro) : ?>
+                                <td class="text-center"> <a class="text-reset" href="observador.php?num_doc=<?php echo $registro->num_doc; ?>"><?php echo $registro->num_doc; ?></a></td>
+                                <td class="text-center"><?php echo $registro->nombres?></td>
+                                <td class="text-center"><?php echo $registro->apellidos?></td>
+                    </tr>
+                    <?php endforeach; ?>
 
-    <table class="table table-bordered text-center align-middle">
-    <thead class="table-secondary">
+                    </tbody>
+                        </table>
+                    </div>
+                    </div>
+
+                    <div class="col-md-12 text-center">
+                        <h1 class="mb-3">Alumnos con curso y grado</h1>
+                        <div class="table-responsive">
+                        <table class="table table-hover rounded shadow table-bordered table-striped">
+                        <thead>    
+                        <tr>
+                            <th>Numero de Documento</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Grado</th>
+                            <th>Curso</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+    <?php foreach ($estudiantes as $estudiante) : ?>
         <tr>
-            <th>Titulo</th>
-            <th>Noticia</th>
-            <th>Acciones</th>
+            <td class="text-center">
+                <a class="text-reset" href="observador.php?num_doc=<?php echo $estudiante['num_doc']; ?>">
+                    <?php echo $estudiante['registro_num_doc']; ?>
+                </a>
+            </td>
+            <td class="text-center"><?php echo $estudiante['nombres']; ?></td>
+            <td class="text-center"><?php echo $estudiante['apellidos']; ?></td>
+            <td class="text-center"><?php echo $estudiante['nombre_grado']; ?></td>
+            <td class="text-center"><?php echo $estudiante['nombre_curso']; ?></td>
+
+
         </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($publicacionesNoticias as $publicacion): ?>
-        <tr>
-        <form action="../funciones/actuali_noticia.php" method="POST" enctype="multipart/form-data">
-    <td>
-        <input type="text" 
-               name="titulo" 
-               value="<?php echo htmlspecialchars($publicacion->titulo); ?>" 
-               class="form-control border-0 bg-transparent text-center">
-    </td>
-    <td>
-        <!-- Campo para la fecha -->
-        <input type="text" 
-               name="info" 
-               value="<?php echo htmlspecialchars($publicacion->info); ?>" 
-               class="form-control border-0 bg-transparent text-center">
-    </td>
-    <td>
-        <input type="hidden" name="id_noticia" value="<?php echo $publicacion->id_noticia; ?>">
-        <!-- Botón para enviar el formulario -->
-        <button type="submit" class="btn"><i class="fas fa-edit"></i></button>
-        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#confirmarModal<?php echo $publicacion->id_noticia ?>">
-        <i class="fas fa-trash-alt"></i></button>
-    </td>
-</form>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+    <?php endforeach; ?>
+</tbody>
+
+                        </table>
+                    </div>
+                    </div>
         </div>
-        <?php foreach ($publicacionesNoticias as $publicacion): ?>
-    <div class="modal fade" id="confirmarModal<?php echo $publicacion->id_noticia ?>" tabindex="-1" role="dialog" aria-labelledby="confirmarModalLabel<?php echo $publicacion->id_noticia ?>" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmarModalLabel<?php echo $publicacion->id_noticia ?>">Confirmar Eliminación </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ¿Estás seguro de que deseas eliminar este registro?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form method="POST" action="../funciones/eliminar_noticia.php">
-                        <input type="hidden" name="id_noticia" value="<?php echo $publicacion->id_noticia ?>">
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-<?php endforeach; ?>
     </main>
                 </div>
             </div>
@@ -181,7 +159,6 @@ if (!isset($_SESSION['user'])) {
             el.classList.toggle("toggled");
         };
     </script>
-     <script src="../java/alertas.js"></script>
 </body>
 
 </html>

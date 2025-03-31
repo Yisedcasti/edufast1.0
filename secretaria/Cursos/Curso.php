@@ -1,9 +1,11 @@
 <?php 
 include "consultarcurso.php";
+
 session_start();
-if (!isset($_SESSION['userId'])) {
-    header("Location: ../../admin/session.php");
-    exit();
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
+    header('Location: ../src/protected.php');
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -15,7 +17,7 @@ if (!isset($_SESSION['userId'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../../css/nav.css"/>
+    <link rel="stylesheet" href="../../css/stylsadm.css"/>
     <title>Pagina Principal</title>
 </head>
 
@@ -25,18 +27,15 @@ if (!isset($_SESSION['userId'])) {
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">EDUFAST</div>
             <div class="list-group list-group-flush my-3">
 
-            <a href="../php/publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
-                <a href="../registro/view/index_registros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Registro</a>
+                <a href="../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
                 <a href="../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
                 <a href="../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
-                <a href="../asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
+                <a href="../observador/vistas/alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
                 <a href="../materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
                 <a href="../logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
                 <a href="../actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
-                <a href="../notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
-                <a href="../Observador/view/vista_o.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
-                <a href="../Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
-                <a href="../../admin/pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Volver</a>            </div>
+                <a href="../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>
+                 </div>
         </div>
 
         <div id="page-content-wrapper">
@@ -55,12 +54,12 @@ if (!isset($_SESSION['userId'])) {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                            <a class="nav-link dropdown-toggle text-white fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['user']; ?> <?php echo $_SESSION['usera']; ?>
+                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="../../admin/cerrar.php">Salir</a></li>
+                            <li><a class="dropdown-item" href="../../cerrar.php">Salir</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -106,54 +105,12 @@ if (!isset($_SESSION['userId'])) {
             <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#actualizar<?= $curso->id_cursos ?>">
               <i class="fas fa-edit"></i>
             </button>
-            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#eliminarModal<?= $curso->id_cursos ?>">
-              <i class="fas fa-trash-alt"></i>
-            </button>
           </div>
         </div>
       </div>
   <?php endforeach; ?>
   </div> <!-- Cerrar la última fila -->
 </div>
-
-
-
-        <!-- Botón Crear  -->
-        <div class="d-flex justify-content-center mb-4">
-            <a class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#crear">Crear Curso</a>
-        </div>
-
-        <!-- Modal Crear -->
-        <?php foreach ($cursos as $curso): ?>
-        <div class="modal fade" id="crear" tabindex="-1" aria-labelledby="crearLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="crearLabel">Crear Curso</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form class="formulario" action="registrarcurso.php" method="POST">
-                            <section class="mb-3">
-                                <label for="curso">Ingrese curso</label>
-                                <input type="number" name="curso" class="form-control" required>
-                            </section>
-                            <section class="mb-3">
-                                <label for="Grado">Grado:</label>
-                                <input type="text" id="grado"  class="form-control text-center"  name="grado" value="<?php echo htmlspecialchars($curso->grado); ?>" readonly>
-                                <input type="hidden" id="grado_id_grado" name="grado_id_grado" value="<?php echo $curso->grado_id_grado ?> " readonly>
-                            </section>
-                            <section class="text-center">
-                                <input type="submit" value="Enviar" class="btn btn-primary">
-                            </section>
-                        </form>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php endforeach; ?>
-
         <!-- Modal Actualizar -->
         <?php foreach($cursos as $curso): ?>
         <div class="modal fade" id="actualizar<?= $curso->id_cursos ?>" tabindex="-1" aria-labelledby="actualizarLabel<?= $curso->id_cursos ?>" aria-hidden="true">
@@ -185,30 +142,6 @@ if (!isset($_SESSION['userId'])) {
         </div>
         <?php endforeach; ?>
 
-        <!-- Modal Eliminar -->
-        <?php foreach($cursos as $curso): ?>
-        <div class="modal fade" id="eliminarModal<?= $curso->id_cursos ?>" tabindex="-1" aria-labelledby="eliminarModalLabel<?= $curso->id_cursos ?>" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="eliminarModalLabel<?= $curso->id_curso ?>">Eliminar Curso</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>¿Está seguro que desea eliminar el curso <b><?= htmlspecialchars($curso->curso) ?></b>? Esta acción no se puede deshacer.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <form method="POST" action="eliminarcurso.php">
-                            <input type="hidden" name="id_cursos" value="<?= $curso->id_cursos ?>">
-                            <input type="hidden" id="grado_id_grado" name="grado_id_grado" value="<?php echo $curso->grado_id_grado ?> " readonly>
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php endforeach; ?>
 
     </main>
         </div>

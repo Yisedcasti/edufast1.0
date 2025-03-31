@@ -1,11 +1,12 @@
 <?php
-include_once "consultar.php"; // Incluye el archivo de consulta
 session_start();
 if (!isset($_SESSION['user'])) {
     $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
     header('Location: ../src/protected.php');
     exit;
 }
+include_once "../funciones/consultar.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,30 +18,31 @@ if (!isset($_SESSION['user'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="../../../css/stylsecre.css"/>
-    <title>jornadas</title>
+    <link rel="stylesheet" href="../css/principal.css"/>
+    <title>Pagina Principal</title>
 </head>
-
 <body>
     <div class="d-flex" id="wrapper">
-    <div class="listado" id="sidebar-wrapper">
+
+        <div class="listado" id="sidebar-wrapper">
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">EDUFAST</div>
             <div class="list-group list-group-flush my-3">
 
                 <a href="../../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
+                <a href="../../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
                 <a href="../../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
-                <a href="../../observador/vistas/alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
                 <a href="../../materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
                 <a href="../../logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
                 <a href="../../actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
-                <a href="../../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>            
+                <a href="../../../admin/pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>            
             </div>
         </div>
 
         <div id="page-content-wrapper">
             <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
-                    <h2 class="fs-2 m-0">Bienvenido</h2>
+                    <i class="fas fa-align-left fs-4 me-3" id="menu-toggle"></i>
+                    <h2 class="fs-2 m-0">Bienvenid@</h2>
                 </div>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -52,66 +54,55 @@ if (!isset($_SESSION['user'])) {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white fw-bold" href="#" id="navbarDropdown"
+                            <a class="nav-link dropdown-toggle  fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="../../../cerrar.php">Salir</a></li>
+                                <li><a class="dropdown-item" href="../../../admin/cerrar.php">Salir</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
             </nav>
 
-			<div class="container mt-5 ms-4 ">
+			<div class="container mt-5">
                 <div class="row">
-                    <?php
-                     if (isset($_GET['status'])) {
-                        if ($_GET['status'] == 'success') {
-                            echo '<div class="alert alert-success alert-dismissible fade show" role="alert" id="autoCloseAlert">
-                                    ¡Accion realizada exitosamente!
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                  </div>';
-                        } elseif ($_GET['status'] == 'error') {
-                            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert" id="autoCloseAlert">
-                                    Algo salió mal. Por favor verifique los datos y vuelva a intentarlo.
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                  </div>';
-                        }
-                      }
-                    ?>
-                <main class="container mt-5 ">
-        <h1 class="text-center mb-4">Gestión de Jornadas</h1>
+                    <div class="col-md-12 text-center">
+                        <h1 class="mb-3">Alumnos</h1>
+                        <div class="table-responsive">
+                        <table class="table table-hover rounded shadow table-bordered table-striped">
+                        <thead>    
+                        <tr>
+                            <th>Numero de Documento</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Grado</th>
+                            <th>Curso</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+    <?php foreach ($estudiantes as $estudiante) : ?>
+        <tr>
+            <td class="text-center">
+                <a class="text-reset" href="observador.php?num_doc=<?php echo $estudiante['num_doc']; ?>">
+                    <?php echo $estudiante['registro_num_doc']; ?>
+                </a>
+            </td>
+            <td class="text-center"><?php echo $estudiante['nombres']; ?></td>
+            <td class="text-center"><?php echo $estudiante['apellidos']; ?></td>
+            <td class="text-center"><?php echo $estudiante['nombre_grado']; ?></td>
+            <td class="text-center"><?php echo $estudiante['nombre_curso']; ?></td>
 
-        <!-- Verificar si hay jornadas -->
-        <?php if (!empty($jornadas)) : ?>
-            <div class="row ">
-                <?php foreach ($jornadas as $jornada) : ?>
-                   <div class="card Regular shadow ms-3 mb-3" style="width: 18rem;">
-  <img src="../../../imagenes/mañana.jpg" width="140px" class="rounded d-bloc mt-4 ms-5 me-4" alt="...">
-  <div class="card-body">
- <h5 class="card-title text-center">Jornada</h5>
- <p class="text-center"><?php echo htmlspecialchars($jornada->jornada); ?></p>
-  <table class="table ">
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-center"><?php echo htmlspecialchars($jornada->hora_inicio); ?></td>
-                                            <td class="text-center"><?php echo htmlspecialchars($jornada->hora_final); ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">Inicio</td>
-                                            <td class="text-center">Fin</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-  </div>
-</div>
-  <?php endforeach; ?>
-            </div>
-        <?php else : ?>
-            <p class="text-center">No se encontraron jornadas.</p>
-        <?php endif; ?>
+
+        </tr>
+    <?php endforeach; ?>
+</tbody>
+
+                        </table>
+                    </div>
+                    </div>
+        </div>
     </main>
                 </div>
             </div>
@@ -131,7 +122,7 @@ if (!isset($_SESSION['user'])) {
     <!-- /#page-content-wrapper -->
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
@@ -140,7 +131,6 @@ if (!isset($_SESSION['user'])) {
             el.classList.toggle("toggled");
         };
     </script>
-    <script src="../java/validaciones.js"></script>
 </body>
 
 </html>

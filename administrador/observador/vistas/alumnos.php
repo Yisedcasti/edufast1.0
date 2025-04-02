@@ -7,6 +7,7 @@ if (!isset($_SESSION['user'])) {
 }
 include_once "../funciones/consultar.php";
 
+$busqueda = isset($_GET['num_doc']) ? $_GET['num_doc'] : ''; 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,62 +70,81 @@ include_once "../funciones/consultar.php";
 			<div class="container mt-5">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h1 class="mb-3">Alumnos sin curso y grado</h1>
-                        <div class="table-responsive">
-                        <table class="table table-hover rounded shadow table-bordered table-striped">
-                        <thead>    
+                    <div class="d-flex justify-content-end mb-5">
+    <form method="GET" class="d-flex">
+        <input type="text" name="num_doc" class="form-control w-50" placeholder="Ingrese número de documento" 
+            value="<?php echo htmlspecialchars($busqueda); ?>">
+        <button type="submit" class="btn btn-primary ms-2">Buscar</button>
+    </form>
+</div>
+
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h3 class="mb-3">Alumnos sin curso y grado</h3>
+            <div class="table-responsive">
+                <table class="table table-hover rounded shadow table-bordered table-striped">
+                    <thead>
                         <tr>
-                            <th>Numero de Documento</th>
+                            <th>Nivel educativo</th>
+                            <th>Grado cursado</th>
+                            <th>Número de Documento</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($registros as $registro) : ?>
+                            <tr>
+                                <td class="text-center"><?php echo $registro->NIvel_educativo; ?></td>
+                                <td class="text-center"><?php echo $registro->grado_cursado; ?></td>
+                                <td class="text-center">
+                                    <a class="text-reset" href="observador.php?num_doc=<?php echo $registro->num_doc; ?>">
+                                        <?php echo $registro->num_doc; ?>
+                                    </a>
+                                </td>
+                                <td class="text-center"><?php echo $registro->nombres; ?></td>
+                                <td class="text-center"><?php echo $registro->apellidos; ?></td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <tr><?php foreach ($registros as $registro) : ?>
-                                <td class="text-center"> <a class="text-reset" href="observador.php?num_doc=<?php echo $registro->num_doc; ?>"><?php echo $registro->num_doc; ?></a></td>
-                                <td class="text-center"><?php echo $registro->nombres?></td>
-                                <td class="text-center"><?php echo $registro->apellidos?></td>
-                    </tr>
-                    <?php endforeach; ?>
-
+                        <?php endforeach; ?>
                     </tbody>
-                        </table>
-                    </div>
-                    </div>
+                </table>
+                <?php if (empty($registros)) echo "<p class='text-muted'>No se encontraron resultados.</p>"; ?>
+            </div>
+        </div>
 
-                    <div class="col-md-12 text-center">
-                        <h1 class="mb-3">Alumnos con curso y grado</h1>
-                        <div class="table-responsive">
-                        <table class="table table-hover rounded shadow table-bordered table-striped">
-                        <thead>    
+        <!-- Tabla de Alumnos con curso y grado -->
+        <div class="col-md-12 text-center mt-5">
+            <h3 class="mb-3">Alumnos con curso y grado</h3>
+            <div class="table-responsive">
+                <table class="table table-hover rounded shadow table-bordered table-striped">
+                    <thead>
                         <tr>
-                            <th>Numero de Documento</th>
+                            <th>Número de Documento</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Grado</th>
                             <th>Curso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($estudiantes as $estudiante) : ?>
+                            <tr>
+                                <td class="text-center">
+                                    <a class="text-reset" href="observador.php?num_doc=<?php echo $estudiante['num_doc']; ?>">
+                                        <?php echo $estudiante['num_doc']; ?>
+                                    </a>
+                                </td>
+                                <td class="text-center"><?php echo $estudiante['nombres']; ?></td>
+                                <td class="text-center"><?php echo $estudiante['apellidos']; ?></td>
+                                <td class="text-center"><?php echo $estudiante['nombre_grado']; ?></td>
+                                <td class="text-center"><?php echo $estudiante['nombre_curso']; ?></td>
                             </tr>
-                        </thead>
-                        <tbody>
-    <?php foreach ($estudiantes as $estudiante) : ?>
-        <tr>
-            <td class="text-center">
-                <a class="text-reset" href="observador.php?num_doc=<?php echo $estudiante['num_doc']; ?>">
-                    <?php echo $estudiante['registro_num_doc']; ?>
-                </a>
-            </td>
-            <td class="text-center"><?php echo $estudiante['nombres']; ?></td>
-            <td class="text-center"><?php echo $estudiante['apellidos']; ?></td>
-            <td class="text-center"><?php echo $estudiante['nombre_grado']; ?></td>
-            <td class="text-center"><?php echo $estudiante['nombre_curso']; ?></td>
-
-
-        </tr>
-    <?php endforeach; ?>
-</tbody>
-
-                        </table>
-                    </div>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <?php if (empty($estudiantes)) echo "<p class='text-muted'>No se encontraron resultados.</p>"; ?>
+            </div>
                     </div>
         </div>
     </main>

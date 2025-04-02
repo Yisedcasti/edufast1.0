@@ -287,7 +287,7 @@ echo "<div class='container mb-5'>
 <div class='mb-3'>
     <label for='sexo' class='form-label'>Sexo</label>
     <select name='sexo' id='sexo' class='form-select' required>
-        <option value=' disabled selected>Seleccione el sexo</option>
+        <option value=' disabled selected'>Seleccione el sexo</option>
         <option value='M'>Masculino</option>
         <option value='F'>Femenino</option>
         <option value='O'>Otro</option>
@@ -309,7 +309,7 @@ echo "<div class='container mb-5'>
 <div class='mb-3'>
     <label for='rh' class='form-label'>RH</label>
     <select name='RH' id='rh' class='form-select' required>
-        <option value=' disabled selected>Seleccione el RH</option>
+        <option value=' disabled selected'>Seleccione el RH</option>
         <option value='O+'>O+</option>
         <option value='O-'>O-</option>
         <option value='A+'>A+</option>
@@ -324,7 +324,7 @@ echo "<div class='container mb-5'>
 <div class='mb-3'>
     <label for='nivel_educativo' class='form-label'>Nivel Educativo</label>
     <select name='Nivel_educativo' id='nivel_educativo' class='form-select' required>
-        <option value=' disabled selected>Seleccione el nivel educativo</option>
+        <option value=' disabled selected'>Seleccione el nivel educativo</option>
         <option value='Primaria'>Primaria</option>
         <option value='Secundaria'>Secundaria</option>
     </select>
@@ -333,7 +333,7 @@ echo "<div class='container mb-5'>
 <div class='mb-3'>
     <label for='estado' class='form-label'>Estado</label>
     <select name='Estado' id='estado' class='form-select' required>
-        <option value=' disabled selected>Seleccione el estado</option>
+        <option value=' disabled selected'>Seleccione el estado</option>
         <option value='Nuevo'>Nuevo</option>
         <option value='Antiguo'>Antiguo</option>
         <option value='Repitente'>Repitente</option>

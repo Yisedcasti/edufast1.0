@@ -7,31 +7,19 @@ $descrip_logro=$_POST["descrip_logro"];
 $grado_id_grado=$_POST["grado_id_grado"];
 $id_materia=$_POST["id_materia"];
 
-$consultar = $base_de_datos->prepare("SELECT  		
-		area_id_area
-FROM materia WHERE id_materia = ?");
-$consultar->execute([$id_materia]);
-$resultado = $consultar->fetch(PDO::FETCH_ASSOC);
-
-if (!$resultado) {
-    exit("No se encontró información para este docente.");
-}
-
-$area_id_area  = $resultado['area_id_area'];
-
 $sentencia = $base_de_datos->prepare("INSERT INTO logro (
         id_logro,
         nombre_logro, 
         descripcion_logro, 
         materia_id_materia,
-        grado_id_grado, 		
-		materia_area_id_area ) VALUES (?,?,?,?,?,?)");
+        grado_id_grado
+         ) VALUES (?,?,?,?,?)");
 $resultado =  $sentencia->execute([$id_logro ,
 $nombre_logro,
 $descrip_logro,
 $id_materia,
-$grado_id_grado,
-$area_id_area ]);
+$grado_id_grado
+ ]);
 if($resultado === TRUE){  header("Location: logros.php?status=success");
 	exit();
 }

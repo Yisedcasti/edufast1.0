@@ -16,7 +16,7 @@ if (
 }
 
 try {
-    include_once "conexion.php"; // Asegurar que la conexión se cargue correctamente
+    include_once "conexion.php"; 
 
     $id_logro = $_POST["id_logro"];
     $nombre_logro = $_POST["nombre_logro"];
@@ -24,27 +24,14 @@ try {
     $grado_id_grado = $_POST["grado_id_grado"];
     $id_materia = $_POST["id_materia"];
 
-    // Obtener grado y área de la materia
-    $consultar = $base_de_datos->prepare("SELECT area_id_area FROM materia WHERE id_materia = ?");
-    $consultar->execute([$id_materia]);
-    $resultado = $consultar->fetch(PDO::FETCH_ASSOC);
-
-    if (!$resultado) {
-        exit("No se encontró información para esta materia.");
-    }
-
-    $area_id_area = $resultado['area_id_area'];
-
-    // Corregir la consulta SQL en la sentencia UPDATE
     $sentencia = $base_de_datos->prepare("UPDATE logro SET 
         nombre_logro = ?, 
         descripcion_logro = ?, 
         materia_id_materia = ?, 
-        grado_id_grado = ?, 
-        materia_area_id_area = ? 
+        grado_id_grado = ?
         WHERE id_logro = ?");
 
-    $resultado = $sentencia->execute([$nombre_logro, $descrip_logro, $id_materia, $grado_id_grado, $area_id_area, $id_logro]);
+    $resultado = $sentencia->execute([$nombre_logro, $descrip_logro, $id_materia, $grado_id_grado, $id_logro]);
 
     if ($resultado) {
         header("Location: logros.php?status=success");

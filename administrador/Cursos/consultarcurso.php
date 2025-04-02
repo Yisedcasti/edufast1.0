@@ -22,7 +22,16 @@ try {
     ");
     $sentencia->bindParam(':id_grado', $id_grado, PDO::PARAM_INT);
     $sentencia->execute();
-    $cursos = $sentencia->fetchAll(PDO::FETCH_OBJ); // Almacenar todos los resultados en un array
+    $cursos = $sentencia->fetchAll(PDO::FETCH_OBJ); 
+
+    $consulta = $base_de_datos->prepare(" SELECT *
+        FROM grado
+        WHERE id_grado = :id_grado 
+    ");
+    $consulta->bindParam(':id_grado', $id_grado, PDO::PARAM_INT);
+    $consulta->execute();
+    $grados = $consulta->fetchAll(PDO::FETCH_OBJ); 
+
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
     exit();

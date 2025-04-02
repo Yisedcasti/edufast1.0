@@ -78,7 +78,7 @@ $roles = $base_de_datos->query("SELECT * FROM rol")->fetchAll(PDO::FETCH_ASSOC);
                     <?php endforeach; ?>
                 </select>
             </div>
-            <input type="hidden" name="jornada_id_jornada" value="2">
+            <input type="hidden" name="jornada_id_jornada" value="1">
             <div class="form-group">
                 <span class="label">Tipo de documento</span>
                 <select name="tipo_doc" id="tipo_doc" class="input"  required>

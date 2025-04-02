@@ -123,7 +123,7 @@ if (!isset($_SESSION['user'])) {
         </div>
 
         <!-- Modal Crear -->
-        <?php foreach ($cursos as $curso): ?>
+        
         <div class="modal fade" id="crear" tabindex="-1" aria-labelledby="crearLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -139,8 +139,10 @@ if (!isset($_SESSION['user'])) {
                             </section>
                             <section class="mb-3">
                                 <label for="Grado">Grado:</label>
+                                <?php foreach ($cursos as $curso): ?>
                                 <input type="text" id="grado"  class="form-control text-center"  name="grado" value="<?php echo htmlspecialchars($curso->grado); ?>" readonly>
                                 <input type="hidden" id="grado_id_grado" name="grado_id_grado" value="<?php echo $curso->grado_id_grado ?> " readonly>
+                                <?php endforeach; ?>
                             </section>
                             <section class="text-center">
                                 <input type="submit" value="Enviar" class="btn btn-primary">
@@ -151,7 +153,7 @@ if (!isset($_SESSION['user'])) {
                 </div>
             </div>
         </div>
-        <?php endforeach; ?>
+        
 
         <!-- Modal Actualizar -->
         <?php foreach($cursos as $curso): ?>

@@ -28,7 +28,7 @@ include "consulta.php";
         }
 
         .card {
-            background: linear-gradient(to bottom right, #8FB8DE, #A4C3B2);
+            background: linear-gradient(to bottom right,rgb(238, 205, 219),rgb(212, 130, 144));
         }
     </style>
 
@@ -144,7 +144,7 @@ include "consulta.php";
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title text-center" id="tituloformulario"><b>Crear Logro</b></h5>
+                                <h5 class="modal-title text-center" id="tituloformulario"><b>Crear Materia</b></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>

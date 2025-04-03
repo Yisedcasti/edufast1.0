@@ -28,7 +28,7 @@ include "consultarLogro.php";
         }
 
         .card {
-            background: linear-gradient(to bottom right, #8FB8DE, #A4C3B2);
+            background: linear-gradient(to bottom right,rgb(238, 205, 219),rgb(212, 130, 144));
         }
     </style>
     <div class="d-flex" id="wrapper">

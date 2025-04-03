@@ -90,7 +90,7 @@ if (!isset($_SESSION['user'])) {
                 <?php foreach ($jornadas as $jornada) : ?>
                    <div class="card Regular shadow ms-3 mb-3" style="width: 18rem;">
   <img src="../../../imagenes/mañana.jpg" width="140px" class="rounded d-bloc mt-4 ms-5 me-4" alt="...">
-  <div class="card-body">
+  <div class="card-body ">
  <h5 class="card-title text-center">Jornada</h5>
  <p class="text-center"><?php echo htmlspecialchars($jornada->jornada); ?></p>
   <table class="table ">

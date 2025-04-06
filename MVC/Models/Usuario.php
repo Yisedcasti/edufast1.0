@@ -1,5 +1,6 @@
 <?php
-namespace Modelo;
+namespace Models;
+
 use PDO;
 use PDOException;
 use Config\Database;
@@ -26,6 +27,13 @@ class Usuario {
 
     public function inicioSesion($data){
         
+    }
+
+    public function actualizarPerfil($data,$num_doc){
+        try{
+            $this->db->beginTransaction();
+            $sql = $
+        }
     }
 
 }

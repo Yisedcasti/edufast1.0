@@ -6,6 +6,8 @@ error_reporting(E_ALL);
 header("Content-Type: application/json");
 use Controllers\AuthController;
 use Controllers\JornadaController;
+use Controllers\NoticiasController;
+use Controllers\EventosControllers;
 
 $method = $_SERVER['REQUEST_METHOD'];
 $data = json_decode(file_get_contents('php://input'), true);
@@ -20,22 +22,30 @@ if (!$action){
 $controllers = [
     'auth' => new AuthController(),
     'jornada' => new JornadaController(),
+    'noticias' => new NoticiasController(),
+    'equipo' => new EquipoController()
 ];
 
 $routes = [
     'POST' => [
         'registrarse' => ['auth', 'registrarse'],
         'login' => ['auth', 'login'],
-        'agregaJornada' => ['jornada', 'agregaJornada'],
-        'agregarRol' => ['auth', 'agregarRol']
+        'agregarRol' => ['auth', 'agregarRol'],
+        'agregarJornada' => ['jornada', 'agregarJornada']
     ],
     'GET' => [
         'obtenerJornada' => ['jornada', 'obtenerJornada'],
-        'obtenerRol' => ['auth' ,'obtenerRol']
+        'obtenerRol' => ['auth' ,'obtenerRol'],
+        'obtenerEquipo' => ['equipo' , 'obtenerEquipo'],
+        'obtenerNoticias' => ['noticias', 'obtenerNoticias'],
     ],
     'UPDATE' => [
         'actualizarPerfil' => ['auth' , 'actualizarPerfil'],
+        'actualizarJornada' => ['jornada' , 'actualizarJornada']
     ],
+    'DELETE' => [
+        'eliminarJornada' => ['jornada' , 'eliminarJornada']
+    ]
 ];
 if (isset($routes[$method][$action])){
     [$controllerKey, $method ] = $routes[$method][$action];

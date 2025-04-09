@@ -66,8 +66,17 @@ $consulta->execute();
 $compromisos = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
 
+$consulta = $base_de_datos->prepare("SELECT *
+FROM observador 
+INNER JOIN registro ON observador.num_doc = registro.num_doc
+WHERE registro.num_doc = :num_doc
+");
 
+$consulta->bindParam(':num_doc', $busqueda, PDO::PARAM_STR);
+$consulta->execute();
+$observadores = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
+    
     $grados = $base_de_datos->query("SELECT * FROM grado")->fetchAll(PDO::FETCH_ASSOC);
     $cursos = $base_de_datos->query("SELECT * FROM cursos ORDER BY curso ASC")->fetchAll(PDO::FETCH_ASSOC);
     $jornadas = $base_de_datos->query("SELECT * FROM jornada")->fetchAll(PDO::FETCH_ASSOC);

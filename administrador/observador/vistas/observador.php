@@ -92,10 +92,8 @@ if (!isset($_SESSION['user'])) {
                         
                         if ($num_doc !== null) {
                             // Verificar en la tabla de estudiantes
-                            $sqlEstudiante = "SELECT observacion.* , estudiante.*, observador.*, registro.*
-                            FROM  observacion 
-                            INNER JOIN observador ON observacion.observador_id_observador = observador.id_observador
-                            INNER JOIN estudiante ON observacion.estudiante_id_estudiante = estudiante.id_estudiante
+                            $sqlEstudiante = "SELECT estudiante.*, registro.*
+                            FROM estudiante 
                             INNER JOIN registro ON estudiante.registro_num_doc = registro.num_doc
                              WHERE registro_num_doc = :num_doc";
                             $stmtEstudiante = $base_de_datos->prepare($sqlEstudiante);
@@ -210,10 +208,11 @@ echo "
                     <div class='col-md-3'>
                         <label for='nombre' class='form-label'>Eps</label>
                         <input type='text' class='form-control text-center bg-white' id='nombre' name='nombre' value='{$datosEstudiante['Eps']}' disabled> 
-                    </div>
-                    <div class='col-md-3'>
+                    </div>";
+                    foreach ($observadores as $observador) {
+                    echo "<div class='col-md-3'>
                         <label for='nombre' class='form-label'>Telefono de emergencia</label>
-                        <input type='text' class='form-control text-center bg-white' id='nombre' name='nombre' value='{$datosEstudiante['Tel_emergencia']}' disabled> 
+                        <input type='text' class='form-control text-center bg-white' id='nombre' name='Tel_emergencia' value='{$observador['Tel_emergencia']}'> 
                     </div>
                 </div>
             </div>
@@ -225,33 +224,33 @@ echo "
                 <div class='row g-3'>
                     <div class='col-md-4'>
                         <label for='nombre_padre' class='form-label'>Nombres del Padre</label>
-                        <input type='text' class='form-control text-center bg-white' id='nombre_padre' name='nombre_padre' value='{$datosEstudiante['padre_nombre']}' disabled>
+                        <input type='text' class='form-control text-center bg-white' id='nombre_padre' name='padre_nombre' value='{$observador['padre_nombre']}' >
                     </div>
                     <div class='col-md-4'>
                         <label for='nombre_padre' class='form-label'>Apellidos del Padre</label>
-                        <input type='text' class='form-control text-center bg-white' id='nombre_padre' name='nombre_padre' value='{$datosEstudiante['padre_apellido']}' disabled>
+                        <input type='text' class='form-control text-center bg-white' id='nombre_padre' name='padre_apellido' value='{$observador['padre_apellido']}' >
                     </div>
                     <div class='col-md-4'>
                         <label for='ocupacion_padre' class='form-label'>Ocupación del Padre</label>
-                        <input type='text' class='form-control text-center bg-white' id='ocupacion_padre' name='ocupacion_padre ' value='{$datosEstudiante['padre_ocupacion']}' disabled>
+                        <input type='text' class='form-control text-center bg-white' id='ocupacion_padre' name='padre_ocupacion' value='{$observador['padre_ocupacion']}' >
                     </div>
                     <div class='col-md-4'>
                         <label for='telefono_padre' class='form-label'>Cedula del Padre</label>
-                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='telefono_padre' value='{$datosEstudiante['padre_cedula']}'  disabled>
+                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='padre_cedula' value='{$observador['padre_cedula']}'  >
                     </div>
 
                      <div class='col-md-4'>
                         <label for='telefono_padre' class='form-label'>Direccion del Padre</label>
-                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='telefono_padre' value='{$datosEstudiante['padre_direccion']}'  disabled>
+                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='padre_direccion' value='{$observador['padre_direccion']}'  >
                     </div>
                      <div class='col-md-4'>
                         <label for='telefono_padre' class='form-label'>Telefono del Padre</label>
-                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='telefono_padre' value='{$datosEstudiante['padre_telefono']}'  disabled>
+                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='padre_telefono' value='{$observador['padre_telefono']}'  >
                     </div>
                     
                      <div class='col-md-4'>
                         <label for='telefono_padre' class='form-label'>Correo del Padre</label>
-                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='telefono_padre' value='{$datosEstudiante['padre_correo']}'  disabled>
+                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='padre_correo' value='{$observador['padre_correo']}'  >
                     </div>
 
                 </div>
@@ -259,33 +258,33 @@ echo "
                 <div class='row g-3 mt-4'>
                     <div class='col-md-4'>
                         <label for='nombre_padre' class='form-label'>Nombres de la madre </label>
-                        <input type='text' class='form-control text-center bg-white' id='nombre_padre' name='nombre_padre' value='{$datosEstudiante['madre_nombre']}'  disabled>
+                        <input type='text' class='form-control text-center bg-white' id='nombre_padre' name='madre_nombre' value='{$observador['madre_nombre']}'  >
                     </div>
                     <div class='col-md-4'>
                         <label for='nombre_padre' class='form-label'>Apellidos de la madre </label>
-                        <input type='text' class='form-control text-center bg-white' id='nombre_padre' name='nombre_padre' value='{$datosEstudiante['madre_apellido']}'  disabled>
+                        <input type='text' class='form-control text-center bg-white' id='nombre_padre' name='madre_apellido' value='{$observador['madre_apellido']}'  >
                     </div>
                     <div class='col-md-4'>
                         <label for='ocupacion_padre' class='form-label'>Ocupación de la madre </label>
-                        <input type='text' class='form-control text-center bg-white' id='ocupacion_padre' name='ocupacion_padre ' value='{$datosEstudiante['madre_ocupacion']}' disabled>
+                        <input type='text' class='form-control text-center bg-white' id='ocupacion_padre' name='madre_ocupacion' value='{$observador['madre_ocupacion']}' >
                     </div>
                     <div class='col-md-4'>
                         <label for='telefono_padre' class='form-label'>Cedula de la madre </label>
-                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='telefono_padre' value='{$datosEstudiante['madre_cedula']}'  disabled>
+                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='madre_cedula' value='{$observador['madre_cedula']}'  >
                     </div>
 
                      <div class='col-md-4'>
                         <label for='telefono_padre' class='form-label'>Direccion de la madre </label>
-                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='telefono_padre' value='{$datosEstudiante['madre_direccion']}' disabled>
+                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='madre_direccion' value='{$observador['madre_direccion']}' >
                     </div>
                      <div class='col-md-4'>
                         <label for='telefono_padre' class='form-label'>Telefono de la madre </label>
-                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='telefono_padre' value='{$datosEstudiante['madre_telefono']}' disabled>
+                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='madre_telefono' value='{$observador['madre_telefono']}' >
                     </div>
                     
                      <div class='col-md-4'>
                         <label for='telefono_padre' class='form-label'>Correo de la madre </label>
-                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='telefono_padre' value='{$datosEstudiante['madre_correo']}' disabled>
+                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='madre_correo' value='{$observador['madre_correo']}' >
                     </div>
 
                 </div>
@@ -294,39 +293,41 @@ echo "
                  <div class='row g-3 mt-4 mb-5'>
                     <div class='col-md-4'>
                         <label for='nombre_padre' class='form-label'>Nombres del acudiente </label>
-                        <input type='text' class='form-control bg-white text-center' id='nombre_padre' name='nombre_padre' value='{$datosEstudiante['acudiente_nombre']}' disabled>
+                        <input type='text' class='form-control bg-white text-center' id='nombre_padre' name='acudiente_nombre' value='{$observador['acudiente_nombre']}' >
                     </div>
                     <div class='col-md-4'>
                         <label for='nombre_padre' class='form-label'>Apellidos del acudiente </label>
-                        <input type='text' class='form-control bg-white text-center' id='nombre_padre' name='nombre_padre' value='{$datosEstudiante['acudiente_apellido']}' disabled>
+                        <input type='text' class='form-control bg-white text-center' id='nombre_padre' name='acudiente_apellido' value='{$observador['acudiente_apellido']}' >
                     </div>
                     <div class='col-md-4'>
                         <label for='ocupacion_padre' class='form-label'>Ocupación del acudiente </label>
-                        <input type='text' class='form-control bg-white text-center' id='ocupacion_padre' name='ocupacion_padre ' value='{$datosEstudiante['acudiente_ocupacion']}' disabled>
+                        <input type='text' class='form-control bg-white text-center' id='ocupacion_padre' name='acudiente_ocupacion' value='{$observador['acudiente_ocupacion']}' >
                     </div>
                     <div class='col-md-4'>
                         <label for='telefono_padre' class='form-label'>Cedula del acudiente </label>
-                        <input type='text' class='form-control bg-white text-center' id='telefono_padre' name='telefono_padre' value='{$datosEstudiante['acudiente_cedula']}' disabled>
+                        <input type='text' class='form-control bg-white text-center' id='telefono_padre' name='acudiente_telefono' value='{$observador['acudiente_cedula']}' >
                     </div>
 
                      <div class='col-md-4'>
                         <label for='telefono_padre' class='form-label'>Direccion del acudiente </label>
-                        <input type='text' class='form-control bg-white text-center' id='telefono_padre' name='telefono_padre' value='{$datosEstudiante['acudiente_direccion']}' disabled>
+                        <input type='text' class='form-control bg-white text-center' id='telefono_padre' name='direccion_acudiente' value='{$observador['acudiente_direccion']}' >
                     </div>
                      <div class='col-md-4'>
                         <label for='telefono_padre' class='form-label'>Telefono del acudiente </label>
-                        <input type='text' class='form-control bg-white text-center' id='telefono_padre' name='telefono_padre' value='{$datosEstudiante['acudiente_telefono']}' disabled>
+                        <input type='text' class='form-control bg-white text-center' id='telefono_padre' name='acudiente_telefono' value='{$observador['acudiente_telefono']}' >
                     </div>
                     
                      <div class='col-md-4'>
                         <label for='telefono_padre' class='form-label'>Correo del acudiente </label>
-                        <input type='text' class='form-control bg-white text-center ' id='telefono_padre' name='telefono_padre' value='{$datosEstudiante['acudiente_correo']}' disabled>
+                        <input type='text' class='form-control bg-white text-center ' id='telefono_padre' name='correo_acudiente' value='{$observador['acudiente_correo']}' >
                     </div>
 
-                </div>
+                </div>";
+                    }
 
-            <!-- Compromisos -->
-            <div class='mb-4'>
+       
+            echo "<div class='mb-4'>
+                 <!-- Compromisos -->
                 <h5 class='text-center'>Compromisos Académicos y Convivenciales</h5>
                 <table class='table table-bordered '>
                     <thead>

@@ -4,59 +4,60 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 header("Content-Type: application/json");
-use Controllers\AuthController;
-use Controllers\JornadaController;
-use Controllers\NoticiasController;
-use Controllers\EventosControllers;
+
+use edufast\Controllers\AuthController;
+use edufast\Controllers\JornadaController;
+use edufast\Controllers\publicacionEventosController;
+use edufast\Controllers\publicacionNoticiasController;
 
 $method = $_SERVER['REQUEST_METHOD'];
 $data = json_decode(file_get_contents('php://input'), true);
-$action = $get['action'] ?? ($data['action'] ?? null);
 
-if (!$action){
+// ✅ Corregido: se usa $_GET correctamente
+$action = $_GET['action'] ?? ($data['action'] ?? null);
+
+if (!$action) {
     http_response_code(400);
-    echo json_encode(['message' => 'No se recibio la accion']);
+    echo json_encode(['message' => 'No se recibió la acción']);
     exit;
 }
 
+// Instancia de los controladores disponibles
 $controllers = [
     'auth' => new AuthController(),
     'jornada' => new JornadaController(),
-    'noticias' => new NoticiasController(),
-    'equipo' => new EquipoController()
+    'noticias' => new publicacionNoticiasController(),
+    'evento' => new publicacionEventosController(),
 ];
 
+// Rutas disponibles
 $routes = [
     'POST' => [
         'registrarse' => ['auth', 'registrarse'],
         'login' => ['auth', 'login'],
         'agregarRol' => ['auth', 'agregarRol'],
-        'agregarJornada' => ['jornada', 'agregarJornada']
+        'crearJornada' => ['jornada', 'crearJornada']
     ],
     'GET' => [
         'obtenerJornada' => ['jornada', 'obtenerJornada'],
-        'obtenerRol' => ['auth' ,'obtenerRol'],
-        'obtenerEquipo' => ['equipo' , 'obtenerEquipo'],
+        'obtenerRol' => ['auth', 'obtenerRol'],
         'obtenerNoticias' => ['noticias', 'obtenerNoticias'],
+        'obtenerEvento' => ['evento', 'obtenerEvento']
     ],
-    'UPDATE' => [
-        'actualizarPerfil' => ['auth' , 'actualizarPerfil'],
-        'actualizarJornada' => ['jornada' , 'actualizarJornada']
+    'PUT' => [
+        'actualizarPerfil' => ['auth', 'actualizarPerfil'],
+        'actualizarJornada' => ['jornada', 'actualizarJornada']
     ],
     'DELETE' => [
-        'eliminarJornada' => ['jornada' , 'eliminarJornada']
+        'eliminarJornada' => ['jornada', 'eliminarJornada']
     ]
 ];
-if (isset($routes[$method][$action])){
-    [$controllerKey, $method ] = $routes[$method][$action];
-    $controllers[$controllerKey]->$method($data);
+
+// ✅ Ejecutar la acción si existe
+if (isset($routes[$method][$action])) {
+    [$controllerKey, $methodToCall] = $routes[$method][$action];
+    $controllers[$controllerKey]->$methodToCall($data);
 } else {
     http_response_code(400);
-    echo json_encode(['message' => 'Accion no encontrada']);
+    echo json_encode(['message' => 'Acción no encontrada']);
 }
-
-
-
-
-
-?>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
-import config from "../API/config";
+import axios from 'axios';  // Importar axios
+import API_URL from '../API/config';
 
 const NoticiasSection = () => {
     const [noticias, setNoticias] = useState([]);
@@ -9,11 +10,21 @@ const NoticiasSection = () => {
     useEffect(() => {
         const fetchNoticias = async () => {
             try {
-                const response = await fetch('https://${API_URL}/api/'); // reemplaza con tu URL real
-                const data = await response.json();
-                setNoticias(data);
+                const response = await axios.get(API_URL, {
+                    params: { action: "obtenerNoticias" },
+                });
+
+                console.log('Respuesta de la API:', response.data);
+
+                if (Array.isArray(response.data.noticias)) {
+                    setNoticias(response.data.noticias);
+                } else {
+                    console.error('La respuesta no es un arreglo:', response.data);
+                    setNoticias([]); 
+                }
             } catch (error) {
                 console.error('Error al obtener noticias:', error);
+                setNoticias([]); 
             } finally {
                 setLoading(false);
             }
@@ -28,15 +39,19 @@ const NoticiasSection = () => {
             {loading ? (
                 <ActivityIndicator size="large" color="#007bff" />
             ) : (
-                noticias.map((noticia) => (
-                    <View key={noticia.id} style={styles.card}>
-                        <Text style={styles.title}>{noticia.titulo}</Text>
-                        <Text style={styles.text}>{noticia.info}</Text>
-                        <Text style={styles.text}>
-                            Atentamente: {noticia.nombres} {noticia.apellidos}
-                        </Text>
-                    </View>
-                ))
+                noticias.length > 0 ? (
+                    noticias.map((noticia) => (
+                        <View key={noticia.id_noticia} style={styles.card}>
+                            <Text style={styles.title}>{noticia.titulo}</Text>
+                            <Text style={styles.text}>{noticia.info}</Text>
+                            <Text style={styles.text}>
+                                Atentamente: {noticia.registro_num_doc}
+                            </Text>
+                        </View>
+                    ))
+                ) : (
+                    <Text>No hay noticias disponibles.</Text>
+                )
             )}
         </View>
     );

@@ -1,24 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, View, Text, Image, Dimensions, StyleSheet } from 'react-native';
+import axios from 'axios';
+import API_URL from '../API/config';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const EventosCarousel = ({ eventos }) => {
+const EventosCarousel = ({ apiUrl }) => {
+    const [eventos, setEventos] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchEventos = async () => {
             try {
-                const response = await fetch("https://${API_URL}/MVC/", {
-                    params: { action: "obtenerEventos" },
-                })
+                const response = await axios(API_URL, {
+                    params: { action: 'obtenerEvento' },
+                });
+                const { data } = response.data;  // Acceder correctamente a la propiedad 'data'
+                console.log(data);
+                if (Array.isArray(data)) {
+                    setEventos(data);
+                } else {
+                    console.warn('La respuesta no es un array:', data);
+                }
             } catch (error) {
-                console.error("Error al obtener noticias : ", error);
+                console.error('Error al obtener eventos:', error);
             } finally {
                 setLoading(false);
             }
         };
-        fetchEventos();
-    }, []);
+    }, [apiUrl]);
 
     const renderItem = ({ item }) => (
         <View style={styles.card}>
@@ -26,10 +36,26 @@ const EventosCarousel = ({ eventos }) => {
             <View style={styles.caption}>
                 <Text style={styles.title}>{item.evento}</Text>
                 <Text style={styles.date}>{item.fecha_evento}</Text>
-                <Text style={styles.name}>{item.nombres}</Text>
+                <Text style={styles.name}>{item.registr_num_doc}</Text>
             </View>
         </View>
     );
+
+    if (loading) {
+        return (
+            <View style={styles.messageContainer}>
+                <Text style={styles.message}>Cargando eventos...</Text>
+            </View>
+        );
+    }
+
+    if (!loading && eventos.length === 0) {
+        return (
+            <View style={styles.messageContainer}>
+                <Text style={styles.message}>No hay eventos disponibles.</Text>
+            </View>
+        );
+    }
 
     return (
         <FlatList
@@ -42,6 +68,7 @@ const EventosCarousel = ({ eventos }) => {
         />
     );
 };
+
 const styles = StyleSheet.create({
     card: {
         width: screenWidth * 0.8,
@@ -79,6 +106,15 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 14,
         color: '#495057',
+    },
+    messageContainer: {
+        padding: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    message: {
+        fontSize: 16,
+        color: '#666',
     },
 });
 

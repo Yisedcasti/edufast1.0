@@ -110,12 +110,6 @@ include "consultarLogro.php";
     </section>
 <?php endforeach; ?>
 
-                            </section>
-                            <div class="d-flex justify-content-center mt-5">
-                                <a class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#crear">Crear Grado</a>
-                            </div>
-                        </section>
-
                         
                     </main>
                 </div>

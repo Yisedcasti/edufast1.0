@@ -28,14 +28,13 @@ export default function Layout() {
                     <Image source={require("../../assets/images/paginaestudent.png")} style={styles.image} />
                 </View>
 
-                {/* Eventos */}
-                <EventosCarousel />
-
-                {/* Noticias */}
-                <NoticiasSection />
-
                 {/* Equipo */}
                 <EquipoSection />
+                <EventosCarousel />
+                <NoticiasSection />
+
+                
+
             </ScrollView>
         </SafeAreaView>
     );

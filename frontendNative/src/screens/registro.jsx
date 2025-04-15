@@ -3,29 +3,50 @@ import {
     View, Text, TextInput, Alert,
     ScrollView, StyleSheet, TouchableOpacity
 } from 'react-native';
+import axios from 'axios';
+import API_URL from '../API/config';
 
 export default function RegistroScreen({ navigation }) {
     const [form, setForm] = useState({
-        id_rol: '',
+        id_rol: 1,
         tipo_doc: '',
         num_doc: '',
-        nombre: '',
-        apellido: '',
+        nombres: '',
+        apellidos: '',
         celular: '',
         telefono: '',
         direccion: '',
         correo: '',
-        contraseña: '',
+        pass: '',
     });
 
     const handleChange = (field, value) => {
         setForm({ ...form, [field]: value });
     };
 
-    const handleSubmit = () => {
-        // Aquí haces la petición a tu backend con fetch o axios
-        Alert.alert("Registro enviado", "Implementa la petición al backend aquí.");
+    const handleSubmit = async () => {
+        try {
+            const response = await axios.post(`${API_URL}?action=registrarse`, form, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+    
+            console.log("Respuesta de API:", response.data);
+    
+            if (response.data.success) {
+                Alert.alert("Registro exitoso", "Tu cuenta ha sido creada.");
+                navigation.navigate('Login');
+            } else {
+                Alert.alert("Error", response.data.message || "Hubo un error al registrarte.");
+            }
+        } catch (error) {
+            console.error('Error al registrar:', error.response?.data || error.message);
+            Alert.alert("Error de conexión", "No se pudo conectar al servidor.");
+        }
     };
+    
+    
 
     const handleLoginRedirect = () => {
         navigation.navigate('Login'); // Asegúrate que 'Login' esté en tu stack navigator
@@ -56,14 +77,14 @@ export default function RegistroScreen({ navigation }) {
                 <TextInput
                     style={styles.input}
                     placeholder="Tu nombre"
-                    onChangeText={(value) => handleChange('nombre', value)}
+                    onChangeText={(value) => handleChange('nombres', value)}
                 />
 
                 <Text style={styles.label}>Apellido completo</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Tu apellido"
-                    onChangeText={(value) => handleChange('apellido', value)}
+                    onChangeText={(value) => handleChange('apellidos', value)}
                 />
 
                 <Text style={styles.label}>Celular</Text>
@@ -104,7 +125,7 @@ export default function RegistroScreen({ navigation }) {
                     style={styles.input}
                     placeholder="Mínimo 6 caracteres"
                     secureTextEntry
-                    onChangeText={(value) => handleChange('contraseña', value)}
+                    onChangeText={(value) => handleChange('pass', value)}
                 />
 
                 <TouchableOpacity style={styles.button} onPress={handleSubmit}>

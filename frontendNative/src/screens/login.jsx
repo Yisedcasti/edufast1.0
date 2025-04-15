@@ -3,19 +3,42 @@ import {
     View, Text, TextInput, TouchableOpacity,
     Image, Alert, StyleSheet, KeyboardAvoidingView, Platform
 } from 'react-native';
+import axios from 'axios';
+import API_URL from "../API/config";
 
 export default function LoginScreen({ navigation }) {
     const [numDoc, setNumDoc] = useState('');
     const [pass, setPass] = useState('');
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         if (!numDoc || !pass) {
             Alert.alert('Campos requeridos', 'Por favor ingresa todos los campos.');
             return;
         }
 
-        // Aquí va la llamada al backend
-        Alert.alert('Intentando iniciar sesión...', `Usuario: ${numDoc}`);
+        try {
+            const response = await axios.post(API_URL, { // Cambia esta URL al endpoint de tu API
+                action: 'login', // El parámetro 'action' que necesita el backend
+                num_doc: numDoc,
+                pass: pass,
+            });
+
+            console.log(response.data);
+            if (response.status === 200) {
+                // Si la respuesta es exitosa
+                Alert.alert('Inicio de sesión exitoso', 'Bienvenido a Edufast');
+                
+                // Redirigir a la vista Dashboard
+                navigation.navigate('Dashboard');
+                
+            } else {
+                // Si la respuesta es un error
+                Alert.alert('Error de inicio de sesión', response.data.message || 'No se pudo iniciar sesión');
+            }
+        } catch (error) {
+            // Manejo de errores de red
+            Alert.alert('Error', 'Ocurrió un problema al conectar con el servidor');
+        }
     };
 
     return (

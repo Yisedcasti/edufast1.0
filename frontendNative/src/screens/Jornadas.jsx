@@ -53,7 +53,7 @@ const JornadasScreen = () => {
 
   const updateJornada = async () => {
     try {
-      await axios.put(API_URL, {
+      await axios.post(API_URL, {
         action: 'actualizarJornada',
         ...selectedJornada,
       });
@@ -65,11 +65,13 @@ const JornadasScreen = () => {
       Alert.alert('Error', 'No se pudo actualizar la jornada.');
     }
   };
+  
 
   const deleteJornada = async () => {
     try {
-      const response = await axios.delete(API_URL, {
-        params: { action: 'eliminarJornada', id_jornada: selectedJornada.id_jornada }
+      const response = await axios.post(API_URL, {
+        action: 'eliminarjornada',
+        id_jornada: selectedJornada.id_jornada,
       });
       console.log(response.data);
       setModalDeleteVisible(false);
@@ -80,6 +82,8 @@ const JornadasScreen = () => {
       Alert.alert('Error', 'No se pudo eliminar la jornada.');
     }
   };
+  
+  
   
 
   const renderJornadaItem = ({ item }) => (

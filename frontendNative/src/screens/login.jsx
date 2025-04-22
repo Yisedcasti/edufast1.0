@@ -1,43 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
     View, Text, TextInput, TouchableOpacity,
     Image, Alert, StyleSheet, KeyboardAvoidingView, Platform
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import API_URL from "../API/config";
+import { AuthContext } from '../Context/authContext';
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen({ navigation}) {
     const [numDoc, setNumDoc] = useState('');
     const [pass, setPass] = useState('');
-
-    const handleLogin = async () => {
+    const [isSubmitting, setIsSubmitting] = useState(false); 
+    const { setIsAuthenticated } = useContext(AuthContext);    
+    const handleSubmit = async () => {
         if (!numDoc || !pass) {
-            Alert.alert('Campos requeridos', 'Por favor ingresa todos los campos.');
+            Alert.alert("Error", "Por favor completa todos los campos.");
             return;
         }
 
+        setIsSubmitting(true); 
+        
+
         try {
-            const response = await axios.post(API_URL, { // Cambia esta URL al endpoint de tu API
-                action: 'login', // El parámetro 'action' que necesita el backend
-                num_doc: numDoc,
-                pass: pass,
+            // Solicita el backend para hacer login
+            const { data } = await axios.post(API_URL, {
+                action: 'login',
+                num_doc: numDoc.trim(),
+                pass: pass.trim(),
             });
 
-            console.log(response.data);
-            if (response.status === 200) {
-                // Si la respuesta es exitosa
-                Alert.alert('Inicio de sesión exitoso', 'Bienvenido a Edufast');
-                
-                // Redirigir a la vista Dashboard
-                navigation.navigate('Dashboard');
-                
+            console.log(data);
+
+            if (data.status === 'success') {
+                await AsyncStorage.setItem('auth_token', data.token); // Guarda el token
+                setIsAuthenticated(true); // Cambia el estado de autenticación
+                navigation.replace('Dashboard'); // Redirige al dashboard
             } else {
-                // Si la respuesta es un error
-                Alert.alert('Error de inicio de sesión', response.data.message || 'No se pudo iniciar sesión');
+                Alert.alert('Error', data.message); // Muestra el error
             }
-        } catch (error) {
-            // Manejo de errores de red
-            Alert.alert('Error', 'Ocurrió un problema al conectar con el servidor');
+        } catch (err) {
+            console.error(err);
+            Alert.alert('Error', 'No se pudo conectar al servidor.');
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -82,7 +88,7 @@ export default function LoginScreen({ navigation }) {
                     <Text style={styles.forgotText}>¿Olvidaste tu contraseña?</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button} onPress={handleLogin}>
+                <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={isSubmitting}>
                     <Text style={styles.buttonText}>Ingresar</Text>
                 </TouchableOpacity>
 

@@ -11,16 +11,15 @@ class AuthController {
     private $usuarioModel;
 
     public function __construct(){
-        $database = new Database();  // Instanciamos la clase Database
-        $conn = $database->getConnection();  // Obtenemos la conexión
-        $this->usuarioModel = new Usuario($conn);  // Pasamos la conexión al modelo
+        $database = new Database();  
+        $conn = $database->getConnection(); 
+        $this->usuarioModel = new Usuario($conn);  
     }
     
 
     private function jsonResponse($status, $message , $data = []){
         echo json_encode(array_merge(['status' => $status, 'message' => $message],  $data));
     }
-
     public function verificarToken(){
         $authHeader = $_SERVER['HTTP_AUTHORIZATION'] ?? null;
         if (!$authHeader){
@@ -29,40 +28,55 @@ class AuthController {
             exit;
         }
         try{
-            return JWT::decode(str_replace('Bearer ' , '', $authHeader, new Key(Clave::SECRET_KEY, Clave::JWT_HASH)));
-        } catch (Exception $e){
+            $token = str_replace('Bearer ', '', $authHeader);
+            return JWT::decode($token, new Key(Clave::SECRET_KEY, Clave::JWT_HASH));
+        } catch (\Exception $e){ // también puedes capturar \Firebase\JWT\ExpiredException si deseas
             http_response_code(401);
-            $this->jsonResponse('error' , 'Token invalido :' . $e->getMessage());
+            $this->jsonResponse('error' , 'Token inválido: ' . $e->getMessage());
             exit;
         }
     }
+    
 
-    public function login($data){
+    public function login(){
+      
         // Valida los campos recibidos
         if (empty($data['num_doc']) || empty($data['pass'])) {
             http_response_code(400);
             $this->jsonResponse('error', 'Los campos "num_doc" y "pass" son obligatorios.');
             return;
         }
-    
+        
         // Verifica las credenciales
-        $usuario = $this->usuarioModel->inicioSesion(['num_doc' => trim($data['num_doc']), 'pass' => trim($data['pass'])]);
+        $usuario = $this->usuarioModel->inicioSesion([
+            'num_doc' => trim($data['num_doc']), 
+            'pass' => trim($data['pass'])
+        ]);
+        
         if (!$usuario) {
             $this->jsonResponse('error', 'Credenciales incorrectas');
             return;
         }
-    
+        
         $payload = [
-            'iss' => '/', 
-            'aud' => 'localhost', // Audiencia
-            'iat' => time(), 
-            'exp' => time() + 3600, 
-            'data' => [ 
-                'num_doc' => $usuario['num_doc']
+            'iss' => '/',
+            'aud' => ['localhost', '192.168.80.75'],
+            'iat' => time(),
+            'exp' => time() + 3600,
+            'data' => [
+                'num_doc' => $usuario['num_doc'],
             ]
         ];
-    
-        $this->jsonResponse('success', 'Credenciales correctas', ['token' => JWT::encode($payload, Clave::SECRET_KEY, Clave::JWT_HASH)]);
+        
+        $this->jsonResponse('success', 'Credenciales correctas', [
+            'token' => JWT::encode($payload, Clave::SECRET_KEY, Clave::JWT_HASH),
+            'usuario' => [
+                'num_doc' => $usuario['num_doc'],
+                'nombres' => $usuario['nombres'],
+                'apellidos' => $usuario['apellidos'],
+                'rol' => $usuario['rol_id_rol']
+            ]
+        ]);
     }
     
     public function registrarse($data) {

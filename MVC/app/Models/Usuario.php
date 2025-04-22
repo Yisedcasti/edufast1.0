@@ -4,6 +4,8 @@ namespace edufast\Models;
 use PDO;
 use PDOException;
 use edufast\Config\Database;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class Usuario {
     private $conn;
@@ -29,8 +31,6 @@ class Usuario {
             $hashed_password = password_hash($data['pass'], PASSWORD_BCRYPT);
             $jornada_id_jornada = 1;
     
-            // Verifica los datos antes de la inserción
-            var_dump($id_rol, $tipo_doc, $num_doc, $nombre, $apellido, $celular, $telefono, $direccion, $correo, $hashed_password, $jornada_id_jornada);
             
             $sql = $this->conn->prepare("
                 INSERT INTO registro (
@@ -57,44 +57,33 @@ class Usuario {
             return json_encode(['message' => 'Error al registrar: ' . $e->getMessage()]);
         }
     }
-    
-
-    // Aquí puedes seguir con los demás métodos
-
     public function inicioSesion($data){
-        $stmt = $this->conn->prepare("SELECT * FROM registro WHERE num_doc = :num_doc");
-            $stmt->execute(['num_doc' => $data['num_doc']]);
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt = $this->conn->prepare("SELECT * FROM registro WHERE num_doc = ?");
+        $stmt->execute([$data['num_doc']]);
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($user && password_verify($pass, $user['pass'])) {
-                // Definir el payload del JWT
-                $payload = [
-                    "num_doc" => $user['num_doc'],
-                    "rol" => $user['rol_id_rol'],
-                    "nombres" => $user['nombres'],
-                    "apellidos" => $user['apellidos'],
-                    "exp" => time() + 3600 // Token válido por 1 hora
-                ];
 
-                $jwt = JWT::encode($payload, $SECRET_KEY, 'HS256');
-
-                // Guardar el token en una sesión
-                session_start();
-                $_SESSION['jwt'] = $jwt;
-                $_SESSION['user'] = $user['num_doc'];
-                $_SESSION['rol'] = $user['rol_id_rol'];
-                $_SESSION['nombres'] = $user['nombres'];
-                $_SESSION['apellidos'] = $user['apellidos'];
-
+        if ($usuario && password_verify($data['pass'], $usuario['pass'])) {
+            $payload = [
+                "num_doc" => $usuario['num_doc'],
+                "rol" => $usuario['rol_id_rol'],
+                "nombres" => $usuario['nombres'],
+                "apellidos" => $usuario['apellidos'],
+                "exp" => time() + 3600
+            ];
+            
+            $jwt = JWT::encode($payload, Clave::SECRET_KEY, 'HS256');
+            session_start();
+            $_SESSION['jwt'] = $jwt;
+            $_SESSION['user'] = $usuario['num_doc'];
+            $_SESSION['rol'] = $usuario['rol_id_rol'];
+            $_SESSION['nombres'] = $usuario['nombres'];
+            $_SESSION['apellidos'] = $usuario['apellidos'];
+            
+            return $usuario;
         } else {
-            echo json_encode(['error' => "Credenciales incorrectas"]);
+            return false;
         }
-            
-            
-        }
-
-    public function actualizarPerfil($data, $num_doc){
-                // Lógica pendiente
     }
 }
 ?>

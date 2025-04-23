@@ -10,6 +10,7 @@ use edufast\Controllers\JornadaController;
 use edufast\Controllers\publicacionEventosController;
 use edufast\Controllers\publicacionNoticiasController;
 
+
 $method = $_SERVER['REQUEST_METHOD'];
 $data = json_decode(file_get_contents('php://input'), true);
 
@@ -36,7 +37,9 @@ $routes = [
         'registrarse' => ['auth', 'registrarse'],
         'login' => ['auth', 'login'],
         'agregarRol' => ['auth', 'agregarRol'],
-        'crearJornada' => ['jornada', 'crearJornada']
+        'crearJornada' => ['jornada', 'crearJornada'],
+        'eliminarjornada' => ['jornada', 'eliminarJornada'],
+        'actualizarJornada' => ['jornada', 'actualizarJornada']
     ],
     'GET' => [
         'obtenerJornada' => ['jornada', 'obtenerJornada'],
@@ -44,12 +47,8 @@ $routes = [
         'obtenerNoticias' => ['noticias', 'obtenerNoticias'],
         'obtenerEvento' => ['evento', 'obtenerEvento']
     ],
-    'PUT' => [
+    'PATCH' => [
         'actualizarPerfil' => ['auth', 'actualizarPerfil'],
-        'actualizarJornada' => ['jornada', 'actualizarJornada']
-    ],
-    'DELETE' => [
-        'eliminarJornada' => ['jornada', 'eliminarJornada']
     ]
 ];
 

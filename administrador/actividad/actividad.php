@@ -5,7 +5,7 @@ if (!isset($_SESSION['user'])) {
     header('Location: ../src/protected.php');
     exit;
 }
-
+ 
 include_once "consultar.php";
 ?>
 <!DOCTYPE html>
@@ -17,11 +17,22 @@ include_once "consultar.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../../css/actividad.css">
     <link rel="stylesheet" href="../../css/stylsadm.css"/>
-    <title>Pagina Principal</title>
+    <title>Actividad</title>
 </head>
 <body>
+
+<style>
+        .container {
+            font-family: serif;
+            font-size: 17px;
+        }
+
+        .card {
+            background: linear-gradient(to bottom right,rgb(238, 205, 219),rgb(212, 130, 144));
+        }
+    </style>
+
     <div class="d-flex" id="wrapper">
 
         <div class="listado" id="sidebar-wrapper">
@@ -88,13 +99,13 @@ include_once "consultar.php";
       <h1 class="title text-center mt-3">Actividades</h1>
     <section class="row p-3">
     <?php foreach ($actividades as $actividad) : ?>
-        <section class="col -lg- 4 col-md-3 col-sm-6 col-12 mb-4">
+        <section class="col -lg- 4 col-md-6 col-sm-6 col-12 mb-4">
           <section class="card">
             <section class="card-body">
               <h3 class="card-title text-center"><b><?php echo htmlspecialchars($actividad->nombre_act); ?></b></h3>
               <p class="card-text"><?php echo htmlspecialchars($actividad->nombre_logro); ?></p>
               <p class="card-text"><?php echo htmlspecialchars($actividad->descripcion); ?></p>
-              <p class="crad-text"><?php echo htmlspecialchars($actividad->fecha_entrega); ?></p>
+              <p class="crad-text">Fecha de entrega : <?php echo htmlspecialchars($actividad->fecha_entrega); ?></p>
             </section>
             </section>
             </section>

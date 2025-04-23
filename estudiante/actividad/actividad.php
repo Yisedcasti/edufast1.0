@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
+    header('Location: ../src/protected.php');
+    exit;
+}
 include_once "consultar.php";
 ?>
 <!DOCTYPE html>
@@ -14,7 +20,7 @@ include_once "consultar.php";
     <link rel="stylesheet" href="../../css/nav.css"/>
     <title>Pagina Principal</title>
 </head>
-<body>
+<body> 
     <div class="d-flex" id="wrapper">
 
         <div class="listado" id="sidebar-wrapper">
@@ -48,7 +54,7 @@ include_once "consultar.php";
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i>Maria Camila Torres Jaramillo
+                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">Salir</a></li>
@@ -80,20 +86,14 @@ include_once "consultar.php";
       <h1 class="title text-center mt-3">Actividades</h1>
     <section class="row p-3">
     <?php foreach ($actividades as $actividad) : ?>
-        <section class="col -lg- 4 col-md-3 col-sm-6 col-12 mb-4">
+        <section class="col -lg- 4 col-md-6 col-sm-6 col-12 mb-4">
           <section class="card">
             <section class="card-body">
               <h3 class="card-title text-center"><b><?php echo htmlspecialchars($actividad->nombre_act); ?></b></h3>
               <p class="card-text"><?php echo htmlspecialchars($actividad->nombre_logro); ?></p>
               <p class="card-text"><?php echo htmlspecialchars($actividad->descripcion); ?></p>
-              <p class="crad-text"><?php echo htmlspecialchars($actividad->fecha_entrega); ?></p>
+              <p class="crad-text">Fecha de entrega:<?php echo htmlspecialchars($actividad->fecha_entrega); ?></p>
               <div class="d-flex justify-content-between">
-
-                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#confirmarModal<?php echo $actividad->id_actividad ?>">
-                <i class="fas fa-trash-alt"></i></button>
-<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#actualizarModal<?php echo $actividad->id_actividad ?>">
-    <i class="fas fa-edit"></i>
-</button>
 
             </div>
             </section>
@@ -101,126 +101,8 @@ include_once "consultar.php";
             </section>
             <?php endforeach; ?>
              <!-- Botón Crear  -->
-        <div class="d-flex justify-content-center mb-4">
-            <a class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#crear">Crear Curso</a>
-        </div>
           </section>
 
-
-<!-- actualizar -->
-<?php foreach($actividades as $actividad): ?>
-<div class="modal fade" id="actualizarModal<?php echo $actividad->id_actividad ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Actualizar Actividad</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="formActualizar" method="POST" action="Actualizar.php">
-                    <input type="hidden" name="id_actividad" id="id_actividad" value="<?php echo $actividad->id_actividad ?>">
-                    <div class="mb-3">
-                        <label for="nom_actividad" class="form-label">Nombre de la Actividad</label>
-                        <input type="text" class="form-control" id="nom_actividad" name="nom_actividad" value="<?php echo $actividad->nombre_act ?>" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="descrip_actividad" class="form-label">Descripción de la Actividad</label>
-                        <input type="text" class="form-control" id="descrip_actividad" name="descrip_actividad" value="<?php echo $actividad->descripcion ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="fecha_entrega">Fecha de Entrega</label>
-                        <input type="date" class="form-control" id="fecha_entrega" name="fecha_entrega" value="<?php echo $actividad -> fecha_entrega ?>" required>
-                    </div>
-                    <div class="form-group">
-    <label for="codigo_logro">Logro</label>
-    <select class="form-control" name="codigo_logro" id="codigo_logro" required>
-        <?php foreach ($logros as $logro): ?>
-            <option value="<?= $logro['id_logro'] ?>" 
-                <?= isset($_POST['id_logro']) && $_POST['id_logro'] == $logro['id_logro'] ? 'selected' : '' ?>>
-                <?= $logro['nombre_logro'] ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-</div>
-                    <div class="modal-footer mt-3 justify-content-center">
-                    <button type="submit" class="btn btn-dark r">Actualizar</button>
-        </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<?php endforeach; ?>
-
-          <!-- FORMULARIO CREAR -->
-<div class="modal fade" id="crear" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tituloformulario" aria-hidden="true">
-<?php if (!empty($mensaje)): ?>
-        <div class="alert <?= $claseAlerta; ?> alert-dismissible fade show" role="alert">
-            <?= $mensaje; ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    <?php endif; ?>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="tituloformulario">Crear Logro</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h2 class="mt-5">Crear Actividad</h2>
-                <form action="guardar.php" method="POST">
-                    <div class="form-group">
-                        <label for="actividad">Actividad</label>
-                        <input type="text" class="form-control" id="actividad" name="nom_actividad" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="descrip_actividad">Descripción</label>
-                        <textarea class="form-control" id="descripcion_actividad" name="descrip_actividad" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="fecha_entrega">Fecha de Entrega</label>
-                        <input type="date" class="form-control" id="fecha_entrega" name="fecha_entrega" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="codigo_logro">Logro</label>
-                        <select class="form-control" name="codigo_logro" id="codigo_logro" required>
-                            <?php foreach ($logros as $logro): ?>
-                                <option value="<?= $logro['id_logro'] ?>"><?= $logro['nombre_logro'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="modal-footer m-3 justify-content-cente">
-                        <button type="submit" class="btn btn-dark">Guardar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<?php foreach($actividades as $actividad): ?>
-    <div class="modal fade" id="confirmarModal<?php echo $actividad->id_actividad ?>" tabindex="-1" role="dialog" aria-labelledby="confirmarModalLabel<?php echo $actividad->id_actividad ?>" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmarModalLabel<?php echo $actividad->id_actividad ?>">Confirmar Eliminación <?php echo $actividad->nombre_act ?> </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ¿Estás seguro de que deseas eliminar este registro?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form method="POST" action="eliminar.php">
-                        <input type="hidden" name="id_actividad" value="<?php echo $actividad->id_actividad ?>">
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-<?php endforeach; ?>
 
           </main>
                     </div>

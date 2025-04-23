@@ -79,7 +79,7 @@ if (!isset($_SESSION['user'])) {
                         <h1 class="card-title">Profesor</h1>
                     </div>
                     <div class="card-footer text-center contenedor">
-                        <a href="../php/registro/view/registros.php?id_rol=5" class="btn btn-dark">Registros</a>
+                        <a href="profesores/vistas/profesores.php" class="btn btn-dark">Registros</a>
                     </div>
                 </div>
             </section>
@@ -112,10 +112,10 @@ if (!isset($_SESSION['user'])) {
                 <div class="card h-100">
                     <div class="card-body text-center">
                         <i class="fas fa-user-plus fs-1"></i>
-                        <h1 class="card-title">Alumno</h1>
+                        <h1 class="card-title">Observador</h1>
                     </div>
                     <div class="card-footer text-center contenedor">
-                        <a href="registro/view/registros.php?id_rol=6" class="btn btn-dark">Regsitros</a>
+                        <a href="observador/vistas/alumnos.php" class="btn btn-dark">Observadores</a>
                     </div>
                 </div>
             </section>

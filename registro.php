@@ -92,7 +92,7 @@ $roles = $base_de_datos->query("SELECT * FROM rol")->fetchAll(PDO::FETCH_ASSOC);
             <div class="form-group">
                 <span class="label">Nº documento</span>
                 <input name="num_doc" oninput="validarTiempoReal(this)" maxlength="10" data-length="10" id="num_doc" type="number" class="input"  required>
-                <div id="error" style="color: red; display: none;">El número debe tener exactamente 10 dígitos.</div>
+                <div id="error" style="color: red; display: none;">El número debe tener de 8 a 10 dígitos.</div>
 
             </div>
             <div class="form-group">

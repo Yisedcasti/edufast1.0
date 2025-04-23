@@ -83,7 +83,7 @@ include_once "consulta.php";
         <section class="container">
             <h2>Grados Existentes</h2>
             
-            <table class="table Regular shadow">
+            <table class="table shadow ">
                 <thead>
                     <tr>
                         <th class="text-center ">Grado</th>

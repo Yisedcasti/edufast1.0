@@ -5,7 +5,9 @@ if (!isset($_SESSION['user'])) {
     header('Location: ../src/protected.php');
     exit;
 }
+include_once "../funciones/consultar.php";
 
+$num_doc = isset($_GET['num_doc']) ? $_GET['num_doc'] : ''; 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,9 +18,8 @@ if (!isset($_SESSION['user'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../css/nav.css"/>
+    <link rel="stylesheet" href="../../../css/stylsadm.css"/>
     <link rel="stylesheet" href="../css/principal.css"/>
-  
     <title>Pagina Principal</title>
 </head>
 <body>
@@ -28,13 +29,13 @@ if (!isset($_SESSION['user'])) {
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">EDUFAST</div>
             <div class="list-group list-group-flush my-3">
 
-                <a href="registro/view/perfil.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Perfil</a>
-                <a href="observador/vistas/observador.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">observador</a>
-                <a href="asistencia/asistencia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
-                <a href="logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
-                <a href="actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
-                <a href="notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
-                <a href="Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
+                <a href="../../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
+                <a href="../../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
+                <a href="../../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
+                <a href="../../materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
+                <a href="../../logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
+                <a href="../../actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
+                <a href="../../../admin/pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>            
             </div>
         </div>
 
@@ -42,7 +43,7 @@ if (!isset($_SESSION['user'])) {
             <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-align-left fs-4 me-3" id="menu-toggle"></i>
-                    <h2 class="fs-2 m-0">Bienvenido</h2>
+                    <h2 class="fs-2 m-0">Bienvenid@</h2>
                 </div>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -54,12 +55,12 @@ if (!isset($_SESSION['user'])) {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                            <a class="nav-link dropdown-toggle text-white fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="../cerrar.php">Salir</a></li>
+                                <li><a class="dropdown-item" href="../../../admin/cerrar.php">Salir</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -69,44 +70,55 @@ if (!isset($_SESSION['user'])) {
 			<div class="container mt-5">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h1>Welcome estudiante <?php echo $_SESSION['nombres']; ?> </h1>
-                        <p class="lead"> En este espacio podras consultar tus datos, tu observador, poder llevar un control de tus notas y inasistencias y podras tambien poder descargar el boletin cuando se ha permitido y muchas cosas màs que iras decubriendo </p>
-                    </div>
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4  ">
 
-                    <section class="col">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-check-circle fs-1"></i>
-                        <h1 class="card-title">Perfil</h1>
-                    </div>
-                    <div class="card-footer text-center">
-                        <a href="registro/view/perfil.php" class="btn btn-dark">Perfil</a>
-                    </div>
-                </div>
-            </section>
-            <section class="col">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-check-circle fs-1"></i>
-                        <h1 class="card-title">Asistencia</h1>
-                    </div>
-                    <div class="card-footer text-center">
-                        <a href="asistencia/asistencia.php" class="btn btn-dark">Asistencia</a>
-                    </div>
-                </div>
-            </section>
-            <section class="col">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-check-circle fs-1"></i>
-                        <h1 class="card-title">Notas</h1>
-                    </div>
-                    <div class="card-footer text-center">
-                        <a href="notas/notas.php" class="btn btn-dark">Notas</a>
-                    </div>
-                </div>
-            </section>
+                    <div class="container">
+    <h2 class="mb-4 text-center">Formulario de Selección</h2>
+    <form action="../funciones/crear.php" method="POST" class="shadow p-4 rounded bg-white">
+
+    <?php foreach ($docentes as $docente): ?>
+    <div class="mb-3">
+      <input type="hidden" name="id_docente" id="id_docente_<?= $docente['id_docente'] ?>" class="form-control" value="<?= $docente['id_docente'] ?>" readonly>
+    </div>
+  <?php endforeach; ?>
+      
+      <!-- Curso -->
+      <div class="mb-3">
+        <label for="curso" class="form-label">Curso</label>
+        <select name="cursos_id_cursos" id="curso" class="form-select" required>
+          <option value="">Seleccione un curso</option>
+          <?php foreach ($cursos as $curso): ?>
+            <option value="<?= $curso['id_cursos'] ?>"><?= $curso['curso'] ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+
+      <!-- Materia -->
+      <div class="mb-3">
+        <label for="materia" class="form-label">Materia</label>
+        <select name="materia_id_materia" id="materia" class="form-select" required>
+          <option value="">Seleccione una materia</option>
+          <?php foreach ($materias as $materia): ?>
+            <option value="<?= $materia['id_materia'] ?>"><?= $materia['materia'] ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+
+      <!-- Jornada -->
+      <div class="mb-3">
+        <label for="jornada" class="form-label">Jornada</label>
+        <select name="jornada_id_jornada" id="jornada" class="form-select" required>
+          <option value="">Seleccione una jornada</option>
+          <?php foreach ($jornadas as $jornada): ?>
+            <option value="<?= $jornada['id_jornada'] ?>"><?= $jornada['jornada'] ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+
+      <!-- Botón de envío -->
+      <button type="submit" class="btn btn-primary w-100">Enviar</button>
+    </form>
+  </div>
+         </div>
         </div>
     </main>
                 </div>

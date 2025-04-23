@@ -2,8 +2,8 @@
 require_once "../model/TareasDB.php";
 
 class TareasAPI
- { 
-    public function API() 
+ {
+    public function API()
      {
         header('CONTENT-TYPE: application/json');
         $method = $_SERVER['REQUEST_METHOD'];
@@ -53,7 +53,7 @@ function response($code = 200, $status = "", $message = ""){
             $response = $tareasDB->obtenerListadoRegistros();
             echo json_encode($response, JSON_PRETTY_PRINT);
         }
-    }
+    } 
     
     //Metodo para guardar los datos
     function ProcesarCrearNoticia()
@@ -91,7 +91,7 @@ function response($code = 200, $status = "", $message = ""){
                 if (empty($objArr)) {
                     $this->response(422, "error", "Nada que guardar, comprobar JSON");
                 }
-                else if (isset($obj->curso)) {
+                else if (isset($obj->materia)) {
                     // Crear una instancia de TareasDB y llamar a la función actualizar
                     $tareasDB = new TareasDB();
                     $tareasDB->actualizarNoticia(
@@ -123,10 +123,10 @@ function response($code = 200, $status = "", $message = ""){
                 if ($tareasDB->verificarExistenciaById($id_materia)) {
                     $respuesta = $tareasDB->eliminarNoticia($id_materia);
                     if ($respuesta) {
-                        $this->response(200, "success", "Materia Eliminada Correctamente");
+                        $this->response(200, "success", "Registro Eliminado Correctamente");
                         return $respuesta;
                     } else {
-                        $this->response(500, "error", "Error al eliminar la materia");
+                        $this->response(500, "error", "Error al eliminar la noticia");
                         return false;
                     }
                 } else {

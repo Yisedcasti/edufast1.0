@@ -90,17 +90,15 @@ if (!isset($_SESSION['user'])) {
       <h1 class="title text-center text-white mt-3">Actividades</h1>
     <section class="row p-3">
     <?php foreach ($actividades as $actividad) : ?>
-        <section class="col -lg- 4 col-md-3 col-sm-6 col-12 mb-4">
+        <section class="col -lg- 4 col-md-6 col-sm-6 col-12 mb-4">
           <section class="card">
             <section class="card-body">
               <h3 class="card-title text-center"><b><?php echo htmlspecialchars($actividad->nombre_act); ?></b></h3>
               <p class="card-text"><?php echo htmlspecialchars($actividad->nombre_logro); ?></p>
               <p class="card-text"><?php echo htmlspecialchars($actividad->descripcion); ?></p>
-              <p class="crad-text"><?php echo htmlspecialchars($actividad->fecha_entrega); ?></p>
+              <p class="crad-text">Fecha de entrega:<?php echo htmlspecialchars($actividad->fecha_entrega); ?></p>
               <div class="d-flex justify-content-between">
 
-                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#confirmarModal<?php echo $actividad->id_actividad ?>">
-                <i class="fas fa-trash-alt"></i></button>
 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#actualizarModal<?php echo $actividad->id_actividad ?>">
     <i class="fas fa-edit"></i>
 </button>
@@ -112,7 +110,7 @@ if (!isset($_SESSION['user'])) {
             <?php endforeach; ?>
              <!-- Botón Crear  -->
         <div class="d-flex justify-content-center mb-4">
-            <a class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#crear">Crear Curso</a>
+            <a class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#crear">Crear actividad</a>
         </div>
           </section>
 
@@ -209,28 +207,6 @@ if (!isset($_SESSION['user'])) {
     </div>
 </div>
 
-<?php foreach($actividades as $actividad): ?>
-    <div class="modal fade" id="confirmarModal<?php echo $actividad->id_actividad ?>" tabindex="-1" role="dialog" aria-labelledby="confirmarModalLabel<?php echo $actividad->id_actividad ?>" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmarModalLabel<?php echo $actividad->id_actividad ?>">Confirmar Eliminación <?php echo $actividad->nombre_act ?> </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ¿Estás seguro de que deseas eliminar este registro?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form method="POST" action="eliminar.php">
-                        <input type="hidden" name="id_actividad" value="<?php echo $actividad->id_actividad ?>">
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-<?php endforeach; ?>
 
           </main>
                     </div>

@@ -110,11 +110,12 @@ include_once "../funciones/consulta.php";
                class="form-control border-0 bg-transparent text-center">
     </td>
     <td>
-        <!-- Campo para la fecha -->
-        <input type="text" 
-               name="info" 
-               value="<?php echo htmlspecialchars($publicacion->info); ?>" 
-               class="form-control border-0 bg-transparent text-center">
+    <input type="text"
+       name="info"
+       value="<?php echo htmlspecialchars($publicacion->info); ?>"
+       class="form-control border-0 bg-transparent text-center"
+       style="height: auto; min-height: 60px;">
+
     </td>
     <td>
         <input type="hidden" name="id_noticia" value="<?php echo $publicacion->id_noticia; ?>">

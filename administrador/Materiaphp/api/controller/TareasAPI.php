@@ -2,8 +2,8 @@
 require_once "../model/TareasDB.php";
 
 class TareasAPI
- {
-    public function API()
+ { 
+    public function API() 
      {
         header('CONTENT-TYPE: application/json');
         $method = $_SERVER['REQUEST_METHOD'];
@@ -29,7 +29,7 @@ class TareasAPI
                             break;
         }
      }
-//METODO RESPONSE //
+//METODO RESPONSE // 
 
 function response($code = 200, $status = "", $message = ""){
     http_response_code($code);
@@ -46,8 +46,8 @@ function response($code = 200, $status = "", $message = ""){
     function ProcesarListarNoticias()
     {
     $tareasDB =  new TareasDB();
-        if (isset($_GET['id_noticias'])){
-            $response = $tareasDB->verificarExistenciaById($_GET['id_noticias']);
+        if (isset($_GET['id_materia'])){
+            $response = $tareasDB->verificarExistenciaById($_GET['id_materia']);
             echo json_encode($response, JSON_PRETTY_PRINT);
         } else{
             $response = $tareasDB->obtenerListadoRegistros();
@@ -64,10 +64,10 @@ function response($code = 200, $status = "", $message = ""){
             if(empty($objArr)){
                 $this->response(422, "error","Nada que guardar, comprobar json");
             }
-            else if(isset($obj->titulo)){
-                print "el dato es {$obj->titulo}";
+            else if(isset($obj->materia)){
+                print "el dato es $obj->materia";
                 $tareasDB = new TareasDB();
-                $tareasDB->registrarDatos($obj->titulo,$obj->info, $obj->registro_num_doc);
+                $tareasDB->registrarDatos($obj->materia,$obj->area_id_area);
                 $this->response(200,"sucess","Registro Guardado Correctamente");
             }
             else{
@@ -83,25 +83,21 @@ function response($code = 200, $status = "", $message = ""){
     // Metodo para aCTUALIZAR Los datos
     
     function ProcesarActualizarNoticia(){
-        // Obtener el contenido JSON del cuerpo de la solicitud
         $obj = json_decode(file_get_contents('php://input'));
         
-        // Verificar si los parámetros 'action' y 'id' están presentes en la URL
         if (isset($_GET['action']) && isset($_GET['id'])) {
             if ($_GET['action'] == 'update') {
-                // Verificar si el JSON recibido no está vacío
                 $objArr = (array) $obj;
                 if (empty($objArr)) {
                     $this->response(422, "error", "Nada que guardar, comprobar JSON");
                 }
-                // Verificar que el campo 'tareas_titulo' esté presente en el JSON
-                else if (isset($obj->titulo)) {
+                else if (isset($obj->curso)) {
                     // Crear una instancia de TareasDB y llamar a la función actualizar
                     $tareasDB = new TareasDB();
                     $tareasDB->actualizarNoticia(
                         $_GET['id'],
-                        $obj->titulo,
-                        $obj->info
+                        $obj->materia,
+                        $obj->area_id_area
                     );
                     // Responder con éxito si la actualización fue exitosa
                     $this->response(200, "success", "Registro Actualizado Correctamente");
@@ -121,16 +117,16 @@ function response($code = 200, $status = "", $message = ""){
     {
         if (isset($_GET['action']) && isset($_GET['id'])) {
             if ($_GET['action'] == 'delete') {
-                $id_noticia = intval($_GET['id']);
+                $id_materia = intval($_GET['id']);
                 $tareasDB = new TareasDB();
                 
-                if ($tareasDB->verificarExistenciaById($id_noticia)) {
-                    $respuesta = $tareasDB->eliminarNoticia($id_noticia);
+                if ($tareasDB->verificarExistenciaById($id_materia)) {
+                    $respuesta = $tareasDB->eliminarNoticia($id_materia);
                     if ($respuesta) {
-                        $this->response(200, "success", "Registro Eliminado Correctamente");
+                        $this->response(200, "success", "Materia Eliminada Correctamente");
                         return $respuesta;
                     } else {
-                        $this->response(500, "error", "Error al eliminar la noticia");
+                        $this->response(500, "error", "Error al eliminar la materia");
                         return false;
                     }
                 } else {

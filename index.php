@@ -21,7 +21,7 @@ $publicacionesNoticias = $sentencia->fetchAll(PDO::FETCH_OBJ);
     <title>Index</title>
 </head>
 <body>
-    <header class="containerNav navbar navbar-expand-lg shadow fixed-top" style="background-color: #7f7b82;">
+    <header class="containerNav navbar navbar-expand-lg shadow fixed-top" style="background-color:#581845;">
         <div class="container d-flex justify-content-between align-items-left">
             <!-- Logo -->
             <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#" style="color: white;">
@@ -66,30 +66,20 @@ $publicacionesNoticias = $sentencia->fetchAll(PDO::FETCH_OBJ);
             </div>
         </section>
         
-        
+       
         
 
         <section class="pagina" id="pagina">
             <section class="conteinerPagina">
                 <figure class="imagenPage col-6 p-3">
-                    <img src="imagenes/paginaadmin.png" alt="imagen" width="1900px"></img>
+                    <img src="imagenes\indexImg.png" alt="imagen" width="1900px"></img>
                 </figure>
                 <section class="informacionPage  p-3">
-                    <h1 class="text-center">VISTA REGISTRO</h1>
+                    <h1 class="text-center">VISTA PREVIA</h1>
                     <p><i>Edufast es una plataforma diseñada para facilitar el acceso a información educativa, donde podrás encontrar cursos, grados actividades y los logros asociados a ellas. También podrás consultar la asistencia y las materias disponibles.Dependiendo de tu rol o profesión, tendrás acceso a diferentes funcionalidades y estilos personalizados en las páginas. Es un software intuitivo, fácil de usar y adaptado para cubrir diversas necesidades, asegurando una experiencia agradable para todos los usuarios.</i></p>
                 </section>
             </section>
-            <section class="conteinerPagina reverse">
-                <figure class="imagenPage col-6 p-3">
-                    <img src="imagenes/paginaestudent.png" alt="imagen"  width="1900px"></img>
-                </figure>
-                <section class="informacionPage">
-                <h1 class="text-center">VISTA REGISTRO</h1>
-                <p><i>Edufast es una plataforma diseñada para facilitar el acceso a información educativa, donde podrás encontrar cursos, grados actividades y los logros asociados a ellas. También podrás consultar la asistencia y las materias disponibles.Dependiendo de tu rol o profesión, tendrás acceso a diferentes funcionalidades y estilos personalizados en las páginas. Es un software intuitivo, fácil de usar y adaptado para cubrir diversas necesidades, asegurando una experiencia agradable para todos los usuarios.</i></p>
-                </section>
             </section>
-            </section>
-
             
         <section class="eventos" id="eventos">
             <div id="carouselExampleCaptions" class="carousel slide">
@@ -101,13 +91,14 @@ $publicacionesNoticias = $sentencia->fetchAll(PDO::FETCH_OBJ);
                 </div>
                 <div class="carousel-inner">
                   <div class="carousel-item active c-item">
-                    <img src="<?php echo "../administrador/imagenes/" . htmlspecialchars($publicacion->img); ?>" class="d-block w-100 c-img" alt="...">
+                    <img src="<?php echo "imagenes/" . htmlspecialchars($publicacion->img); ?>" class="d-block w- c-img" alt="...">
                     <div class="carousel-caption d-none d-md-block">
                       <h5><?php echo htmlspecialchars($publicacion->evento); ?></h5>
                       <p class="text-light"><?php echo htmlspecialchars($publicacion->fecha_evento); ?></p>
                       <p><?php echo htmlspecialchars($publicacion->nombres); ?></p>
                     </div>
                   </div>
+
                  
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>

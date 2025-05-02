@@ -24,9 +24,10 @@ $publicacionesNoticias = $sentencia->fetchAll(PDO::FETCH_OBJ);
     <header class="containerNav navbar navbar-expand-lg shadow fixed-top" style="background-color:#581845;">
         <div class="container d-flex justify-content-between align-items-left">
             <!-- Logo -->
-            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#" style="color: white;">
-                <span style="color: white;">EDUFAST</span>
-            </a>
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#" style="color: white; cursor: default;">
+    <span style="color: white;">EDUFAST</span>
+</a>
+
             <!-- Botón Responsive -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

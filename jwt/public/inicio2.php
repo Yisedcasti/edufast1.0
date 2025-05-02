@@ -13,7 +13,7 @@
 <body>
     <header class="navbar navbar-expand-lg bg-body-tertiary containernav shadow">
         <div class="container d-flex justify-content-between align-items-center">
-            <a class="navbar-brand fw-bold text-success d-flex align-items-center gap-2" href="#">
+            <a class="navbar-brand fw-bold text-success d-flex align-items-center gap-2" href="#" style="cursor: default;">
                 <img src="../../imagenes/logo.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
                 <span class="text-white">EDUFAST</span>
             </a>
@@ -60,10 +60,7 @@
                     <small class="form-text">Asegúrate de introducir la contraseña correcta.</small>
                 </div>
 
-                <div class="text-end">
-                    <a class="olvido" href="#">¿Olvidaste tu contraseña?</a>
-                </div>
-
+   
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary mt-4">Iniciar sesión</button>
                 </div>
@@ -74,5 +71,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 </body>
+<script src="java/pass.js"></script>
+    <script src="java/alertas.js"></script>
+    <script src="java/validaciones.js"></script>
 
+</html>
 </html>

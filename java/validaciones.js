@@ -20,22 +20,30 @@ function validarTiempoReal(input) {
     }
   }
 
-  // Validar todo el formulario antes de enviarlo
   function validarFormulario() {
     let esValido = true;
 
-    // Selecciona todos los inputs y verifica cada uno
+    // 1. Validación de los campos de texto
     const inputs = document.querySelectorAll('input[type="text"]');
     inputs.forEach(input => {
-      const longitudRequerida = parseInt(input.getAttribute('data-length'), 10);
-      const errorDiv = input.nextElementSibling; // Div de error asociado
-      if (input.value.length !== longitudRequerida) {
-        errorDiv.style.display = 'block'; // Muestra el error
-        esValido = false; // Indica que hay errores
-      } else {
-        errorDiv.style.display = 'none'; // Oculta el error si es válido
-      }
+        const longitudRequerida = parseInt(input.getAttribute('data-length'), 10);
+        const errorDiv = input.nextElementSibling; // Div de error asociado
+        if (input.value.length !== longitudRequerida) {
+            errorDiv.style.display = 'block'; // Muestra el error
+            esValido = false; // Indica que hay errores
+        } else {
+            errorDiv.style.display = 'none'; // Oculta el error si es válido
+        }
     });
 
-    return esValido; 
-  }
+    // 2. Validación de la contraseña
+    const password = document.getElementById('password').value;
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&#*])[A-Za-z\d@$!%?&#*]{8,}$/;
+
+    if (!regex.test(password)) {
+        alert('La contraseña no cumple con los requisitos.');
+        esValido = false; // Evitar el envío del formulario si la contraseña es incorrecta
+    }
+
+    return esValido; // Retorna true si todo es válido, false si hay errores
+}

@@ -19,7 +19,7 @@ $roles = $base_de_datos->query("SELECT * FROM rol")->fetchAll(PDO::FETCH_ASSOC);
     <header class="navbar navbar-expand-lg bg-body-tertiary containernav shadow">
         <div class="container d-flex justify-content-between align-items-center">
             <!-- Logo -->
-            <a class="navbar-brand fw-bold text-success d-flex align-items-center gap-2" href="#">
+            <a class="navbar-brand fw-bold text-success d-flex align-items-center gap-2" href="#" style="cursor: default;">
                 <img src="imagenes/logo.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
                 <span class="text-white">EDUFAST</span>
             </a>

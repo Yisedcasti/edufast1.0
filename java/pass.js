@@ -4,7 +4,7 @@ document.getElementById('password').addEventListener('input', function () {
   const errorDiv = document.getElementById('error-password');
 
   // Expresión regular para una contraseña segura
-  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
+  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
 
   // Validar la contraseña
   if (!regex.test(password)) {
@@ -18,7 +18,7 @@ document.getElementById('password').addEventListener('input', function () {
 // Validación cuando intentas enviar el formulario
 function validarFormulario() {
   const password = document.getElementById('password').value;
-  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
+  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
 
   // Validar la contraseña
   if (!regex.test(password)) {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
 
 <head>
@@ -47,6 +47,21 @@
                         <?php echo $error_message; ?>
                     </div>
                 <?php endif; ?>
+                <?php
+ if (isset($_GET['status'])) {
+  if ($_GET['status'] == 'success') {
+      echo '<div class="alert alert-success alert-dismissible fade show" role="alert" id="autoCloseAlert">
+              ¡Accion realizada exitosamente!
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>';
+  } elseif ($_GET['status'] == 'error') {
+      echo '<div class="alert alert-danger alert-dismissible fade show" role="alert" id="autoCloseAlert">
+              Credenciales incorrectas. Por favor verifique los datos y vuelva a intentarlo.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>';
+  }
+}
+?>
 
                 <div class="mb-3">
                     <label for="user" class="form-label ps-3"><b>Usuario:</b></label>

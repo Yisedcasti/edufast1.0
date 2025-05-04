@@ -143,7 +143,7 @@ if (!isset($_SESSION['user'])) {
             <div class="modal-body">
             <header>
         </header>
-        <form class="formulario" action="../funciones/jornadas_controlador.php" method="POST">
+        <form class="formulario" action="../funciones/controlador_jornadas.php" method="POST">
         <input type="hidden" name="accion" value="crear">
             <section class="jornada">
             <label for="jornada">Jornada</label>
@@ -185,7 +185,7 @@ if (!isset($_SESSION['user'])) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <form class="formulario" action="../funciones/jornadas_controlador.php" method="POST">
+            <form class="formulario" action="../funciones/controlador_jornadas.php" method="POST">
             <input type="hidden" name="accion" value="actualizar">
             <input type="hidden" name="id_jornada" value="<?= $jornada->id_jornada ?>">
 
@@ -234,7 +234,7 @@ if (!isset($_SESSION['user'])) {
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form method="POST" action="../funciones/jornadas_controlador.php">
+                    <form method="POST" action="../funciones/controlador_jornadas.php">
                     <input type="hidden" name="accion" value="eliminar">
                         <input type="hidden" name="id_jornada" value="<?php echo $jornada->id_jornada ?>">
                         <button type="submit" class="btn btn-danger">Eliminar</button>

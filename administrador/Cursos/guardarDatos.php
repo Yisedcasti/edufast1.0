@@ -23,6 +23,6 @@ try {
     echo '<script>
         alert("Hubo un error al intentar actualizar la curso.");
         window.history.back(); 
-    </script>';
+    </script>'; 
 }
 ?>

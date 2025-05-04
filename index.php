@@ -21,7 +21,7 @@ $publicacionesNoticias = $sentencia->fetchAll(PDO::FETCH_OBJ);
     <title>Index</title>
 </head>
 <body>
-    <header class="containerNav navbar navbar-expand-lg shadow fixed-top" style="background-color:#581845;">
+    <header class="containerNav navbar navbar-expand-lg shadow fixed-top" style="background-color:#252525;">
         <div class="container d-flex justify-content-between align-items-left">
             <!-- Logo -->
             <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#" style="color: white; cursor: default;">

@@ -9,7 +9,7 @@ try {
     if (isset($_FILES['imagen'])) {
         $imagen = $_FILES['imagen']['name'];
         $tmp_name = $_FILES['imagen']['tmp_name'];
-        $directorio = '../../imagenes/';
+        $directorio = '../../../imagenes/';
         
         if (!is_dir($directorio)) {
             mkdir($directorio, 0777, true);

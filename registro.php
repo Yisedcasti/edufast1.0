@@ -243,5 +243,6 @@ function validarLongitud(input) {
       return esValido;
     }
 </script>
+<script src="java/alertas.js"></script>
 
 </html>

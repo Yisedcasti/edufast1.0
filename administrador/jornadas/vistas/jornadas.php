@@ -1,11 +1,16 @@
 <?php
-include_once "consultar.php"; // Incluye el archivo de consulta
 session_start();
 if (!isset($_SESSION['user'])) {
     $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
     header('Location: ../src/protected.php');
     exit;
 }
+
+require_once "../configuracion/conexion.php";
+require_once "../modelo/jornadaModelo.php";
+
+$modelo = new JornadaModelo($base_de_datos);
+$jornadas = $modelo->obtenerTodas();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,17 +104,17 @@ if (!isset($_SESSION['user'])) {
         <!-- Verificar si hay jornadas -->
         <?php if (!empty($jornadas)) : ?>
             <div class="row justify-content-center">
-                <?php foreach ($jornadas as $jornada) : ?>
+            <?php foreach ($jornadas as $j): ?>
                    <div class="card Regular shadow ms-3 mb-3" style="width: 18rem;">
   <img src="../../../imagenes/mañana.jpg" width="140px" class="rounded d-bloc mt-4 ms-5 me-4" alt="...">
   <div class="card-body ">
  <h5 class="card-title text-center">Jornada</h5>
- <p class="text-center"><?php echo htmlspecialchars($jornada->jornada); ?></p>
+ <p class="text-center"><?= $j["jornada"] ?></p>
   <table class="table ">
                                     <tbody>
                                         <tr>
-                                            <td class="text-center border-right-thin separator"><?php echo htmlspecialchars($jornada->hora_inicio); ?></td>
-                                            <td class="text-center"><?php echo htmlspecialchars($jornada->hora_final); ?></td>
+                                            <td class="text-center border-right-thin separator"><?= $j["hora_inicio"] ?></td>
+                                            <td class="text-center"><?= $j["hora_final"] ?></td>
                                         </tr>
                                         <tr>
                                             <td class="text-center border-end">Inicio</td>
@@ -118,8 +123,8 @@ if (!isset($_SESSION['user'])) {
                                     </tbody>
                                 </table>
  <div class="d-flex justify-content-center ">
-                                <a  class="btn btn-dark Regular"  data-bs-toggle="modal" data-bs-target="#actualizar<?php echo $jornada->id_jornada?>">Actualizar</a>
-                                <a  class="btn btn-danger ms-3 Regular" data-bs-toggle="modal" data-bs-target="#confirmarModal<?php echo $jornada->id_jornada ?>">Eliminar</a>
+                                <a  class="btn btn-dark Regular"  data-bs-toggle="modal" data-bs-target="#actualizar<?= $j["id_jornada"] ?>">Actualizar</a>
+                                <a  class="btn btn-danger ms-3 Regular" data-bs-toggle="modal" data-bs-target="#confirmarModal<?= $j["id_jornada"] ?>">Eliminar</a>
                                 </div>
   </div>
 </div>
@@ -143,7 +148,7 @@ if (!isset($_SESSION['user'])) {
             <div class="modal-body">
             <header>
         </header>
-        <form class="formulario" action="../funciones/controlador_jornadas.php" method="POST">
+        <form class="formulario" action="../controladores/controlador_jornada.php" method="POST">
         <input type="hidden" name="accion" value="crear">
             <section class="jornada">
             <label for="jornada">Jornada</label>
@@ -176,8 +181,8 @@ if (!isset($_SESSION['user'])) {
         
         <!-- MODEL ACTUALIZAR-->
         
-        <?php foreach($jornadas as $jornada): ?>
-            <div class="modal fade" id="actualizar<?php echo $jornada->id_jornada ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <?php foreach ($jornadas as $j): ?>
+            <div class="modal fade" id="actualizar<?= $j["id_jornada"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -185,29 +190,29 @@ if (!isset($_SESSION['user'])) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <form class="formulario" action="../funciones/controlador_jornadas.php" method="POST">
+            <form class="formulario" action="../controladores/controlador_jornada.php" method="POST">
             <input type="hidden" name="accion" value="actualizar">
-            <input type="hidden" name="id_jornada" value="<?= $jornada->id_jornada ?>">
+            <input type="hidden" name="id_jornada" value="<?= $j["id_jornada"] ?>">
 
             <section class="jornada">
                 <label>Jornadas</label>
                 <select class="form-select mb-2" id="jornada" name="jornada">
-                    <option <?= $jornada->jornada == 'Mañana'? 'selected' : '' ?>>Mañana</option>
-                    <option <?= $jornada->jornada == 'Tarde' ? 'selected' : '' ?>>Tarde</option>
-                    <option <?= $jornada->jornada == 'Noche' ? 'selected' : '' ?>>Noche</option>
-                    <option <?= $jornada->jornada == 'Unica' ? 'selected' : '' ?>>Unica</option>
+                    <option <?= $j["jornada"]== 'Mañana'? 'selected' : '' ?>>Mañana</option>
+                    <option <?= $j["jornada"]== 'Tarde' ? 'selected' : '' ?>>Tarde</option>
+                    <option <?= $j["jornada"]== 'Noche' ? 'selected' : '' ?>>Noche</option>
+                    <option <?= $j["jornada"]== 'Unica' ? 'selected' : '' ?>>Unica</option>
                 </select>
             </section>
             <div class="row">
 
             <section class="time col">
                 <label for="hora_inicio">Hora de Inicio:</label>
-                <input class="form-control mb-2" type="time" id="hora_inicio" name="hora_inicio" value="<?= $jornada->hora_inicio ?>">
+                <input class="form-control mb-2" type="time" id="hora_inicio" name="hora_inicio" value="<?= $j["hora_inicio"] ?>">
             </section>
 
             <section class="time col">
                 <label for="hora_final">Hora Final:</label>
-                <input class="form-control mb-2" type="time" id="hora_final" name="hora_final" value="<?= $jornada->hora_final ?>">
+                <input class="form-control mb-2" type="time" id="hora_final" name="hora_final" value="<?= $j["hora_final"] ?>">
             </section>
             </div>
             <section>
@@ -222,7 +227,7 @@ if (!isset($_SESSION['user'])) {
             
         <!-- Modal de ELIMINACIÓN -->
         <?php foreach($jornadas as $jornada): ?>
-            <div class="modal fade" id="confirmarModal<?php echo $jornada->id_jornada ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="confirmarModal<?= $j["id_jornada"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -234,9 +239,9 @@ if (!isset($_SESSION['user'])) {
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form method="POST" action="../funciones/controlador_jornadas.php">
+                    <form method="POST" action="../controladores/controlador_jornada.php">
                     <input type="hidden" name="accion" value="eliminar">
-                        <input type="hidden" name="id_jornada" value="<?php echo $jornada->id_jornada ?>">
+                        <input type="hidden" name="id_jornada" value="<?= $j["id_jornada"] ?>">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                         </div>

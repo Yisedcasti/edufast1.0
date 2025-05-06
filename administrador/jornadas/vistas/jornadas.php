@@ -1,16 +1,14 @@
 <?php
+include_once "../modelo/Jornadas.php";
 session_start();
 if (!isset($_SESSION['user'])) {
     $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
     header('Location: ../src/protected.php');
     exit;
 }
-
-require_once "../configuracion/conexion.php";
-require_once "../modelo/jornadaModelo.php";
-
-$modelo = new JornadaModelo($base_de_datos);
-$jornadas = $modelo->obtenerTodas();
+// Crear una instancia de la clase Jornada y obtener las jornadas
+$jornadaModelo = new Jornada($base_de_datos);  // Instanciamos el modelo
+$jornadas = $jornadaModelo->obtenerJornadas();  // Obtenemos las jornadas
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,9 +26,13 @@ $jornadas = $modelo->obtenerTodas();
     .shadow{
         box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px !important;
             }
-    .alert{
+    .alert-success{
         background-color:#dcfce7;
         color:#016630;
+    }
+    .alert-danger{
+        background-color:#ffc9c9;
+        color:#9f0712;
     }
 </style>
 <body>
@@ -79,42 +81,49 @@ $jornadas = $modelo->obtenerTodas();
 
 			<div class="container mt-5 ms-4">
                 <div class="row">
-                    <?php
-                     if (isset($_GET['status'])) {
-                        if ($_GET['status'] == 'success') {
-                            echo '<div class="alert alert-success alert-dismissible rounded-sm fs-5 border-0 fade show" role="alert" id="autoCloseAlert">
-                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="30" height="30" class="justify-content-center me-auto"> 
-  <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                <?php
+if (isset($_GET['status'])) {
+    if ($_GET['status'] == 'success') {
+        // Mostrar mensaje de éxito
+        echo '<div class="alert alert-success alert-dismissible rounded-sm fs-5 border-0 fade show" role="alert" id="autoCloseAlert">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="30" height="30" class="justify-content-center me-auto"> 
+                    <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                </svg>
+                ¡Acción realizada exitosamente!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>';
+    } elseif ($_GET['status'] == 'error') {
+        // Mostrar mensaje de error, con detalle si hay un mensaje específico
+        $errorMessage = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : 'Algo salió mal. Por favor verifique los datos y vuelva a intentarlo.';
+        
+        echo '<div class="alert alert-danger alert-dismissible rounded-sm fs-5 border-0 fade show" role="alert" id="autoCloseAlert">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="30" height="30" class="justify-content-center me-auto">
+  <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
 </svg>
+' . $errorMessage . '
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>';
+    }
+}
+?>
 
- ¡Accion realizada exitosamente!
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                  </div>';
-                        } elseif ($_GET['status'] == 'error') {
-                            echo '<div class="alert alert-danger alert-dismissible rounded-sm fs-5 border-0 fade show" role="alert" id="autoCloseAlert">
-                                    Algo salió mal. Por favor verifique los datos y vuelva a intentarlo.
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                  </div>';
-                        }
-                      }
-                    ?>
                 <main class="container mt-5 ">
         <h1 class="text-center mb-4">Gestión de Jornadas</h1>
 
         <!-- Verificar si hay jornadas -->
         <?php if (!empty($jornadas)) : ?>
             <div class="row justify-content-center">
-            <?php foreach ($jornadas as $j): ?>
+                <?php foreach ($jornadas as $jornada) : ?>
                    <div class="card Regular shadow ms-3 mb-3" style="width: 18rem;">
   <img src="../../../imagenes/mañana.jpg" width="140px" class="rounded d-bloc mt-4 ms-5 me-4" alt="...">
   <div class="card-body ">
  <h5 class="card-title text-center">Jornada</h5>
- <p class="text-center"><?= $j["jornada"] ?></p>
+ <p class="text-center"><?php echo htmlspecialchars($jornada->jornada); ?></p>
   <table class="table ">
                                     <tbody>
                                         <tr>
-                                            <td class="text-center border-right-thin separator"><?= $j["hora_inicio"] ?></td>
-                                            <td class="text-center"><?= $j["hora_final"] ?></td>
+                                            <td class="text-center border-right-thin separator"><?php echo htmlspecialchars($jornada->hora_inicio); ?></td>
+                                            <td class="text-center"><?php echo htmlspecialchars($jornada->hora_final); ?></td>
                                         </tr>
                                         <tr>
                                             <td class="text-center border-end">Inicio</td>
@@ -123,8 +132,8 @@ $jornadas = $modelo->obtenerTodas();
                                     </tbody>
                                 </table>
  <div class="d-flex justify-content-center ">
-                                <a  class="btn btn-dark Regular"  data-bs-toggle="modal" data-bs-target="#actualizar<?= $j["id_jornada"] ?>">Actualizar</a>
-                                <a  class="btn btn-danger ms-3 Regular" data-bs-toggle="modal" data-bs-target="#confirmarModal<?= $j["id_jornada"] ?>">Eliminar</a>
+                                <a  class="btn btn-dark Regular"  data-bs-toggle="modal" data-bs-target="#actualizar<?php echo $jornada->id_jornada?>">Actualizar</a>
+                                <a  class="btn btn-danger ms-3 Regular" data-bs-toggle="modal" data-bs-target="#confirmarModal<?php echo $jornada->id_jornada ?>">Eliminar</a>
                                 </div>
   </div>
 </div>
@@ -159,15 +168,17 @@ $jornadas = $modelo->obtenerTodas();
                             <option value="Unica">Unica</option>
                         </select>
             </section>
+            <section class="row">
 
-            <section class="time">
+            <section class="time col">
                 <label for="hora_inicio">Hora de Inicio:</label>
                 <input class="form-control" type="time" id="hora_inicio" name="hora_inicio" >
             </section>
 
-            <section class="time">
+            <section class="time col">
                 <label for="hora_final">Hora Final:</label>
                 <input class="form-control" type="time" id="hora_final" name="hora_final" >
+            </section>
             </section>
 <section class="mt-2">
                 <input type="submit" class="btn btn-dark" name="insertar" value="Crear">
@@ -181,8 +192,8 @@ $jornadas = $modelo->obtenerTodas();
         
         <!-- MODEL ACTUALIZAR-->
         
-        <?php foreach ($jornadas as $j): ?>
-            <div class="modal fade" id="actualizar<?= $j["id_jornada"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <?php foreach($jornadas as $jornada): ?>
+            <div class="modal fade" id="actualizar<?php echo $jornada->id_jornada ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -192,27 +203,27 @@ $jornadas = $modelo->obtenerTodas();
             <div class="modal-body">
             <form class="formulario" action="../controladores/controlador_jornada.php" method="POST">
             <input type="hidden" name="accion" value="actualizar">
-            <input type="hidden" name="id_jornada" value="<?= $j["id_jornada"] ?>">
+            <input type="hidden" name="id_jornada" value="<?= $jornada->id_jornada ?>">
 
             <section class="jornada">
                 <label>Jornadas</label>
                 <select class="form-select mb-2" id="jornada" name="jornada">
-                    <option <?= $j["jornada"]== 'Mañana'? 'selected' : '' ?>>Mañana</option>
-                    <option <?= $j["jornada"]== 'Tarde' ? 'selected' : '' ?>>Tarde</option>
-                    <option <?= $j["jornada"]== 'Noche' ? 'selected' : '' ?>>Noche</option>
-                    <option <?= $j["jornada"]== 'Unica' ? 'selected' : '' ?>>Unica</option>
+                    <option <?= $jornada->jornada == 'Mañana'? 'selected' : '' ?>>Mañana</option>
+                    <option <?= $jornada->jornada == 'Tarde' ? 'selected' : '' ?>>Tarde</option>
+                    <option <?= $jornada->jornada == 'Noche' ? 'selected' : '' ?>>Noche</option>
+                    <option <?= $jornada->jornada == 'Unica' ? 'selected' : '' ?>>Unica</option>
                 </select>
             </section>
             <div class="row">
 
             <section class="time col">
                 <label for="hora_inicio">Hora de Inicio:</label>
-                <input class="form-control mb-2" type="time" id="hora_inicio" name="hora_inicio" value="<?= $j["hora_inicio"] ?>">
+                <input class="form-control mb-2" type="time" id="hora_inicio" name="hora_inicio" value="<?= $jornada->hora_inicio ?>">
             </section>
 
             <section class="time col">
                 <label for="hora_final">Hora Final:</label>
-                <input class="form-control mb-2" type="time" id="hora_final" name="hora_final" value="<?= $j["hora_final"] ?>">
+                <input class="form-control mb-2" type="time" id="hora_final" name="hora_final" value="<?= $jornada->hora_final ?>">
             </section>
             </div>
             <section>
@@ -227,7 +238,7 @@ $jornadas = $modelo->obtenerTodas();
             
         <!-- Modal de ELIMINACIÓN -->
         <?php foreach($jornadas as $jornada): ?>
-            <div class="modal fade" id="confirmarModal<?= $j["id_jornada"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="confirmarModal<?php echo $jornada->id_jornada ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -241,7 +252,7 @@ $jornadas = $modelo->obtenerTodas();
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <form method="POST" action="../controladores/controlador_jornada.php">
                     <input type="hidden" name="accion" value="eliminar">
-                        <input type="hidden" name="id_jornada" value="<?= $j["id_jornada"] ?>">
+                        <input type="hidden" name="id_jornada" value="<?php echo $jornada->id_jornada ?>">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                         </div>

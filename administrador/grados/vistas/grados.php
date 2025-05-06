@@ -20,7 +20,9 @@ include_once "consulta.php";
     <link rel="stylesheet" href="../../../css/stylsadm.css"/>
     <title>Grados</title>
 </head>
+<style>
 
+</style>
 <body>
     <div class="d-flex" id="wrapper">
     <div class="listado" id="sidebar-wrapper">
@@ -118,9 +120,10 @@ include_once "consulta.php";
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                    <form class="formulario" action="../funciones/crear.php" method="POST">
+                    <form class="formulario" action="../controladores/grados_controlador.php" method="POST">
+                    <input type="hidden" name="accion" value="crear">
     <section class="nivel">
-        <p>Seleccione el nivel eduactivo</p>
+        <p>Seleccione el nivel educativo</p>
         <input type="radio" id="Primaria"value="Primaria" name="nivel_educativo">
         <label for="Primaria">Primaria</label><br>
         <input type="radio" id="Bachillerato" value="Bachillerato" name="nivel_educativo">
@@ -174,7 +177,8 @@ include_once "consulta.php";
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="formActualizar" method="POST" action="../funciones/Actualizar.php">
+                <form id="formActualizar" method="POST" action="../controladores/grados_controlador.php">
+                <input type="hidden" name="accion" value="actualizar">
                 <input type="hidden" name="id_grado" id="id_grado" value="<?php echo $grado->id_grado ?>">
               <select class="form-control" id="nivel_educativo" name="nivel_educativo">
                 <option <?= $grado->nivel_educativo == 'Primaria' ? 'selected' : '' ?>>Primaria</option>
@@ -221,7 +225,8 @@ include_once "consulta.php";
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form method="POST" action="../funciones/eliminar.php">
+                    <form method="POST" action="../controladores/grados_controlador.php">
+                    <input type="hidden" name="accion" value="eliminar">
                         <input type="hidden" name="id_grado" value="<?php echo $grado->id_grado ?>">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>

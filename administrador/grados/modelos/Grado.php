@@ -39,5 +39,17 @@ class Grado {
             return false;
         }
     }
+
+    public function obtenerTodos() {
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM grado ORDER BY CAST(grado AS UNSIGNED) ASC");
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            // Puedes lanzar una excepción o manejarlo según necesites
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
+    }
 }
 ?>

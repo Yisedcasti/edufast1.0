@@ -5,8 +5,11 @@ if (!isset($_SESSION['user'])) {
     header('Location: ../src/protected.php');
     exit;
 }
+include_once "../configuracion/conexion.php";
+include_once "../modelos/Grado.php"; // ajusta la ruta a donde tengas la clase
 
-include_once "consulta.php";
+$gradoModelo = new Grado($base_de_datos);
+$grados = $gradoModelo->obtenerTodos();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +24,17 @@ include_once "consulta.php";
     <title>Grados</title>
 </head>
 <style>
-
+.shadow{
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px !important;
+            }
+    .alert-success{
+        background-color:#dcfce7;
+        color:#016630;
+    }
+    .alert-danger{
+        background-color:#ffc9c9;
+        color:#9f0712;
+    }
 </style>
 <body>
     <div class="d-flex" id="wrapper">
@@ -70,12 +83,18 @@ include_once "consulta.php";
  if (isset($_GET['status'])) {
   if ($_GET['status'] == 'success') {
       echo '<div class="alert alert-success alert-dismissible fade show" role="alert" id="autoCloseAlert">
-              ¡Accion realizada exitosamente!
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" class="me-2">
+  <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+</svg>
+  ¡Accion realizada exitosamente!
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>';
   } elseif ($_GET['status'] == 'error') {
       echo '<div class="alert alert-danger alert-dismissible fade show" role="alert" id="autoCloseAlert">
-              Algo salió mal. Por favor verifique los datos y vuelva a intentarlo.
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" class="me-2">
+  <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+</svg>
+ Algo salió mal. Por favor verifique los datos y vuelva a intentarlo.
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>';
   }
@@ -83,13 +102,13 @@ include_once "consulta.php";
 ?>
                 <main class="main-container">
         <section class="container">
-            <h2>Grados Existentes</h2>
+            <h2 class="mb-4">Grados Existentes</h2>
             
             <table class="table shadow ">
                 <thead>
                     <tr>
                         <th class="text-center ">Grado</th>
-                        <th class="text-center ">Nivel eduacativo</th>
+                        <th class="text-center ">Nivel educativo</th>
                         <th class="text-center " colspan="2">Accion</th>
                     </tr>
                 </thead>
@@ -99,10 +118,10 @@ include_once "consulta.php";
                         <td class="text-center"><?php echo $grado->nivel_educativo?></td>
 
                         <td class="text-center">
-                        <a type="button" class="btn" data-bs-toggle="modal" data-bs-target="#actualizar<?php echo $grado->id_grado ?>">Actualizar</a>
+                        <a type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#actualizar<?php echo $grado->id_grado ?>">Actualizar</a>
                         </td>
                         <td class="actions">
-                        <a type="button" class="btn" data-bs-toggle="modal" data-bs-target="#confirmarModal<?php echo $grado->id_grado ?>">Eliminar</a>
+                        <a type="button" class="btn btn-danger text-white" data-bs-toggle="modal" data-bs-target="#confirmarModal<?php echo $grado->id_grado ?>">Eliminar</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -173,7 +192,7 @@ include_once "consulta.php";
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Actualizar Actividad</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Actualizar Grado</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

@@ -1,5 +1,5 @@
 <?php
-include "Conexion.php"; 
+include "../configuracion/Conexion.php"; 
 $id_grado = null;
 $cursos = []; // Array para almacenar los resultados
 

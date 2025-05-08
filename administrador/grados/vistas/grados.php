@@ -114,7 +114,7 @@ $grados = $gradoModelo->obtenerTodos();
                 </thead>
                 <tbody>
                     <tr><?php foreach ($grados as $grado) : ?>
-                        <td class="text-center"><a class="text-reset" href="../../cursos/Curso.php?id_grado=<?php echo $grado->id_grado; ?>"><?php echo $grado->grado?></a></td>
+                        <td class="text-center"><a class="text-reset" href="../../Cursos/vistas/Curso.php?id_grado=<?php echo $grado->id_grado; ?>"><?php echo $grado->grado?></a></td>
                         <td class="text-center"><?php echo $grado->nivel_educativo?></td>
 
                         <td class="text-center">

@@ -4,7 +4,7 @@ include "consultarcurso.php";
 session_start();
 if (!isset($_SESSION['user'])) {
     $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
-    header('Location: ../src/protected.php');
+    header('Location: ../../src/protected.php');
     exit;
 }
 ?>
@@ -17,7 +17,7 @@ if (!isset($_SESSION['user'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../../css/stylsadm.css"/>
+    <link rel="stylesheet" href="../../../css/stylsadm.css"/>
     <title>Pagina Principal</title>
 </head>
 
@@ -132,8 +132,9 @@ if (!isset($_SESSION['user'])) {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form class="formulario" action="registrarcurso.php" method="POST">
+                        <form class="formulario" action="../controlador/curso_controlador.php" method="POST">
                             <section class="mb-3">
+                            <input type="hidden" name="action" value="crear">
                                 <label for="curso">Ingrese curso</label>
                                 <input type="number" name="curso" class="form-control" required>
                             </section>
@@ -164,8 +165,9 @@ if (!isset($_SESSION['user'])) {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form class="formulario" action="guardarDatos.php" method="POST">
+                        <form class="formulario" action="../controlador/curso_controlador.php" method="POST">
                             <section class="mb-3">
+                            <input type="hidden" name="action" value="actualizar">
                                 <label for="curso">Curso</label>
                                 <input type="number" name="curso" class="form-control text-center" value="<?php echo htmlspecialchars($curso->curso); ?>" required>
                             </section>
@@ -199,7 +201,8 @@ if (!isset($_SESSION['user'])) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <form method="POST" action="eliminarcurso.php">
+                        <form method="POST" action="../controlador/curso_controlador.php">
+                        <input type="hidden" name="action" value="eliminar">
                             <input type="hidden" name="id_cursos" value="<?= $curso->id_cursos ?>">
                             <input type="hidden" id="grado_id_grado" name="grado_id_grado" value="<?php echo $curso->grado_id_grado ?> " readonly>
                             <button type="submit" class="btn btn-danger">Eliminar</button>

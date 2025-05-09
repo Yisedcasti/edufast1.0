@@ -5,7 +5,9 @@ if (!isset($_SESSION['user'])) {
     header('Location: ../src/protected.php');
     exit;
 }
-include "consulta.php";
+include_once "../modelo/Materia.php";
+$materiaModel = new Materia();
+$materias = $materiaModel->obtenerTodas();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +18,7 @@ include "consulta.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../../css/stylsadm.css">
+    <link rel="stylesheet" href="../../../css/stylsadm.css">
     <title>Pagina Principal</title>
 </head>
 
@@ -30,6 +32,17 @@ include "consulta.php";
         .card {
             background: linear-gradient(to bottom right,rgb(238, 205, 219),rgb(212, 130, 144));
         }
+.shadow{
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px !important;
+        }
+    .alert-success{
+        background-color:#dcfce7;
+        color:#016630;
+    }
+    .alert-danger{
+        background-color:#ffc9c9;
+        color:#9f0712;
+    }
     </style>
 
     <div class="d-flex" id="wrapper">
@@ -40,13 +53,13 @@ include "consulta.php";
             <div class="list-group list-group-flush my-3">
 
             </div>
-                <a href="../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
-                <a href="../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
-                <a href="../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
-                <a href="../observador/vistas/alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
-                <a href="../logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
-                <a href="../actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
-                <a href="../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>
+                <a href="../../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
+                <a href="../../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
+                <a href="../../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
+                <a href="../../observador/vistas/alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
+                <a href="../../logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
+                <a href="../../actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
+                <a href="../../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>
         </div>
 
         <div id="page-content-wrapper">
@@ -81,8 +94,11 @@ include "consulta.php";
             <?php
  if (isset($_GET['status'])) {
   if ($_GET['status'] == 'success') {
-      echo '<div class="alert alert-success alert-dismissible fade show" role="alert" id="autoCloseAlert">
-              ¡Accion realizada exitosamente!
+      echo '<div class="alert alert-success border-0 alert-dismissible fade show" role="alert" id="autoCloseAlert">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="25" height="25" class="me-2">
+  <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+</svg>
+  ¡Accion realizada exitosamente!
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>';
   } elseif ($_GET['status'] == 'error') {
@@ -110,7 +126,7 @@ include "consulta.php";
                         ?>
 
                         <section class="col-lg-3 col-md-6 col-sm-6 col-12 mb-4">
-                            <div class="card mb-3" style="max-width: 18rem;">
+                            <div class="card mb-3 shadow" style="max-width: 18rem;">
                                 <h4 class="card-header text-center"><?php echo htmlspecialchars($materia->nombre_area); ?>
                                 </h4>
                                 <div class="card-body">
@@ -150,8 +166,8 @@ include "consulta.php";
                             </div>
                             <div class="modal-body">
                                 <!--- crear materia-->
-                                <form method="post" action="registrarmateria.php">
-                                    
+                                <form method="post" action="../controladores/materias_controlador.php">
+                                <input type="hidden" name="accion" value="crear">
                                     <div class="mb-3">
                                         <label for="id_curso">area</label>
                                         <select class="form-control" name="area_id_area" id="area_id_area" required>
@@ -192,9 +208,9 @@ include "consulta.php";
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="POST" action="actualizar.php">
+                                    <form method="POST" action="../controladores/materias_controlador.php">
                                         <input type="hidden" name="id_materia" value="<?= $materia->id_materia ?>">
-                                        
+                                        <input type="hidden" name="accion" value="actualizar">
                                         <div class="mb-3">
                                             <label for="area_id_area">area</label>
                                             <select class="form-control" name="area_id_area" id="area_id_area" required>
@@ -241,7 +257,8 @@ include "consulta.php";
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
                                     data-bs-dismiss="modal">Cancelar</button>
-                                <form method="POST" action="eliminarmateria.php">
+                                <form method="POST" action="../controladores/materias_controlador.php">
+                                <input type="hidden" name="accion" value="eliminar">
                                     <input type="hidden" name="id_materia" value="<?= $materia->id_materia ?>">
                                     <button type="submit" class="btn btn-danger">Eliminar</button>
                                 </form>

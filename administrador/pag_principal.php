@@ -31,7 +31,7 @@ if (!isset($_SESSION['user'])) {
                 <a href="jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
                 <a href="grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
                 <a href="observador/vistas/alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
-                <a href="materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
+                <a href="materiaphp/vistas/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
                 <a href="logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
                 <a href="actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
             </div>
@@ -91,7 +91,7 @@ if (!isset($_SESSION['user'])) {
                         <h1 class="card-title">Materias</h1>
                     </div>
                     <div class="card-footer text-center">
-                        <a href="materiaphp/materia.php" class="btn btn-dark">Materias</a>
+                        <a href="materiaphp/vistas/materia.php" class="btn btn-dark">Materias</a>
                     </div>
                 </div>
             </section>

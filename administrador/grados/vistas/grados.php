@@ -43,10 +43,7 @@ $grados = $gradoModelo->obtenerTodos();
             <div class="list-group list-group-flush my-3">
                 <a href="../../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
                 <a href="../../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
-                <a href="../../observador/vistas/alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
                 <a href="../../materiaphp/vistas/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
-                <a href="../../logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
-                <a href="../../actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
                 <a href="../../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>
             </div>
         </div>
@@ -117,11 +114,11 @@ $grados = $gradoModelo->obtenerTodos();
                         <td class="text-center"><a class="text-reset" href="../../Cursos/vistas/Curso.php?id_grado=<?php echo $grado->id_grado; ?>"><?php echo $grado->grado?></a></td>
                         <td class="text-center"><?php echo $grado->nivel_educativo?></td>
 
-                        <td class="text-center">
-                        <a type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#actualizar<?php echo $grado->id_grado ?>">Actualizar</a>
+                        <td class="actions">
+                        <a class="text-primary" data-bs-toggle="modal" data-bs-target="#actualizar<?php echo $grado->id_grado ?>">Actualizar</a>
                         </td>
                         <td class="actions">
-                        <a type="button" class="btn btn-danger text-white" data-bs-toggle="modal" data-bs-target="#confirmarModal<?php echo $grado->id_grado ?>">Eliminar</a>
+                        <a  class="text-danger" data-bs-toggle="modal" data-bs-target="#confirmarModal<?php echo $grado->id_grado ?>">Eliminar</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -131,61 +128,98 @@ $grados = $gradoModelo->obtenerTodos();
             <a class="btn btn-dark Regular shadow" type="button" data-bs-toggle="modal" data-bs-target="#crear">Crear Grado</a>
         </div>
         </section>
-        <div class="modal fade" id="crear" tabindex="-1" aria-labelledby="crearLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="crearLabel">Crear Curso</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                    <form class="formulario" action="../controladores/grados_controlador.php" method="POST">
-                    <input type="hidden" name="accion" value="crear">
-    <section class="nivel">
-        <p>Seleccione el nivel educativo</p>
-        <input type="radio" id="Primaria"value="Primaria" name="nivel_educativo">
-        <label for="Primaria">Primaria</label><br>
-        <input type="radio" id="Bachillerato" value="Bachillerato" name="nivel_educativo">
-        <label for="Bachillerato">Bachillerato</label><br>
-        <section class="grado">
-            <p>selecione los grados que tiene en Primaria</p>
-            <input type="checkbox" id="cero" value="0°" name="grado[]" >
-            <label for="cero"> 0º</label>
-            <input type="checkbox" id="primero" value="1°" name="grado[]">
-            <label for="primero"> 1º</label>
-            <input type="checkbox" id="segundo" value="2°" name="grado[]">
-            <label for="segundo"> 2º</label>
-            <input type="checkbox" id="tercero" value="3°" name="grado[]">
-            <label for="tercero"> 3º</label>
-            <input type="checkbox" id="cuarto" value="4°" name="grado[]">
-            <label for="cuarto"> 4º</label>
-            <input type="checkbox" id="quinto"value="5°" name="grado[]">
-            <label for="quinto"> 5º</label>
-        </section>
-        <section class="grado">
-            <p>Seleccione los grados que tiene en Bachillerato</p>
-                    <input type="checkbox" id="sexto" value="6°" name="grado[]">
-                    <label for="sexto"> 6º</label>
-                    <input type="checkbox" id="septimo" value="7°" name="grado[]">
-                    <label for="septimo"> 7º</label>
-                    <input type="checkbox" id="octavo" value="8°" name="grado[]">
-                    <label for="octavo"> 8º</label>
-                    <input type="checkbox" id="noveno" value="9°" name="grado[]">
-                    <label for="noveno"> 9º</label>
-                    <input type="checkbox" id="decimo" value="10°" name="grado[]">
-                    <label for="decimo"> 10º</label>
-                    <input type="checkbox" id="once" value="11°" name="grado[]">
-                    <label for="once"> 11º</label>
-        </section>
-    </section>
-    <section class="btn">
-        <input type="submit"name="insertar"value="Enviar">
-    </section>
-    </form>
-                    </div>
-                </div>
+
+<div class="modal fade" id="crear" tabindex="-1" aria-labelledby="crearLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <div class="modal-header">
+        <h5 class="modal-title title-center" id="crearLabel">Crear Grado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      
+      <div class="modal-body">
+        <form class="formulario" action="../controladores/grados_controlador.php" method="POST">
+          <input type="hidden" name="accion" value="crear">
+
+          <div class="mb-3">
+            <label class="form-label d-block">Seleccione el nivel educativo</label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="Primaria" value="Primaria" name="nivel_educativo">
+              <label class="form-check-label" for="Primaria">Primaria</label>
             </div>
-        </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="Bachillerato" value="Bachillerato" name="nivel_educativo">
+              <label class="form-check-label" for="Bachillerato">Bachillerato</label>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label d-block">Seleccione los grados que tiene en Primaria</label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="cero" value="0°" name="grado[]">
+              <label class="form-check-label" for="cero">0º</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="primero" value="1°" name="grado[]">
+              <label class="form-check-label" for="primero">1º</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="segundo" value="2°" name="grado[]">
+              <label class="form-check-label" for="segundo">2º</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="tercero" value="3°" name="grado[]">
+              <label class="form-check-label" for="tercero">3º</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="cuarto" value="4°" name="grado[]">
+              <label class="form-check-label" for="cuarto">4º</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="quinto" value="5°" name="grado[]">
+              <label class="form-check-label" for="quinto">5º</label>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label d-block">Seleccione los grados que tiene en Bachillerato</label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="sexto" value="6°" name="grado[]">
+              <label class="form-check-label" for="sexto">6º</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="septimo" value="7°" name="grado[]">
+              <label class="form-check-label" for="septimo">7º</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="octavo" value="8°" name="grado[]">
+              <label class="form-check-label" for="octavo">8º</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="noveno" value="9°" name="grado[]">
+              <label class="form-check-label" for="noveno">9º</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="decimo" value="10°" name="grado[]">
+              <label class="form-check-label" for="decimo">10º</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="once" value="11°" name="grado[]">
+              <label class="form-check-label" for="once">11º</label>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <input type="submit" name="insertar" value="Enviar" class="btn btn-primary">
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
 
         <?php foreach($grados as $grado): ?>
 <div class="modal fade" id="actualizar<?php echo $grado->id_grado ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -43,10 +43,7 @@ $jornadas = $jornadaModelo->obtenerJornadas();  // Obtenemos las jornadas
 
                 <a href="../../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
                 <a href="../../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
-                <a href="../../observador/vistas/alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
                 <a href="../../materiaphp/vistas/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
-                <a href="../../logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
-                <a href="../../actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
                 <a href="../../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>            
             </div>
         </div>
@@ -73,6 +70,7 @@ $jornadas = $jornadaModelo->obtenerJornadas();  // Obtenemos las jornadas
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="../../../cerrar.php">Salir</a></li>
+                  
                             </ul>
                         </li>
                     </ul>
@@ -107,7 +105,7 @@ if (isset($_GET['status'])) {
 }
 ?>
 
-                <main class="container mt-5 ">
+                <main class="container ">
         <h1 class="text-center mb-4">Gestión de Jornadas</h1>
 
         <!-- Verificar si hay jornadas -->

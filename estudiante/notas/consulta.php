@@ -4,15 +4,9 @@ try {
 $num_doc = isset($_SESSION['user']) ? $_SESSION['user'] : null;
 
 if ($num_doc !== null) {
-    // Obtener el grado del estudiante
-    $sql_matricula = "SELECT grado_id_grado FROM matricula WHERE estudiante_registro_num_doc = :num_doc";
-    $stmt_matricula = $base_de_datos->prepare($sql_matricula);
-    $stmt_matricula->bindParam(':num_doc', $num_doc, PDO::PARAM_INT);
-    $stmt_matricula->execute();
-    $matricula = $stmt_matricula->fetch(PDO::FETCH_ASSOC);
 
-    if ($matricula && isset($matricula['grado_id_grado'])) {
-        $grado_id_grado = $matricula['grado_id_grado'];
+    if ($matricula && isset($matricula['num_doc'])) {
+        $num_doc = $matricula['num_doc'];
 
         // Consulta de notas filtrada por el grado del estudiante
         $sentencia = $base_de_datos->prepare("
@@ -24,9 +18,9 @@ if ($num_doc !== null) {
             INNER JOIN actividad ON actividad.id_actividad = nota.actividad_id_actividad
             INNER JOIN logro ON logro.id_logro = actividad.logro_id_logro
             INNER JOIN materia ON materia.id_materia = actividad.docente_has_materia_materia_id_materia
-            WHERE logro.grado_id_grado = :grado_id_grado
+            WHERE estudiante.registro_num_doc = :num_doc
         ");
-        $sentencia->bindParam(':grado_id_grado', $grado_id_grado, PDO::PARAM_INT);
+        $sentencia->bindParam(':num_doc', $num_doc, PDO::PARAM_INT);
         $sentencia->execute();
         $notas = $sentencia->fetchAll(PDO::FETCH_OBJ);
 

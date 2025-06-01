@@ -1,47 +1,35 @@
 <?php
 include_once "../configuracion/conexion.php";
 class Jornada {
-    private $base_de_datos;
+    private $db;
 
-    public function __construct($base_de_datos) {
-        $this->base_de_datos = $base_de_datos;
+    public function __construct($db) {
+        $this->db = $db;
     }
 
     // Crear una nueva jornada
     public function crear($jornada, $hora_inicio, $hora_final) {
-        $sentencia = $this->base_de_datos->prepare("
-            INSERT INTO jornada (jornada, hora_inicio, hora_final) 
-            VALUES (?, ?, ?)
-        ");
-        return $sentencia->execute([$jornada, $hora_inicio, $hora_final]);
+        $stmt = $this->db->prepare("INSERT INTO jornada (jornada, hora_inicio, hora_final) VALUES (?, ?, ?)");
+        return $stmt->execute([$jornada, $hora_inicio, $hora_final]);
     }
 
     // Actualizar una jornada existente
-    public function actualizar($id_jornada, $jornada, $hora_inicio, $hora_final) {
-        $sentencia = $this->base_de_datos->prepare("
-            UPDATE jornada 
-            SET jornada = ?, hora_inicio = ?, hora_final = ? 
-            WHERE id_jornada = ?
-        ");
-        return $sentencia->execute([$jornada, $hora_inicio, $hora_final, $id_jornada]);
+    public function actualizar($id, $jornada, $hora_inicio, $hora_final) {
+        $stmt = $this->db->prepare("UPDATE jornada SET jornada=?, hora_inicio=?, hora_final=? WHERE id_jornada=?");
+        return $stmt->execute([$jornada, $hora_inicio, $hora_final, $id]);
     }
 
     // Eliminar una jornada
-    public function eliminar($id_jornada) {
-        $sentencia = $this->base_de_datos->prepare("DELETE FROM jornada WHERE id_jornada = ?");
-        return $sentencia->execute([$id_jornada]);
+    public function eliminar($id) {
+        $stmt = $this->db->prepare("DELETE FROM jornada WHERE id_jornada=?");
+        return $stmt->execute([$id]);
     }
 
-    // Obtener todas las jornadas excepto la que tiene id_jornada = 1
+    // Obtener todas las jornadas
     public function obtenerJornadas() {
-        try {
-            $sentencia = $this->base_de_datos->prepare("SELECT * FROM jornada WHERE id_jornada <> 1");
-            $sentencia->execute();
-            return $sentencia->fetchAll(PDO::FETCH_OBJ); // Retorna las jornadas
-        } catch (PDOException $e) {
-            echo "Error al obtener las jornadas: " . $e->getMessage();
-            return []; // Retorna un array vacío en caso de error
-        }
+        $stmt = $this->db->prepare("SELECT * FROM jornada");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 ?>

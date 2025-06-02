@@ -5,7 +5,7 @@ class Jornada {
 
     public function __construct($db) {
         $this->db = $db;
-    }
+    } 
 
     // Crear una nueva jornada
     public function crear($jornada, $hora_inicio, $hora_final) {

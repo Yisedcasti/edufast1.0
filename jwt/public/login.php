@@ -47,22 +47,22 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         // Redireccionar según el rol del usuario
         switch ($user['rol_id_rol']) {
             case 1:
-                header("Location: ../../administrador/pag_principal.php"); 
+                header("Location: ../../administrador/dashboard.php"); 
                 break;
             case 2:
-                header("Location:../../cordinador/pag_principal.php");
+                header("Location:../../cordinador/dashboard.php");
                 break;
             case 3:
-                header("Location: ../../rector/pag_principal.php"); 
+                header("Location: ../../rector/dashboard.php"); 
                 break;
             case 4:
-                header("Location: ../../secretaria/pag_principal.php"); 
+                header("Location: ../../secretaria/dashboard.php"); 
                 break;
             case 5:
-                header("Location: ../../profesor/pag_principal.php"); 
+                header("Location: ../../profesor/dashboard.php"); 
                 break;
             case 6:
-                header("Location: ../../estudiante/pag_principal.php"); 
+                header("Location: ../../estudiante/dashboard.php"); 
                 break;
             default:
                 header("Location: ../default.php"); 

@@ -28,10 +28,12 @@ include_once "../funciones/consulta.php";
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">EDUFAST</div>
             <div class="list-group list-group-flush my-3">
             </div>
+                <a href="../../registro/view/principal_re.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Registros</a>
+                <a href="publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
                 <a href="../../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
                 <a href="../../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
-                <a href="../../materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
-                <a href="../../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Volver</a>
+                <a href="../../materiaphp/vistas/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
+                <a href="../../dashboard.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>
         </div>
 
         <div id="page-content-wrapper">
@@ -51,9 +53,6 @@ include_once "../funciones/consulta.php";
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
     <a class="nav-link  text-white active" aria-current="page" href="actualizar_evento.php">Eventos</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link   text-white active" aria-current="page" href="publicaciones_crear.php">Volver</a>
   </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white fw-bold" href="#" id="navbarDropdown"

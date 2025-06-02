@@ -53,10 +53,11 @@ $materias = $materiaModel->obtenerTodas();
             <div class="list-group list-group-flush my-3">
 
             </div>
+               <a href="../../registro/view/principal_re.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Registros</a>
                 <a href="../../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
                 <a href="../../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
                 <a href="../../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
-                <a href="../../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>
+                <a href="../../dashboard.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>
         </div>
 
         <div id="page-content-wrapper">

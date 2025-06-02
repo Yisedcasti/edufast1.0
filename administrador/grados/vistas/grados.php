@@ -17,7 +17,7 @@ include_once "consulta.php";
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="../../../css/grados.css"/>
-    <link rel="stylesheet" href="../../../css/stylscoor.css"/>
+    <link rel="stylesheet" href="../../../css/stylsadm.css"/>
     <title>Grados</title>
 </head>
 
@@ -28,14 +28,7 @@ include_once "consulta.php";
             <div class="list-group list-group-flush my-3">
                 <a href="../../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
                 <a href="../../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
-                <a href="../../observador/vistas/alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observadores</a>
-                <a href="../../materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
-                <a href="../../logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
-                <a href="../../actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
-                <a href="../../asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
-                <a href="../../notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
-                <a href="../../Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
-                <a href="../../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>
+                <a href="../../materiaphp/vistas/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
             </div>
         </div>
 
@@ -84,7 +77,7 @@ include_once "consulta.php";
 ?>
                 <main class="main-container">
         <section class="container">
-            <h2 class=" text-white mb-4">Grados Existentes</h2>
+            <h2 class=" text-dark mb-4">Grados Existentes</h2>
             
             <table class="table Regular shadow">
                 <thead>
@@ -96,7 +89,7 @@ include_once "consulta.php";
                 </thead>
                 <tbody>
                     <tr><?php foreach ($grados as $grado) : ?>
-                        <td class="text-center"><a class="text-reset" href="../../cursos/Curso.php?id_grado=<?php echo $grado->id_grado; ?>"><?php echo $grado->grado?></a></td>
+                        <td class="text-center"><a class="text-reset" href="../../Cursos/vistas/Curso.php?id_grado=<?php echo $grado->id_grado; ?>"><?php echo $grado->grado?></a></td>
                         <td class="text-center"><?php echo $grado->nivel_educativo?></td>
 
                         <td class="text-center">

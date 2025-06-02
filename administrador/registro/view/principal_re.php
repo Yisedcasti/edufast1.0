@@ -1,9 +1,9 @@
 <?php
 session_start();
-if (!isset($_SESSION['userId'])) {
+if (!isset($_SESSION['user'])) {
     $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
-    header("Location: ../index.php");
-    exit();
+    header('Location: ../src/protected.php');
+    exit;
 }
 
 ?>
@@ -16,7 +16,7 @@ if (!isset($_SESSION['userId'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../../../css/nav.css"/>
+    <link rel="stylesheet" href="../../../css/stylsadm.css"/>
     <link rel="stylesheet" href="../../../css/principal.css"/>
   
     <title>Pagina Principal</title>
@@ -28,23 +28,11 @@ if (!isset($_SESSION['userId'])) {
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">EDUFAST</div>
             <div class="list-group list-group-flush my-3">
 
-                <a href="../php/publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
-
-                <a href="../php/jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
-
-                <a href="../php/grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
-
-                <a href="../php/cursos/curso.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Cursos</a>
-
-                <a href="../php/asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
-
-                <a href="../php/materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
-
-                <a href="../php/logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
-                <a href="../php/actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
-                <a href="../php/notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
-                <a href="../php/Observador/view/vista_o.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
-                <a href="../php/Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
+                <a href="registro/view/" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Registros</a>
+                <a href="publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
+                <a href="jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
+                <a href="grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
+                <a href="../../dashboard.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">principal</a>
             </div>
         </div>
 
@@ -52,7 +40,7 @@ if (!isset($_SESSION['userId'])) {
             <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-align-left fs-4 me-3" id="menu-toggle"></i>
-                    <h2 class="fs-2 m-0">Bienvenid@</h2>
+                    <h2 class="fs-2 m-0">Bienvenido</h2>
                 </div>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -66,7 +54,7 @@ if (!isset($_SESSION['userId'])) {
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['user']; ?> <?php echo $_SESSION['usera']; ?>
+                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="../../../admin/cerrar.php">Salir</a></li>
@@ -78,6 +66,21 @@ if (!isset($_SESSION['userId'])) {
 
 			<div class="container mt-5">
                 <div class="row">
+                    <?php
+ if (isset($_GET['status'])) {
+  if ($_GET['status'] == 'success') {
+      echo '<div class="alert alert-success alert-dismissible fade show" role="alert" id="autoCloseAlert">
+              ¡Accion realizada exitosamente!
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>';
+  } elseif ($_GET['status'] == 'error') {
+      echo '<div class="alert alert-danger alert-dismissible fade show" role="alert" id="autoCloseAlert">
+              Algo salió mal. Por favor verifique los datos y vuelva a intentarlo.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>';
+  }
+}
+?>
                     <div class="col-md-12 text-center">
                         <h1>Registros</h1>
                     </div>

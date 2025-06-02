@@ -1,13 +1,14 @@
+
 <?php
 session_start();
-if (!isset($_SESSION['userId'])) {
+if (!isset($_SESSION['user'])) {
     $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
-    header("Location: ../index.php");
-    exit();
+    header('Location: ../src/protected.php');
+    exit;
 }
 include_once "../funciones/consulta.php";
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,10 +16,9 @@ include_once "../funciones/consulta.php";
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../../../css/nav.css"/>
-    <link rel="stylesheet" href="../css/principal.css"/>
+    <link rel="stylesheet" href="../../../css/stylsadm.css"/>
     <title>Pagina Principal</title>
 </head>
 <body>
@@ -28,25 +28,12 @@ include_once "../funciones/consulta.php";
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">EDUFAST</div>
             <div class="list-group list-group-flush my-3">
 
-                <a href="../php/publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
-
-                <a href="registros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Registro</a>
-
-                <a href="../php/jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
-
-                <a href="../php/grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
-
-                <a href="../php/cursos/curso.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Cursos</a>
-
-                <a href="../php/asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
-
-                <a href="../php/materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
-
-                <a href="../php/logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
-                <a href="../php/actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
-                <a href="../php/notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
-                <a href="../php/Observador/view/vista_o.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
-                <a href="../php/Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
+                <a href="principal_re.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Registros</a>
+                <a href="publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
+                <a href="jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
+                <a href="grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
+                <a href="materiaphp/vistas/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
+                <a href="../../dashboard.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Volver</a>
             </div>
         </div>
 
@@ -68,7 +55,7 @@ include_once "../funciones/consulta.php";
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['user']; ?> <?php echo $_SESSION['usera']; ?>
+                               <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="../../../admin/cerrar.php">Salir</a></li>
@@ -89,13 +76,19 @@ include_once "../funciones/consulta.php";
                             <th>Numero de Documento</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
+                            <th>Celular</th>
+                            <th>eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr><?php foreach ($registros as $registro) : ?>
-                                <td class="text-center"> <a class="text-reset" href="perfil.php?num_doc=<?php echo $registro->num_doc; ?>"><?php echo $registro->num_doc; ?></a></td>
+                                <td class="text-center"><?php echo $registro->num_doc; ?></td>
                                 <td class="text-center"><?php echo $registro->nombres?></td>
                                 <td class="text-center"><?php echo $registro->apellidos?></td>
+                                <td class="text-center"><?php echo $registro->celular?></td>
+                                <td class="actions">
+                        <a class="text-danger" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#confirmarModal<?php echo $registro->num_doc ?>">Eliminar</a>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
 
@@ -104,6 +97,29 @@ include_once "../funciones/consulta.php";
                     </div>
                     </div>
         </div>
+        <?php foreach($registros as $registro): ?>
+    <div class="modal fade" id="confirmarModal<?php echo $registro->num_doc ?>" tabindex="-1" role="dialog" aria-labelledby="confirmarModalLabel<?php echo $registro->num_doc ?>" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmarModalLabel<?php echo $registro->num_doc ?>">Confirmar Eliminación </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar este registro?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form method="POST" action="../funciones/eliminar.php">
+                        <input type="hidden" name="num_doc" value="<?php echo $registro->num_doc ?>">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
+
     </main>
                 </div>
             </div>

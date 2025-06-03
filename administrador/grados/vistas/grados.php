@@ -88,7 +88,7 @@ include_once "consulta.php";
                         <th class="text-center ">Nivel eduacativo</th>
                         <th class="text-center " colspan="2">Accion</th>
                     </tr>
-                </thead>
+                </thead> 
                 <tbody>
                     <tr><?php foreach ($grados as $grado) : ?>
                         <td class="text-center"><a class="text-reset" href="../../Cursos/vistas/Curso.php?id_grado=<?php echo $grado->id_grado; ?>"><?php echo $grado->grado?></a></td>

@@ -27,13 +27,12 @@ include_once "../funciones/consulta.php";
         <div class="listado" id="sidebar-wrapper">
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">EDUFAST</div>
             <div class="list-group list-group-flush my-3">
-
                 <a href="principal_re.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Registros</a>
-                <a href="publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
-                <a href="jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
-                <a href="grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
-                <a href="materiaphp/vistas/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
-                <a href="../../dashboard.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Volver</a>
+                <a href="../../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
+                <a href="../../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
+                <a href="../../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
+                <a href="../../materiaphp/vistas/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
+                <a href="../../dashboard.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>
             </div>
         </div>
 
@@ -77,7 +76,7 @@ include_once "../funciones/consulta.php";
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Celular</th>
-                            <th>eliminar</th>
+                            <th colspan="2">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -86,6 +85,9 @@ include_once "../funciones/consulta.php";
                                 <td class="text-center"><?php echo $registro->nombres?></td>
                                 <td class="text-center"><?php echo $registro->apellidos?></td>
                                 <td class="text-center"><?php echo $registro->celular?></td>
+                                <td class="text-center">
+                        <a class="text-primary" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#actualizar<?php echo $registro->num_doc ?>">Modificar rol</a>
+                        </td>
                                 <td class="actions">
                         <a class="text-danger" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#confirmarModal<?php echo $registro->num_doc ?>">Eliminar</a>
                         </td>
@@ -97,6 +99,40 @@ include_once "../funciones/consulta.php";
                     </div>
                     </div>
         </div>
+        <!---Modal de actualizar--->
+        <div class="modal fade" id="actualizar<?php echo $registro->num_doc ?>" tabindex="-1" aria-labelledby="actualizarLabel<?php echo $registro->num_doc ?>" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="../funciones/datosEditados.php" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title" id="actualizarLabel<?php echo $registro->num_doc ?>">Editar Rol</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="num_doc" value="<?php echo $registro->num_doc ?>">
+
+          <div class="mb-3">
+            <label for="rol_id_rol<?php echo $registro->num_doc ?>" class="form-label">Rol</label>
+            <select name="rol_id_rol" id="rol_id_rol<?php echo $registro->num_doc ?>" class="form-select" required>
+              <option value="">Seleccione un rol</option>
+              <?php foreach ($roles as $rol): ?>
+                <option value="<?php echo $rol->id_rol; ?>" <?php if ($rol->id_rol == $registro->rol_id_rol) echo 'selected'; ?>>
+                  <?php echo htmlspecialchars($rol->rol); ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Guardar cambios</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+        <!---Modal de eliminar--->
         <?php foreach($registros as $registro): ?>
     <div class="modal fade" id="confirmarModal<?php echo $registro->num_doc ?>" tabindex="-1" role="dialog" aria-labelledby="confirmarModalLabel<?php echo $registro->num_doc ?>" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -121,7 +157,7 @@ include_once "../funciones/consulta.php";
 <?php endforeach; ?>
 
     </main>
-                </div>
+              </div>
             </div>
 
             </div>

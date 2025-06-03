@@ -27,6 +27,9 @@ try {
         echo "Parámetros 'id_rol' no válidos o ausentes.";
         exit();
     }
+$consulta_roles = $base_de_datos->query("SELECT * FROM rol");
+$roles = $consulta_roles->fetchAll(PDO::FETCH_OBJ);
+
 
 } catch (PDOException $e) {
     echo "Error de conexión: " . $e->getMessage();

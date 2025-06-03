@@ -1,98 +1,92 @@
 <?php
 include_once "../configuracion/Conexion.php";
 
-$id_rol = 6; 
+$id_rol = 6;
 $num_doc = null;
 $registros = [];
-$perfiles = [];
-$busqueda = '';
-
-// Capturar el término de búsqueda
-if (isset($_GET['buscar']) && !empty(trim($_GET['buscar']))) {
-    $busqueda = trim($_GET['buscar']);
-}
+$estudiantes = [];
 
 try {
-    // Consulta para alumnos sin curso y grado
+    // define la variable de busqueda 
+    $busqueda = isset($_GET['num_doc']) ? trim($_GET['num_doc']) : ''; 
+
+    //consulta para buscar los alumnos que no tenga un registro en matricula 
+    $sql1 = "SELECT estudiante.*, registro.*  
+             FROM estudiante
+             INNER JOIN registro ON estudiante.registro_num_doc = registro.num_doc
+             LEFT JOIN matricula ON registro.num_doc = matricula.estudiante_registro_num_doc 
+             WHERE matricula.estudiante_registro_num_doc IS NULL";
+
     if (!empty($busqueda)) {
-        $sentencia = $base_de_datos->prepare("
-            SELECT registro.* 
-            FROM registro
-            LEFT JOIN matricula ON registro.num_doc = matricula.estudiante_registro_num_doc
-            WHERE registro.rol_id_rol = :id_rol 
-            AND matricula.estudiante_registro_num_doc IS NULL
-            AND CAST(registro.num_doc AS CHAR) LIKE :busqueda
-        ");
-        $busqueda_param = '%' . $busqueda . '%';
-        $sentencia->bindParam(':id_rol', $id_rol, PDO::PARAM_INT);
-        $sentencia->bindParam(':busqueda', $busqueda_param, PDO::PARAM_STR);
-        $sentencia->execute();
-        $registros = $sentencia->fetchAll(PDO::FETCH_OBJ);
-    } else {
-        $sentencia = $base_de_datos->prepare("
-            SELECT registro.* 
-            FROM registro
-            LEFT JOIN matricula ON registro.num_doc = matricula.estudiante_registro_num_doc
-            WHERE registro.rol_id_rol = :id_rol AND matricula.estudiante_registro_num_doc IS NULL
-        ");
-        $sentencia->bindParam(':id_rol', $id_rol, PDO::PARAM_INT);
-        $sentencia->execute();
-        $registros = $sentencia->fetchAll(PDO::FETCH_OBJ);
+        $sql1 .= " AND registro.num_doc LIKE :busqueda";
     }
 
-    if (isset($_GET['num_doc']) && is_numeric($_GET['num_doc'])) {
-        $num_doc = (int) $_GET['num_doc']; 
-        $sentencia = $base_de_datos->prepare("
-            SELECT * FROM registro 
-            INNER JOIN jornada ON registro.jornada_id_jornada = jornada.id_jornada
-            WHERE registro.num_doc = :num_doc  
-        ");
-        $sentencia->bindParam(':num_doc', $num_doc, PDO::PARAM_INT);
-        $sentencia->execute();
-        $perfiles = $sentencia->fetchAll(PDO::FETCH_OBJ);
+    $sentencia1 = $base_de_datos->prepare($sql1);
+
+    if (!empty($busqueda)) {
+        $busqueda_param = "%$busqueda%";
+        $sentencia1->bindParam(':busqueda', $busqueda_param, PDO::PARAM_STR);
     }
 
-    $grados = $base_de_datos->query("SELECT * FROM grado ")->fetchAll(PDO::FETCH_ASSOC);
+    $sentencia1->execute();
+    $registros = $sentencia1->fetchAll(PDO::FETCH_OBJ);
+
+    // Consulta para los alumnos que tengan un registro en matricula 
+    $sql2 = "SELECT registro.num_doc, registro.nombres, registro.apellidos, 
+                    grado.grado AS nombre_grado, cursos.curso AS nombre_curso 
+             FROM matricula
+             INNER JOIN registro ON matricula.estudiante_registro_num_doc = registro.num_doc
+             INNER JOIN grado ON matricula.grado_id_grado = grado.id_grado
+             INNER JOIN cursos ON matricula.cursos_id_cursos = cursos.id_cursos";
+
+    if (!empty($busqueda)) {
+        $sql2 .= " WHERE registro.num_doc LIKE :busqueda";
+    }
+
+    $sentencia2 = $base_de_datos->prepare($sql2);
+
+    if (!empty($busqueda)) {
+        $sentencia2->bindParam(':busqueda', $busqueda_param, PDO::PARAM_STR);
+    }
+
+    $sentencia2->execute();
+    $estudiantes = $sentencia2->fetchAll(PDO::FETCH_ASSOC);
+
+    $consulta = $base_de_datos->prepare("
+    SELECT observacion.*, estudiante.*, observador.*, registro.*
+    FROM observacion 
+    INNER JOIN observador ON observacion.observador_id_observador = observador.id_observador
+    INNER JOIN estudiante ON observacion.estudiante_id_estudiante = estudiante.id_estudiante
+    INNER JOIN registro ON estudiante.registro_num_doc = registro.num_doc
+    WHERE registro.num_doc = :num_doc
+");
+
+$consulta->bindParam(':num_doc', $busqueda, PDO::PARAM_STR);
+$consulta->execute();
+$compromisos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+
+$consulta = $base_de_datos->prepare("SELECT *
+FROM observador 
+INNER JOIN registro ON observador.registro_num_doc = registro.num_doc
+WHERE registro.num_doc = :num_doc
+");
+
+$consulta->bindParam(':num_doc', $busqueda, PDO::PARAM_STR);
+$consulta->execute();
+$observadores = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+    
+    $grados = $base_de_datos->query("SELECT * FROM grado")->fetchAll(PDO::FETCH_ASSOC);
     $cursos = $base_de_datos->query("SELECT * FROM cursos ORDER BY curso ASC")->fetchAll(PDO::FETCH_ASSOC);
     $jornadas = $base_de_datos->query("SELECT * FROM jornada")->fetchAll(PDO::FETCH_ASSOC);
-    
-    // Consulta para estudiantes con curso y grado
-    if (!empty($busqueda)) {
-        $sentencia_estudiantes = $base_de_datos->prepare("
-            SELECT 
-                registro.*, 
-                estudiante.*, 
-                matricula.*, 
-                grado.grado AS nombre_grado, 
-                cursos.curso AS nombre_curso
-            FROM registro
-            INNER JOIN estudiante ON registro.num_doc = estudiante.registro_num_doc
-            INNER JOIN matricula ON matricula.estudiante_registro_num_doc = registro.num_doc
-            INNER JOIN grado ON matricula.grado_id_grado = grado.id_grado
-            INNER JOIN cursos ON matricula.cursos_id_cursos = cursos.id_cursos
-            WHERE CAST(registro.num_doc AS CHAR) LIKE :busqueda
-        ");
-        $sentencia_estudiantes->bindParam(':busqueda', $busqueda_param, PDO::PARAM_STR);
-        $sentencia_estudiantes->execute();
-        $estudiantes = $sentencia_estudiantes->fetchAll(PDO::FETCH_ASSOC);
-    } else {
-        $estudiantes = $base_de_datos->query("
-            SELECT 
-                registro.*, 
-                estudiante.*, 
-                matricula.*, 
-                grado.grado AS nombre_grado, 
-                cursos.curso AS nombre_curso
-            FROM registro
-            INNER JOIN estudiante ON registro.num_doc = estudiante.registro_num_doc
-            INNER JOIN matricula ON matricula.estudiante_registro_num_doc = registro.num_doc
-            INNER JOIN grado ON matricula.grado_id_grado = grado.id_grado
-            INNER JOIN cursos ON matricula.cursos_id_cursos = cursos.id_cursos
-        ")->fetchAll(PDO::FETCH_ASSOC);
-    }
+
+
+
 
 } catch (PDOException $e) {
     echo "Error de conexión: " . $e->getMessage();
     exit();
 }
+
 ?>

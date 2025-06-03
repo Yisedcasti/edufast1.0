@@ -9,7 +9,7 @@ INNER JOIN estudiante ON matricula.estudiante_id_estudiante = estudiante.id_estu
 INNER JOIN registro ON registro.num_doc = estudiante.registro_num_doc
 INNER JOIN actividad ON actividad.id_actividad = nota.actividad_id_actividad
 INNER JOIN logro ON logro.id_logro = actividad.logro_id_logro
-INNER JOIN materia ON materia.id_materia = actividad.docente_has_materia_materia_id_materia
+INNER JOIN materia ON materia.id_materia = actividad.logro_materia_id_materia
 WHERE matricula_id_matricula = nota.matricula_id_matricula
     ");
     $sentencia->execute();

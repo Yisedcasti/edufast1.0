@@ -70,75 +70,102 @@ include_once "../funciones/consultar.php";
                 </div>
             </nav>
 
-			<div class="container mt-5">
+            <div class="container mt-5">
+                <!-- Buscador compacto -->
+                <div class="d-flex justify-content-end mb-4">
+                    <form method="GET" action="" class="d-flex">
+                        <input 
+                            type="text" 
+                            class="form-control me-2" 
+                            name="buscar" 
+                            placeholder="Ingrese número de documento"
+                            value="<?php echo isset($_GET['buscar']) ? htmlspecialchars($_GET['buscar']) : ''; ?>"
+                            style="width: 250px;"
+                        >
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </form>
+                </div>
+
                 <div class="row">
-                    <div class="col-md-12 text-center">
+                    <!-- Tabla de alumnos sin curso y grado -->
+                    <div class="col-md-12 text-center mb-5">
                         <h1 class="mb-3 text-white">Alumnos sin curso y grado</h1>
                         <div class="table-responsive">
-                        <table class="table table-hover rounded shadow table-bordered table-striped">
-                        <thead>    
-                        <tr>
-                            <th>Numero de Documento</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><?php foreach ($registros as $registro) : ?>
-                                <td class="text-center"> <a class="text-reset" href="observador.php?num_doc=<?php echo $registro->num_doc; ?>"><?php echo $registro->num_doc; ?></a></td>
-                                <td class="text-center"><?php echo $registro->nombres?></td>
-                                <td class="text-center"><?php echo $registro->apellidos?></td>
-                    </tr>
-                    <?php endforeach; ?>
-
-                    </tbody>
-                        </table>
+                            <table class="table table-hover rounded shadow table-bordered table-striped">
+                                <thead>    
+                                    <tr>
+                                        <th>Numero de Documento</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (count($registros) > 0): ?>
+                                        <?php foreach ($registros as $registro) : ?>
+                                            <tr>
+                                                <td class="text-center"> 
+                                                    <a class="text-reset" href="observador.php?num_doc=<?php echo $registro->num_doc; ?>">
+                                                        <?php echo $registro->num_doc; ?>
+                                                    </a>
+                                                </td>
+                                                <td class="text-center"><?php echo $registro->nombres; ?></td>
+                                                <td class="text-center"><?php echo $registro->apellidos; ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="3" class="text-center">No se encontraron resultados.</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    </div>
 
+                    <!-- Tabla de alumnos con curso y grado -->
                     <div class="col-md-12 text-center">
                         <h1 class="mb-3 text-white">Alumnos con curso y grado</h1>
                         <div class="table-responsive">
-                        <table class="table table-hover rounded shadow table-bordered table-striped">
-                        <thead>    
-                        <tr>
-                            <th>Numero de Documento</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Grado</th>
-                            <th>Curso</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-    <?php foreach ($estudiantes as $estudiante) : ?>
-        <tr>
-            <td class="text-center">
-                <a class="text-reset" href="observador.php?num_doc=<?php echo $estudiante['num_doc']; ?>">
-                    <?php echo $estudiante['registro_num_doc']; ?>
-                </a>
-            </td>
-            <td class="text-center"><?php echo $estudiante['nombres']; ?></td>
-            <td class="text-center"><?php echo $estudiante['apellidos']; ?></td>
-            <td class="text-center"><?php echo $estudiante['nombre_grado']; ?></td>
-            <td class="text-center"><?php echo $estudiante['nombre_curso']; ?></td>
-
-
-        </tr>
-    <?php endforeach; ?>
-</tbody>
-
-                        </table>
+                            <table class="table table-hover rounded shadow table-bordered table-striped">
+                                <thead>    
+                                    <tr>
+                                        <th>Numero de Documento</th>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Grado</th>
+                                        <th>Curso</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (count($estudiantes) > 0): ?>
+                                        <?php foreach ($estudiantes as $estudiante) : ?>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <a class="text-reset" href="observador.php?num_doc=<?php echo $estudiante['num_doc']; ?>">
+                                                        <?php echo $estudiante['registro_num_doc']; ?>
+                                                    </a>
+                                                </td>
+                                                <td class="text-center"><?php echo $estudiante['nombres']; ?></td>
+                                                <td class="text-center"><?php echo $estudiante['apellidos']; ?></td>
+                                                <td class="text-center"><?php echo $estudiante['nombre_grado']; ?></td>
+                                                <td class="text-center"><?php echo $estudiante['nombre_curso']; ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="5" class="text-center">No se encontraron resultados.</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    </div>
-        </div>
-    </main>
                 </div>
-            </div>
-
             </div>
         </div>
     </div>
-<footer class="footer-bottom bg-dark text-white text-center py-3 mt-auto">
+
+    <footer class="footer-bottom bg-dark text-white text-center py-3 mt-auto">
         <p class="mb-0">©2024 codeOpacity. Designed by <span>EDUFAST</span></p>
         <div class="socials d-flex justify-content-center mt-2">
             <a href="https://www.facebook.com/cedid.sanpablo.3?locale=es_LA" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
@@ -147,8 +174,6 @@ include_once "../funciones/consultar.php";
             <a href="mailto:cedidsanpablobosa7@educacionbogota.edu.co" class="text-white mx-2"><i class="fab fa-google"></i></a>
         </div>
     </footer>
-    <!-- /#page-content-wrapper -->
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -158,6 +183,14 @@ include_once "../funciones/consultar.php";
         toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
+
+        // Auto-focus en el campo de búsqueda
+        document.addEventListener('DOMContentLoaded', function() {
+            const buscarInput = document.querySelector('input[name="buscar"]');
+            if (buscarInput) {
+                buscarInput.focus();
+            }
+        });
     </script>
 </body>
 

@@ -44,8 +44,6 @@ include "consulta.php";
                 <a href="../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
                 <a href="../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
                 <a href="../observador/vistas/alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observadores</a>
-                <a href="../logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
-                <a href="../actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
                 <a href="../asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
                 <a href="../notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
                 <a href="../Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
@@ -110,14 +108,14 @@ include "consulta.php";
                             echo '<section class="row mb-3">';
                             echo '<h3 class="col-12 text-center mb-3">' . htmlspecialchars($materia->nombre_area) . '</h3>';
                         }
-                        ?>
+                        ?> 
 
                         <section class="col-lg-3 col-md-6 col-sm-6 col-12 mb-4">
                             <div class="card mb-3" style="max-width: 18rem;">
                                 <h4 class="card-header text-center"><?php echo htmlspecialchars($materia->nombre_area); ?>
                                 </h4>
                                 <div class="card-body">
-                                    <h5 class="card-title"><?php echo htmlspecialchars($materia->materia); ?></h5>
+                                    <h5 class="card-title"><a  class=" list-group-item list-group-item-action " href="../logrophp/vistas/logros.php?id=<?php echo htmlspecialchars($materia->id_materia)?>"><?php echo htmlspecialchars($materia->materia); ?></a></h5>
                                     <button type="button" class="btn" data-bs-toggle="modal"
                                         data-bs-target="#actualizar<?= $materia->id_materia ?>">
                                         <i class="fas fa-edit"></i>

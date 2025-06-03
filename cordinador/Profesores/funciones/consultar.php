@@ -7,7 +7,7 @@ $registros = [];
 $estudiantes = [];
 
 try {
-    // define la variable de busqueda 
+    // define la variable de busqueda  
     $busqueda = isset($_GET['num_doc']) ? trim($_GET['num_doc']) : ''; 
 
     //consulta para buscar los alumnos que no tenga un registro en matricula 

@@ -10,7 +10,7 @@ include_once "../funciones/consultar.php";
 $busqueda = isset($_GET['num_doc']) ? $_GET['num_doc'] : ''; 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 
 <head>
     <meta charset="UTF-8" />

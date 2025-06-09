@@ -7,7 +7,7 @@ if (!isset($_SESSION['user'])) {
 }
 include "../funciones/consultarLogro.php";
 ?>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 
 <head>

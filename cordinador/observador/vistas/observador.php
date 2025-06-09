@@ -359,6 +359,9 @@ echo "
                 <button type='reset' class='btn btn-danger'>Borrar</button>
             </div>
         </form>
+        <form>
+            
+        </form>
     </div>
     
         </div>";
@@ -443,7 +446,7 @@ echo "
             el.classList.toggle("toggled");
         };
 
-        // Validar fecha de naAcimiento
+
     function validarFechaNacimiento() {
         const fechaInput = document.getElementById("fecha_nacimiento");
         const mensajeError = document.getElementById("error_fecha_nacimiento");

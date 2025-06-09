@@ -57,7 +57,7 @@ if (!isset($_SESSION['user'])) {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown"
+                            <a class="nav-link dropdown-toggle text-white fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
@@ -87,7 +87,7 @@ if (!isset($_SESSION['user'])) {
                 <div class="row">
                     <div class="col-md-12 text-center">
                     <main class="main-container">
-        <h1 class=" mt-2 mb-5">Cursos Existentes</h1>
+        <h1 class="text-white mt-2 mb-5">Cursos Existentes</h1>
         <div class="container">
   <?php 
   $gradoActual = null; // Varaible que rastrea el grado actual
@@ -105,113 +105,12 @@ if (!isset($_SESSION['user'])) {
           <div class="card-header"><b> Grado: </b><?php echo htmlspecialchars($curso->grado); ?></div>
           <div class="card-body">
             <p class="card-text text-center"><b> Curso:</b><br><?php echo htmlspecialchars($curso->curso); ?></p>
-            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#actualizar<?= $curso->id_cursos ?>">
-              <i class="fas fa-edit"></i>
-            </button>
-            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#eliminarModal<?= $curso->id_cursos ?>">
-              <i class="fas fa-trash-alt"></i>
-            </button>
           </div>
         </div>
       </div>
   <?php endforeach; ?>
-  </div> <!-- Cerrar la última fila -->
+  </div>
 </div>
-
-
-
-        <!-- Botón Crear  -->
-        <div class="d-flex justify-content-center mb-4">
-            <a class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#crear">Crear Curso</a>
-        </div>
-
-        <!-- Modal Crear -->
-        <?php foreach ($cursos as $curso): ?>
-        <div class="modal fade" id="crear" tabindex="-1" aria-labelledby="crearLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="crearLabel">Crear Curso</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form class="formulario" action="registrarcurso.php" method="POST">
-                            <section class="mb-3">
-                                <label for="curso">Ingrese curso</label>
-                                <input type="number" name="curso" class="form-control" required>
-                            </section>
-                            <section class="mb-3">
-                                <label for="Grado">Grado:</label>
-                                <input type="text" id="grado"  class="form-control text-center"  name="grado" value="<?php echo htmlspecialchars($curso->grado); ?>" readonly>
-                                <input type="hidden" id="grado_id_grado" name="grado_id_grado" value="<?php echo $curso->grado_id_grado ?> " readonly>
-                            </section>
-                            <section class="text-center">
-                                <input type="submit" value="Enviar" class="btn btn-primary">
-                            </section>
-                        </form>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php endforeach; ?>
-
-        <!-- Modal Actualizar -->
-        <?php foreach($cursos as $curso): ?>
-        <div class="modal fade" id="actualizar<?= $curso->id_cursos ?>" tabindex="-1" aria-labelledby="actualizarLabel<?= $curso->id_cursos ?>" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="actualizarLabel<?= $curso->id_cursos ?>">Actualizar Curso</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form class="formulario" action="guardarDatos.php" method="POST">
-                            <section class="mb-3">
-                                <label for="curso">Curso</label>
-                                <input type="number" name="curso" class="form-control text-center" value="<?php echo htmlspecialchars($curso->curso); ?>" required>
-                            </section>
-                            <section class="mb-3">
-                                <label for="grado">Grado</label>
-                                <input type="text" id="grado"  class="form-control text-center"  name="grado" value="<?php echo htmlspecialchars($curso->grado); ?>" readonly>
-                                <input type="hidden" id="grado_id_grado" name="grado_id_grado" value="<?php echo $curso->grado_id_grado ?> " readonly>
-                            </section>
-                            <section class="text-center">
-                                <input type="submit" value="Actualizar" class="btn btn-primary">
-                            </section>
-                            <input type="hidden" name="id_cursos" value="<?= $curso->id_cursos ?>">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php endforeach; ?>
-
-        <!-- Modal Eliminar -->
-        <?php foreach($cursos as $curso): ?>
-        <div class="modal fade" id="eliminarModal<?= $curso->id_cursos ?>" tabindex="-1" aria-labelledby="eliminarModalLabel<?= $curso->id_cursos ?>" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="eliminarModalLabel<?= $curso->id_curso ?>">Eliminar Curso</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>¿Está seguro que desea eliminar el curso <b><?= htmlspecialchars($curso->curso) ?></b>? Esta acción no se puede deshacer.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <form method="POST" action="eliminarcurso.php">
-                            <input type="hidden" name="id_cursos" value="<?= $curso->id_cursos ?>">
-                            <input type="hidden" id="grado_id_grado" name="grado_id_grado" value="<?php echo $curso->grado_id_grado ?> " readonly>
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php endforeach; ?>
-
     </main>
         </div>
                 </div>

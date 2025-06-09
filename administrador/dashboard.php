@@ -61,6 +61,9 @@ if (!isset($_SESSION['user'])) {
                         </li>
                     </ul>
                 </div>
+                <a href="../manual/manual.php" title="Ayuda" style="text-decoration: none; color: #007BFF;">
+  <i class="fas fa-question-circle"></i> Ayuda
+</a>
             </nav>
 
 			<div class="container mt-5 mb-4">

@@ -57,10 +57,10 @@ if (!isset($_SESSION['user'])) {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="actualizar_evento.php">Eventos</a>
+    <a class="nav-link text-white active" aria-current="page" href="actualizar_evento.php">Eventos</a>
   </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown"
+                            <a class="nav-link dropdown-toggle text-white fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
@@ -91,7 +91,7 @@ if (!isset($_SESSION['user'])) {
                           }
                         ?>
 <section class="main-container">
-        <h1 class="titulo mb-4 text-center"> Actualizar Noticias</h1>
+        <h1 class="titulo mb-4 text-center text-white"> Actualizar Noticias</h1>
 
     <table class="table table-bordered text-center align-middle">
     <thead class="table-secondary">

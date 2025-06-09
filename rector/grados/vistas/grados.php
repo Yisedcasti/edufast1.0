@@ -53,7 +53,7 @@ include_once "consulta.php";
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown"
+                            <a class="nav-link dropdown-toggle text-white fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
@@ -84,24 +84,33 @@ include_once "consulta.php";
 ?>
                 <main class="main-container">
         <section class="container">
-            <h2 class=" mb-4">Grados Existentes</h2>
+            <h2 class=" text-white mb-4">Grados Existentes</h2>
             
             <table class="table Regular shadow">
                 <thead>
                     <tr>
                         <th class="text-center ">Grado</th>
                         <th class="text-center ">Nivel eduacativo</th>
+                        <th class="text-center " colspan="2">Accion</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr><?php foreach ($grados as $grado) : ?>
                         <td class="text-center"><a class="text-reset" href="../../cursos/Curso.php?id_grado=<?php echo $grado->id_grado; ?>"><?php echo $grado->grado?></a></td>
                         <td class="text-center"><?php echo $grado->nivel_educativo?></td>
+
+                        <td class="text-center">
+                        <a class="text-primary" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#actualizar<?php echo $grado->id_grado ?>">Actualizar</a>
+                        </td>
+                        <td class="actions">
+                        <a class="text-danger" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#confirmarModal<?php echo $grado->id_grado ?>">Eliminar</a>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </section>
+       
     </main>
                 </div>
             </div>

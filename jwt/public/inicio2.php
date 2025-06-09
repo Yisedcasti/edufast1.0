@@ -31,10 +31,15 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="../../registro.php">Registrarse</a>
                         </li>
+                        
                     </ul>
+        
                 </div>
             </div>
         </div>
+             <a href="../../manual/manual.php" title="Ayuda" style="text-decoration: none; color: #007BFF;">
+  <i class="fas fa-question-circle"></i> Ayuda
+</a>
     </header>
 
     <main class="main-container">

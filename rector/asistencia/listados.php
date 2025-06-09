@@ -108,6 +108,7 @@ if (!isset($_SESSION['user'])) {
                             <!-- Las filas de la tabla se llenarán dinámicamente -->
                         </tbody>
                     </table>
+                    <button type="submit" class="btn btn-primary">Guardar Asistencias</button>
                 </form>
             </div>
 
@@ -153,7 +154,7 @@ if (!isset($_SESSION['user'])) {
         const cellAsistencia = document.createElement("td");
         const linkNombres = document.createElement("a");
         linkNombres.href = "asistencia.php?id_matricula=" + item.id_matricula;
-        linkNombres.textContent = item.nombres;  
+        linkNombres.textContent = item.nombres;
 
         cellNombres.appendChild(linkNombres);
         cellApellidos.textContent = item.apellidos;
@@ -162,6 +163,7 @@ if (!isset($_SESSION['user'])) {
         row.appendChild(cellNombres);
         row.appendChild(cellApellidos);
         row.appendChild(cellCurso);
+       
 
         tbody.appendChild(row);
     });

@@ -43,6 +43,9 @@ $roles = $base_de_datos->query("SELECT * FROM rol")->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
         </div>
+        <a href="manual/manual.php" title="Ayuda" style="text-decoration: none; color: #007BFF;">
+  <i class="fas fa-question-circle"></i> Ayuda
+</a>
     </header>
 
     <main class="main-container">

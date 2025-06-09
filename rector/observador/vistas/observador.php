@@ -16,7 +16,7 @@ if (!isset($_SESSION['user'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../../../css/stylsrec.css"/>
+    <link rel="stylesheet" href="../../../css/stylsrec.css">
     <link rel="stylesheet" href="../../../ob.css"/>
     <title>Pagina Principal</title>
 </head>
@@ -30,14 +30,12 @@ if (!isset($_SESSION['user'])) {
                 <a href="../../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
                 <a href="../../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
                 <a href="../../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
-                <a href="../../observador/vistas/alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observadores</a>
+                <a href="../../observador/vistas/alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observador</a>
                 <a href="../../materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
                 <a href="../../logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
                 <a href="../../actividad/actividad.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
-                <a href="../../asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
-                <a href="../../notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
-                <a href="../../Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
-                <a href="../../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>            </div>
+                <a href="../../admin/pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>            
+            </div>
         </div>
 
         <div id="page-content-wrapper">
@@ -56,7 +54,7 @@ if (!isset($_SESSION['user'])) {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown"
+                            <a class="nav-link dropdown-toggle text-white fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
@@ -94,8 +92,10 @@ if (!isset($_SESSION['user'])) {
                         
                         if ($num_doc !== null) {
                             // Verificar en la tabla de estudiantes
-                            $sqlEstudiante = "SELECT * FROM estudiante
+                            $sqlEstudiante = "SELECT estudiante.*, registro.*, jornada.*
+                            FROM estudiante 
                             INNER JOIN registro ON estudiante.registro_num_doc = registro.num_doc
+                            INNER JOIN jornada ON  registro.jornada_id_jornada = jornada.id_jornada
                              WHERE registro_num_doc = :num_doc";
                             $stmtEstudiante = $base_de_datos->prepare($sqlEstudiante);
                             $stmtEstudiante->bindParam(':num_doc', $num_doc, PDO::PARAM_STR);
@@ -119,171 +119,216 @@ if (!isset($_SESSION['user'])) {
                                     foreach ($datosMatricula as $matricula) {
                                         echo "		<div class='container mt-5'>
             <div class='container'>
-        <div class='text-center mb-4 '>
+        <div class='text-center mb-4'>
             <h2><b>OBSERVADOR DEL ESTUDIANTE</b></h2>
         </div>
 
-        <form class='mb-3 bg-dark bg-opacity-25 p-3' action='gracias.html' method='post'>
+        <form action='../funciones/actualizar.php' method='post'>
+        <input type='hidden' class='form-control text-center bg-white' id='director' name='num_doc' value='{$datosEstudiante['num_doc']}'>
             <!-- Información Básica -->
-              <h3 class='text-center'>Información Básica</h3>
-            <div class='mb-5 mt-4'>
+            <h3 class='text-center'>Información Básica</h3>
+            <div class='mb-4 mt-4'>
                 <div class='row g-3'>
+                <div class='col-md-3'>
+    <label for='estudiante' class='form-label'>Nivel educativo</label>
+    <input type='text' class='form-control text-center bg-white' id='director' name='director' value='{$datosEstudiante['NIvel_educativo']}' disabled>
+</div>
                     <div class='col-md-2'>
                         <label for='grado' class='form-label'>Grado</label>
-                          <select class='form-select ' id='frecuencia' name='id_jornada'>";
-                        foreach ($grados as $grado) {
-                            $selected = ($matricula['grado_id_grado'] == $grado['id_grado']) ? 'selected' : '';
-                            echo "<option value='" . htmlspecialchars($grado['id_grado'], ENT_QUOTES) . "' $selected>"
-                                . htmlspecialchars($grado['grado'], ENT_QUOTES) . "</option>";
-                        }
-                        
-
-echo "
-    </select>
+                         <input type='text' class='form-control text-center bg-white' id='director' name='grado' value='{$matricula['grado']}' disabled>
                     </div>
                     <div class='col-md-2'>
                         <label for='curso' class='form-label'>Curso</label>
-                          <select class='form-select' id='frecuencia' name='id_jornada'>";
-                        foreach ($cursos as $curso) {
-                            $selected = ($matricula['cursos_id_cursos'] == $curso['id_cursos']) ? 'selected' : '';
-                            echo "<option value='" . htmlspecialchars($curso['id_cursos'], ENT_QUOTES) . "' $selected>"
-                                . htmlspecialchars($curso['curso'], ENT_QUOTES) . "</option>";
-                        }
-                        
-
-echo "
-    </select> 
+                          <input type='text' class='form-control text-center bg-white' id='director' name='curso' value='{$matricula['curso']}' disabled>
                     </div>
                     <div class='col-md-3'>
                         <label for='frecuencia' class='form-label'>Jornada</label>
-                        <select class='form-select' id='frecuencia' name='id_jornada'>";
-                        foreach ($jornadas as $jornada) {
-                            $selected = ($datosEstudiante['registro_jornada_id_jornada'] == $jornada['id_jornada']) ? 'selected' : '';
-                            echo "<option value='" . htmlspecialchars($jornada['id_jornada'], ENT_QUOTES) . "' $selected>"
-                                . htmlspecialchars($jornada['jornada'], ENT_QUOTES) . "</option>";
-                        }
-                        
-
-echo "
-    </select>
+                        <input type='text' class='form-control text-center bg-white' id='director' name='jornada' value='{$datosEstudiante['jornada']}' disabled>
                     </div>
                    <div class='col-md-3'>
     <label for='estudiante' class='form-label'>Estado</label>
-    <input type='text' class='form-control' id='director' name='director' value='{$datosEstudiante['Estado']}'>
+    <input type='text' class='form-control text-center bg-white' id='director' name='director' value='{$datosEstudiante['Estado']}' disabled>
 </div>
 
+ 
                 </div>
             </div>
 
             <!-- Información del Estudiante -->
-              <h3 class='text-center'>Información del Estudiante</h3>
-            <div class='mb-5 mt-4'>
+
+            <h3 class='text-center'>Información del Estudiante</h3>
+            <div class='mb-5  mt-4'>
                 <div class='row g-3'>
                     <div class='col-md-3'>
                         <label for='apellido' class='form-label'>Apellidos</label>
-                        <input type='text' class='form-control' id='apellido' name='apellido' value='{$datosEstudiante['apellidos']}'>
+                        <input type='text' class='form-control text-center bg-white' id='apellido' name='apellido' value='{$datosEstudiante['apellidos']}' disabled>
                     </div>
                     <div class='col-md-3'>
                         <label for='nombre' class='form-label'>Nombres</label>
-                        <input type='text' class='form-control' id='nombre' name='nombre' value='{$datosEstudiante['nombres']}'> 
+                        <input type='text' class='form-control text-center bg-white' id='nombre' name='nombre' value='{$datosEstudiante['nombres']}' disabled> 
                     </div>
                     <div class='col-md-3'>
                         <label for='nacimiento' class='form-label'>Fecha de Nacimiento</label>
-                        <input type='date' class='form-control' id='nacimiento' name='nacimiento' value='{$datosEstudiante['fecha_nacimiento']}'>
+                        <input type='date' class='form-control text-center bg-white' id='nacimiento' name='nacimiento' value='{$datosEstudiante['fecha_nacimiento']}' disabled>
                     </div>
                     <div class='col-md-3'>
                         <label for='nombre' class='form-label'>Genero</label>
-                        <input type='text' class='form-control' id='nombre' name='nombre' value='{$datosEstudiante['sexo']}'> 
+                        <input type='text' class='form-control text-center bg-white' id='nombre' name='nombre' value='{$datosEstudiante['sexo']}' disabled> 
                     </div>
                     <div class='col-md-3'>
                         <label for='nombre' class='form-label'>RH</label>
-                        <input type='text' class='form-control' id='nombre' name='nombre' value='{$datosEstudiante['RH']}'> 
+                        <input type='text' class='form-control text-center bg-white' id='nombre' name='nombre' value='{$datosEstudiante['RH']}' disabled> 
                     </div>
                     <div class='col-md-3'>
                         <label for='nombre' class='form-label'>Eps</label>
-                        <input type='text' class='form-control' id='nombre' name='nombre' value='{$datosEstudiante['Eps']}'> 
+                        <input type='text' class='form-control text-center bg-white' id='nombre' name='nombre' value='{$datosEstudiante['Eps']}' disabled> 
+                    </div>";
+                    foreach ($observadores as $observador) {
+                    echo "<div class='col-md-3'>
+                        <label for='nombre' class='form-label'>Telefono de emergencia</label>
+                        <input type='text' class='form-control text-center bg-white' id='nombre' name='Tel_emergencia' value='{$observador['Tel_emergencia']}'  disabled> 
                     </div>
                 </div>
             </div>
 
             <!-- Información Familiar -->
-              <h3 class='text-center'>Identificación Familiar</h3>
-            <div class='mb-5 mt-4'>
+            <h3 class='text-center'>Identificación Familiar</h3>
+            <div class='mb-4 mt-4'>
+             <h5 class='text-start mb-4'>DATOS DEL PADRE</h5>
                 <div class='row g-3'>
                     <div class='col-md-4'>
-                        <label for='nombre_padre' class='form-label'>Nombre del Padre</label>
-                        <input type='text' class='form-control' id='nombre_padre' name='nombre_padre'>
+                        <label for='nombre_padre' class='form-label'>Nombres del Padre</label>
+                        <input type='text' class='form-control text-center bg-white' id='nombre_padre' name='padre_nombre' value='{$observador['padre_nombre']}'  disabled>
+                    </div>
+                    <div class='col-md-4'>
+                        <label for='nombre_padre' class='form-label'>Apellidos del Padre</label>
+                        <input type='text' class='form-control text-center bg-white' id='nombre_padre' name='padre_apellido' value='{$observador['padre_apellido']}'  disabled>
                     </div>
                     <div class='col-md-4'>
                         <label for='ocupacion_padre' class='form-label'>Ocupación del Padre</label>
-                        <input type='text' class='form-control' id='ocupacion_padre' name='ocupacion_padre'>
+                        <input type='text' class='form-control text-center bg-white' id='ocupacion_padre' name='padre_ocupacion' value='{$observador['padre_ocupacion']}'  disabled>
                     </div>
                     <div class='col-md-4'>
-                        <label for='telefono_padre' class='form-label'>Teléfono del Padre</label>
-                        <input type='text' class='form-control' id='telefono_padre' name='telefono_padre'>
+                        <label for='telefono_padre' class='form-label'>Cedula del Padre</label>
+                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='padre_cedula' value='{$observador['padre_cedula']}'  disabled>
                     </div>
-                </div>
-                <div class='row g-3 mt-3'>
-                    <div class='col-md-4'>
-                        <label for='nombre_madre' class='form-label'>Nombre de la Madre</label>
-                        <input type='text' class='form-control' id='nombre_madre' name='nombre_madre'>
-                    </div>
-                    <div class='col-md-4'>
-                        <label for='ocupacion_madre' class='form-label'>Ocupación de la Madre</label>
-                        <input type='text' class='form-control' id='ocupacion_madre' name='ocupacion_madre'>
-                    </div>
-                    <div class='col-md-4'>
-                        <label for='telefono_madre' class='form-label'>Teléfono de la Madre</label>
-                        <input type='text' class='form-control' id='telefono_madre' name='telefono_madre'>
-                    </div>
-                </div>
-                <div class='row g-3 mt-3'>
-                    <div class='col-md-4'>
-                        <label for='nombre_acudiente' class='form-label'>Nombre del Acudiente</label>
-                        <input type='text' class='form-control' id='nombre_acudiente' name='nombre_acudiente'>
-                    </div>
-                    <div class='col-md-4'>
-                        <label for='ocupacion_acudiente' class='form-label'>Ocupación del Acudiente</label>
-                        <input type='text' class='form-control' id='ocupacion_acudiente' name='ocupacion_acudiente'>
-                    </div>
-                    <div class='col-md-4'>
-                        <label for='telefono_acudiente' class='form-label'>Teléfono del Acudiente</label>
-                        <input type='text' class='form-control' id='telefono_acudiente' name='telefono_acudiente'>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Compromisos -->
-            
-            <h3 class='text-center'>Compromisos Académicos y Convivenciales</h3>
-            <div class=' mt-4'>
-                <table class='table table-bordered'>
+                     <div class='col-md-4'>
+                        <label for='telefono_padre' class='form-label'>Direccion del Padre</label>
+                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='padre_direccion' value='{$observador['padre_direccion']}'  disabled>
+                    </div>
+                     <div class='col-md-4'>
+                        <label for='telefono_padre' class='form-label'>Telefono del Padre</label>
+                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='padre_telefono' value='{$observador['padre_telefono']}'  disabled>
+                    </div>
+                    
+                     <div class='col-md-4'>
+                        <label for='telefono_padre' class='form-label'>Correo del Padre</label>
+                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='padre_correo' value='{$observador['padre_correo']}'  disabled>
+                    </div>
+
+                </div>
+                <h5 class='text-start mb-4 mt-5'>DATOS DE LA MADRE</h5>
+                <div class='row g-3 mt-4'>
+                    <div class='col-md-4'>
+                        <label for='nombre_padre' class='form-label'>Nombres de la madre </label>
+                        <input type='text' class='form-control text-center bg-white' id='nombre_padre' name='madre_nombre' value='{$observador['madre_nombre']}'  disabled>
+                    </div>
+                    <div class='col-md-4'>
+                        <label for='nombre_padre' class='form-label'>Apellidos de la madre </label>
+                        <input type='text' class='form-control text-center bg-white' id='nombre_padre' name='madre_apellido' value='{$observador['madre_apellido']}'  disabled>
+                    </div>
+                    <div class='col-md-4'>
+                        <label for='ocupacion_padre' class='form-label'>Ocupación de la madre </label>
+                        <input type='text' class='form-control text-center bg-white' id='ocupacion_padre' name='madre_ocupacion' value='{$observador['madre_ocupacion']}'  disabled>
+                    </div>
+                    <div class='col-md-4'>
+                        <label for='telefono_padre' class='form-label'>Cedula de la madre </label>
+                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='madre_cedula' value='{$observador['madre_cedula']}'  disabled>
+                    </div>
+
+                     <div class='col-md-4'>
+                        <label for='telefono_padre' class='form-label'>Direccion de la madre </label>
+                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='madre_direccion' value='{$observador['madre_direccion']}'  disabled>
+                    </div>
+                     <div class='col-md-4'>
+                        <label for='telefono_padre' class='form-label'>Telefono de la madre </label>
+                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='madre_telefono' value='{$observador['madre_telefono']}'  disabled>
+                    </div>
+                    
+                     <div class='col-md-4'>
+                        <label for='telefono_padre' class='form-label'>Correo de la madre </label>
+                        <input type='text' class='form-control text-center bg-white' id='telefono_padre' name='madre_correo' value='{$observador['madre_correo']}'  disabled>
+                    </div>
+
+                </div>
+
+                  <h5 class='text-start mb-4 mt-5'>DATOS DEL ACUDIENTE </h5>
+                 <div class='row g-3 mt-4 mb-5'>
+                    <div class='col-md-4'>
+                        <label for='nombre_padre' class='form-label'>Nombres del acudiente </label>
+                        <input type='text' class='form-control bg-white text-center' id='nombre_padre' name='acudiente_nombre' value='{$observador['acudiente_nombre']}'  disabled>
+                    </div>
+                    <div class='col-md-4'>
+                        <label for='nombre_padre' class='form-label'>Apellidos del acudiente </label>
+                        <input type='text' class='form-control bg-white text-center' id='nombre_padre' name='acudiente_apellido' value='{$observador['acudiente_apellido']}'  disabled>
+                    </div>
+                    <div class='col-md-4'>
+                        <label for='ocupacion_padre' class='form-label'>Ocupación del acudiente </label>
+                        <input type='text' class='form-control bg-white text-center' id='ocupacion_padre' name='acudiente_ocupacion' value='{$observador['acudiente_ocupacion']}'  disabled>
+                    </div>
+                    <div class='col-md-4'>
+                        <label for='telefono_padre' class='form-label'>Cedula del acudiente </label>
+                        <input type='text' class='form-control bg-white text-center' id='telefono_padre' name='acudiente_telefono' value='{$observador['acudiente_cedula']}'  disabled>
+                    </div>
+
+                     <div class='col-md-4'>
+                        <label for='telefono_padre' class='form-label'>Direccion del acudiente </label>
+                        <input type='text' class='form-control bg-white text-center' id='telefono_padre' name='direccion_acudiente' value='{$observador['acudiente_direccion']}'  disabled>
+                    </div>
+                     <div class='col-md-4'>
+                        <label for='telefono_padre' class='form-label'>Telefono del acudiente </label>
+                        <input type='text' class='form-control bg-white text-center' id='telefono_padre' name='acudiente_telefono' value='{$observador['acudiente_telefono']}' disabled >
+                    </div>
+                    
+                     <div class='col-md-4'>
+                        <label for='telefono_padre' class='form-label'>Correo del acudiente </label>
+                        <input type='text' class='form-control bg-white text-center ' id='telefono_padre' name='correo_acudiente' value='{$observador['acudiente_correo']}' disabled>
+                    </div>
+
+                </div>";
+                    }
+
+       
+            echo "<div class='mb-4'>
+                 <!-- Compromisos -->
+                <h5 class='text-center'>Compromisos Académicos y Convivenciales</h5>
+                <table class='table table-bordered '>
                     <thead>
                         <tr>
-                            <th>Trimestre</th>
                             <th>Fecha</th>
                             <th>Observación</th>
                             <th>Compromiso</th>
-                            <th>Firma del Docente</th>
+                            <th>Nombre Docente</th>
+                            <th>firma estudiante</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type='number' class='form-control' name='trimestre'></td>
-                            <td><input type='date' class='form-control' name='fecha_obser'></td>
-                            <td><textarea class='form-control' name='observacion' rows='3'></textarea></td>
-                            <td><textarea class='form-control' name='compromiso' rows='3'></textarea></td>
-                            <td><textarea class='form-control' name='firma' rows='3'></textarea></td>
-                        </tr>
-                    </tbody>
+                    <tbody>";
+                        foreach ($compromisos as $compromiso) {
+    echo "<tr>
+        <td>{$compromiso['fechaCompromiso']}</td>
+        <td>{$compromiso['observacion']}</td>
+        <td>{$compromiso['compromiso']}</td>
+        <td>{$compromiso['nombre_docente']}</td>
+        <td>{$compromiso['firma_alumno']}</td>
+    </tr>";
+}
+                    echo"</tbody>
                 </table>
             </div>
-
-            <!-- Botones -->
-            <div class='text-center'>
-                <button type='submit' class='btn btn-dark'>Enviar</button>
-                <button type='reset' class='btn btn-dark'>Borrar</button>
-            </div>
+        </form>
+        <form>
+            
         </form>
     </div>
     
@@ -369,7 +414,7 @@ echo "
             el.classList.toggle("toggled");
         };
 
-        // Validar fecha de naAcimiento
+
     function validarFechaNacimiento() {
         const fechaInput = document.getElementById("fecha_nacimiento");
         const mensajeError = document.getElementById("error_fecha_nacimiento");

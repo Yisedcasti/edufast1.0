@@ -72,7 +72,7 @@
                     </div>
                     <div class="text-center my-5">
                         <video controls class="rounded shadow" width="640">
-                            <source src="videos/introduccion.mp4" type="video/mp4">
+                            <source src="introduccion.mp4" type="video/mp4">
                             Tu navegador no soporta el video.
                         </video>
                     </div>
@@ -88,7 +88,7 @@
                     </div>
                     <div class="text-center my-5">
                         <video controls class="rounded shadow" width="640">
-                            <source src="videos/introduccion.mp4" type="video/mp4">
+                            <source src="registro.mp4" type="video/mp4">
                             Tu navegador no soporta el video.
                         </video>
                     </div>

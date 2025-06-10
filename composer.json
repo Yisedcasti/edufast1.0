@@ -1,7 +1,11 @@
 {
     "require-dev": {
-        "codeception/codeception": "5.1",
+        "codeception/codeception": "^5.2",
         "codeception/module-phpbrowser": "*",
-        "codeception/module-asserts": "*"
+        "codeception/module-asserts": "*",
+        "phpunit/phpunit": "^11"
+    },
+    "require": {
+        "firebase/php-jwt": "^6.11"
     }
 }

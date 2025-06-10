@@ -92,9 +92,10 @@ if (!isset($_SESSION['user'])) {
                         
                         if ($num_doc !== null) {
                             // Verificar en la tabla de estudiantes
-                            $sqlEstudiante = "SELECT estudiante.*, registro.*
+                            $sqlEstudiante = "SELECT estudiante.*, registro.*, jornada.*
                             FROM estudiante 
                             INNER JOIN registro ON estudiante.registro_num_doc = registro.num_doc
+                            INNER JOIN jornada ON  registro.jornada_id_jornada = jornada.id_jornada
                              WHERE registro_num_doc = :num_doc";
                             $stmtEstudiante = $base_de_datos->prepare($sqlEstudiante);
                             $stmtEstudiante->bindParam(':num_doc', $num_doc, PDO::PARAM_STR);
@@ -132,45 +133,19 @@ if (!isset($_SESSION['user'])) {
     <label for='estudiante' class='form-label'>Nivel educativo</label>
     <input type='text' class='form-control text-center bg-white' id='director' name='director' value='{$datosEstudiante['NIvel_educativo']}' disabled>
 </div>
-                    <div class='col-md-2'>
-                        <label for='grado' class='form-label'>Grado</label>
-                          <select class='form-select' id='frecuencia' name='id_grado'>";
-                        foreach ($grados as $grado) {
-                            $selected = ($matricula['grado_id_grado'] == $grado['id_grado']) ? 'selected' : '';
-                            echo "<option class ='text-center'value='" . htmlspecialchars($grado['id_grado'], ENT_QUOTES) . "' $selected>"
-                                . htmlspecialchars($grado['grado'], ENT_QUOTES) . "</option>";
-                        }
-                        
-
-echo "
-    </select>
-                    </div>
-                    <div class='col-md-2'>
-                        <label for='curso' class='form-label'>Curso</label>
-                          <select class='form-select' id='frecuencia' name='id_curso'>";
-                        foreach ($cursos as $curso) {
-                            $selected = ($matricula['cursos_id_cursos'] == $curso['id_cursos']) ? 'selected' : '';
-                            echo "<option class='text-center' value='" . htmlspecialchars($curso['id_cursos'], ENT_QUOTES) . "' $selected>"
-                                . htmlspecialchars($curso['curso'], ENT_QUOTES) . "</option>";
-                        }
-                        
-
-echo "
-    </select> 
-                    </div>
-                    <div class='col-md-3'>
-                        <label for='frecuencia' class='form-label'>Jornada</label>
-                        <select class='form-select' id='frecuencia' name='id_jornada'>";
-                        foreach ($jornadas as $jornada) {
-                            $selected = ($datosEstudiante['registro_jornada_id_jornada'] == $jornada['id_jornada']) ? 'selected' : '';
-                            echo "<option class='text-center' value='" . htmlspecialchars($jornada['id_jornada'], ENT_QUOTES) . "' $selected>"
-                                . htmlspecialchars($jornada['jornada'], ENT_QUOTES) . "</option>";
-                        }
-                        
-
-echo "
-    </select>
-                    </div>
+                   
+                     <div class='col-md-3'>
+    <label for='estudiante' class='form-label'>Grado</label>
+    <input type='text' class='form-control text-center bg-white' id='director' name='director' value='{$matricula['grado']}' disabled >
+</div>
+   <div class='col-md-3'>
+    <label for='estudiante' class='form-label'>Curso</label>
+    <input type='text' class='form-control text-center bg-white' id='director' name='director' value='{$matricula['curso']}' disabled >
+</div>
+                     <div class='col-md-3'>
+    <label for='estudiante' class='form-label'>Jornada</label>
+    <input type='text' class='form-control text-center bg-white' id='director' name='director' value='{$datosEstudiante['jornada']}' disabled >
+</div>
                    <div class='col-md-3'>
     <label for='estudiante' class='form-label'>Estado</label>
     <input type='text' class='form-control text-center bg-white' id='director' name='director' value='{$datosEstudiante['Estado']}' disabled>
@@ -347,10 +322,14 @@ echo "
         <td>{$compromiso['compromiso']}</td>
         <td>{$compromiso['nombre_docente']}</td>
         <td>{$compromiso['firma_alumno']}</td>
+    
     </tr>";
 }
-                    echo"</tbody>
+                    echo"
+                    </tbody>
+                     
                 </table>
+               
             </div>
 
             <!-- Botones -->

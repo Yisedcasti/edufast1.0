@@ -18,7 +18,7 @@ $busqueda = isset($_GET['num_doc']) ? $_GET['num_doc'] : '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../../../css/stylscoor.css"/>
+    <link rel="stylesheet" href="../../../css/nav.css"/>
     <link rel="stylesheet" href="../css/principal.css"/>
     <title>Pagina Principal</title>
 </head>
@@ -80,39 +80,6 @@ $busqueda = isset($_GET['num_doc']) ? $_GET['num_doc'] : '';
 
 
     <div class="row">
-        <div class="col-md-12 text-center">
-            <h3 class="mb-3">Alumnos sin curso y grado</h3>
-            <div class="table-responsive">
-                <table class="table table-hover rounded shadow table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nivel educativo</th>
-                            <th>Grado cursado</th>
-                            <th>Número de Documento</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($registros as $registro) : ?>
-                            <tr>
-                                <td class="text-center"><?php echo $registro->NIvel_educativo; ?></td>
-                                <td class="text-center"><?php echo $registro->grado_cursado; ?></td>
-                                <td class="text-center">
-                                    <a class="text-reset" href="observador.php?num_doc=<?php echo $registro->num_doc; ?>">
-                                        <?php echo $registro->num_doc; ?>
-                                    </a>
-                                </td>
-                                <td class="text-center"><?php echo $registro->nombres; ?></td>
-                                <td class="text-center"><?php echo $registro->apellidos; ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-                <?php if (empty($registros)) echo "<p class='text-muted'>No se encontraron resultados.</p>"; ?>
-            </div>
-        </div>
-
         <!-- Tabla de Alumnos con curso y grado -->
         <div class="col-md-12 text-center mt-5">
             <h3 class="mb-3">Alumnos con curso y grado</h3>

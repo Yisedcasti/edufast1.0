@@ -20,7 +20,7 @@ try {
     $grados = $base_de_datos->query("SELECT * FROM grado")->fetchAll(PDO::FETCH_ASSOC);
 
     if (empty($logros)) {
-        header("Location: ../vistas/logros.php?status=error");
+        header("Location: ../vistas/logros.php");
         exit();
     }
 

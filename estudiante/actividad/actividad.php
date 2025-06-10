@@ -33,7 +33,7 @@ include_once "consultar.php";
                 <a href="../logrophp/logros.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
                 <a href="../notas/notas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
                 <a href="../Boletin/view/boletin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Boletin</a>
-                <a href="../pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>            </div>
+                <a href="../dashbioard.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>            </div>
         </div>
 
         <div id="page-content-wrapper">

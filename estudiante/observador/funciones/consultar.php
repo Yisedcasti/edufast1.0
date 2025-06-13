@@ -20,7 +20,7 @@ $compromisos = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
 $consulta = $base_de_datos->prepare("SELECT *
 FROM observador
-INNER JOIN registro ON observador.num_doc = registro.num_doc
+INNER JOIN registro ON observador.registro_num_doc = registro.num_doc
 WHERE registro.num_doc = :num_doc
 ");
 

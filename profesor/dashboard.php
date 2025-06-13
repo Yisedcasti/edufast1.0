@@ -32,6 +32,8 @@ if (!isset($_SESSION['user'])) {
                 <a href="asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencia</a>
                 <a href="Materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
                 <a href="observador/vistas/alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observadores</a>
+                <a href="notas/listado.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
+
 
 
             </div>

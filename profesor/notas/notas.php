@@ -1,5 +1,11 @@
 <?php
-include_once "consulta.php";
+session_start();
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para acceder a esta página.";
+    header('Location: ../src/protected.php');
+    exit;
+}
+include_once "consultaAlumno.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,26 +15,23 @@ include_once "consulta.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../../css/grados.css"/>
+    <link rel="stylesheet" href="../../css/notas.css"/>
+    <link rel="stylesheet" href="../../css/nav.css"/>
     <title>Grados</title>
-</head>
+</head> 
 
 <body>
     <div class="d-flex" id="wrapper">
     <div class="bg-white" id="sidebar-wrapper">
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">EDUFAST</div>
             <div class="list-group list-group-flush my-3">
-                <a href="actividad.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
-                <a href="asistencia.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Registro</a>
-                <a href="curso.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
-                <a href="grado.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
-                <a href="jornada.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Cursos</a>
-                <a href="logro.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asisitencias</a>
-                <a href="materia.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
-                <a href="nota.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Logros</a>
-                <a href="nota.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Actividades</a>
-                <a href="nota.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
-                <a href="../../../admin/pag_principal.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Volver</a>
+            
+                <a href="../registro/view/perfil.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">perfil</a>
+                <a href="../asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencia</a>
+                <a href="../Materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
+                <a href="../observador/vistas/alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observadores</a>
+                <a href="listado.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
+                <a href="../dashboard.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>  
             </div>
         </div>
 
@@ -48,10 +51,10 @@ include_once "consulta.php";
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i>Maria Camila Torres Jaramillo
+                                <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres']; ?> <?php echo $_SESSION['apellidos']; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Salir</a></li>
+                            <li><a class="dropdown-item" href="../../admin/cerrar.php">Salir</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -67,164 +70,39 @@ include_once "consulta.php";
             <table class="table">
                 <thead>
                     <tr>
-                        <th class="text-center ">nombre Alumno </th>
-                        <th class="text-center ">Actividad</th>
-                        <th class="text-center ">Logro</th>
-                        <th class="text-center ">Materia</th>
-                        <th class="text-center ">nota</th>
-                        <th class="text-center ">fecha_nota</th>
-                        <th class="text-center " colspan="2">Accion</th>
+                        <th class="text-center">Materia</th>
+                        <th class="text-center">Actividad</th>
+                        <th class="text-center">Logro</th>
+                        <th class="text-center">Nota</th>
+                        <th class="text-center">Fecha Nota</th>
+                        <th class="text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><?php foreach ($notas as $nota) : ?>
-                        <td class="text-center"><?php echo $nota->nombre?>   <?php echo $nota->apellido?></td>
-                        <td class="text-center"><?php echo $nota->nom_actividad?></td>
+                    <?php foreach ($notas as $nota) : ?>
+                    <tr>
+                        <td class="text-center"><?php echo $nota->materia ?></td>
+                        <td class="text-center"><?php echo $nota->nombre_act ?></td>
                         <td class="text-center"><?php echo $nota->nombre_logro ?></td>
-                        <td class="text-center"><?php echo $nota->materia?></td>
                         <td class="text-center"><?php echo $nota->nota ?></td>
-                        <td class="text-center"><?php echo $nota->fecha_nota?></td>
-                        <td class="actions">
-                        <a type="button" class="btn " data-bs-toggle="modal" data-bs-target="#actualizar<?php echo $nota->id_nota ?>">Actualizar</a>
-                        </td>
-                        <td class="actions">
-                        <a type="button" class="btn" data-bs-toggle="modal" data-bs-target="#confirmarModal<?php echo $nota->id_nota ?>">Eliminar</a>
+                        <td class="text-center"><?php echo $nota->fecha_nota ?></td>
+                        <td class="text-center">
+                            <button 
+            type="button" 
+            class="btn btn-sm btn-warning btn-abrir-modal"
+            data-bs-toggle="modal"
+            data-bs-target="#modalActualizarNota"
+            data-id_nota="<?php echo $nota->id_nota; ?>"
+            data-actividad="<?php echo $nota->actividad_id_actividad; ?>"
+            data-nota="<?php echo $nota->nota; ?>"
+        >Actualizar</button>
+                            <a href="funciones/eliminar.php?id_nota=<?php echo $nota->id_nota; ?>" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que deseas eliminar esta nota?');">Eliminar</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-
-            <div class="d-flex justify-content-center mb-4">
-            <a class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#crear">Crear Grado</a>
-        </div>
         </section>
-
-                    <!--crear-->
-
-        <div class="modal fade" id="crear" tabindex="-1" aria-labelledby="crearLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="crearLabel">Crear Curso</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                    <form class="formulario" action="crear.php" method="POST">
-                    <section class="mb-3">
-                  <label for="registro_num_doc">Alumno</label>
-                        <select  class="form-control" name="registro_num_doc" id="registro_num_doc" required>
-                            <option selected disabled>Seleccione Alumno</option>
-                            <?php foreach ($registros as $registro): ?>
-                                <option value="<?= $registro['num_doc'] ?>"><?= $registro['nombre'] ?>  <?= $registro['apellido'] ?></option>
-                            <?php endforeach; ?>
-        </select>
-                            </section>
-        <section class="mb-3">
-        <label for="actividades_id_actividades" >Actividad</label>
-                        <select  class="form-control" name="actividades_id_actividades"  id="actividades_id_actividades"  required>
-                            <option selected disabled>Seleccionar Actvidad</option>
-                            <?php foreach ($actividades as $actividad): ?>
-                            <option value="<?= $actividad['id_actividad'] ?>"><?= $actividad['nom_actividad'] ?> </option>
-                            <?php endforeach; ?>
-        </select>
-                            </section>
-        <section class="mb-3">
-                                <label for="curso">Ingrese nota</label>
-                                <input type="number" name="nota" class="form-control" required>
-                            </section>
-                            <section class="mb-3">
-                                <label for="curso">Ingrese fecha de la nota </label>
-                                <input type="date" name="fecha_nota" class="form-control" required>
-                            </section>
-    </section>
-    <section class="btn">
-        <input type="submit"name="insertar"value="Enviar">
-    </section>
-    </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-                            <!--Actualizar-->
-        <?php foreach($notas as $nota): ?>
-<div class="modal fade" id="actualizar<?php echo $nota->id_nota ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Actualizar Actividad</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="formActualizar" method="POST" action="Actualizar.php">
-                <input type="hidden" name="id_nota" id="id_nota" value="<?php echo $nota->id_nota ?>">
-                <section class="mb-3">
-                  <label for="registro_num_doc">Alumno</label>
-                        <select  class="form-control" name="registro_num_doc" id="registro_num_doc" required>
-                            <option selected disabled>Seleccione Alumno</option>
-                            <?php foreach ($registros as $registro): ?>
-                                <option value="<?= $registro['num_doc'] ?>"><?= $registro['nombre'] ?>  <?= $registro['apellido'] ?></option>
-                                <option value="<?= $registro['num_doc'] ?>" <?= $nota->registro_num_doc == $registro['num_doc'] ? 'selected' : '' ?>>
-                                            <?= htmlspecialchars($registro['nombre']) ?>   <?= htmlspecialchars($registro['apellido']) ?>
-                                        </option>
-                            <?php endforeach; ?>
-        </select>
-                            </section>
-        <section class="mb-3">
-        <label for="actividades_id_actividades">Actividad</label>
-                        <select  class="form-control" name="actividades_id_actividades" id="actividades_id_actividades" required>
-                            <option selected disabled>Seleccionar Actvidad</option>
-                            <?php foreach ($actividades as $actividad): ?>
-                            <option value="<?= $actividad['id_actividad'] ?>" <?= $nota->actividades_id_actividades == $actividad['id_actividad'] ? 'selected' : '' ?>>
-                                            <?= htmlspecialchars($actividad['nom_actividad']) ?>
-                                        </option>
-                            <?php endforeach; ?>
-        </select>
-                            </section>
-        <section class="mb-3">
-                                <label for="curso">Ingrese nota</label>
-                                <input type="number" name="nota" class="form-control" value="<?php echo htmlspecialchars($nota->nota); ?>" required>
-                            </section>
-                            <section class="mb-3">
-                                <label for="curso">Ingrese fecha de la nota </label>
-                                <input type="date" name="fecha_nota" class="form-control" value="<?php echo htmlspecialchars($nota->fecha_nota); ?>" required>
-                            </section>
-    </section>
-                    <div class="modal-footer mt-3 justify-content-center">
-                    <button type="submit" class="btn btn-dark r">Actualizar</button>
-        </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<?php endforeach; ?>
-
-                                    <!--ELIMINAR-->
-        <?php foreach($notas as $nota): ?>
-    <div class="modal fade" id="confirmarModal<?php echo $nota->id_nota ?>" tabindex="-1" role="dialog" aria-labelledby="confirmarModalLabel<?php echo $nota->id_nota ?>" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmarModalLabel<?php echo $nota->id_nota ?>">Confirmar Eliminación </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ¿Estás seguro de que deseas eliminar este registro?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form method="POST" action="eliminar.php">
-                        <input type="hidden" name="id_nota" value="<?php echo $nota->id_nota?>">
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-<?php endforeach; ?>
-
     </main>
                 </div>
             </div>
@@ -244,6 +122,41 @@ include_once "consulta.php";
     <!-- /#page-content-wrapper -->
     </div>
 
+    <!-- Modal Actualizar Nota -->
+<div class="modal fade" id="modalActualizarNota" tabindex="-1" aria-labelledby="modalActualizarNotaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="formActualizarNota" method="POST" action="funciones/actualizar.php">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalActualizarNotaLabel">Actualizar Nota</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="id_nota" id="modal_id_nota">
+          <div class="mb-3">
+            <label for="modal_actividad" class="form-label">Actividad</label>
+            <select class="form-select" name="actividad_id_actividad" id="modal_actividad" required>
+              <option value="">Seleccione una actividad</option>
+              <?php foreach ($actividades as $actividad): ?>
+                <option value="<?= $actividad['id_actividad'] ?>"><?= htmlspecialchars($actividad['nombre_act']) ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="modal_nota" class="form-label">Nota</label>
+            <input type="number" class="form-control" name="nota" id="modal_nota" min="0" max="5" step="0.1" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Actualizar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Fin Modal Actualizar Nota -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         var el = document.getElementById("wrapper");
@@ -252,6 +165,14 @@ include_once "consulta.php";
         toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
+
+document.querySelectorAll('.btn-abrir-modal').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.getElementById('modal_id_nota').value = this.getAttribute('data-id_nota');
+        document.getElementById('modal_actividad').value = this.getAttribute('data-actividad');
+        document.getElementById('modal_nota').value = this.getAttribute('data-nota');
+    });
+});
     </script>
 </body>
 

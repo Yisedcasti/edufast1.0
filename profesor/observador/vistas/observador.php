@@ -16,7 +16,7 @@ if (!isset($_SESSION['user'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../../../css/stylscoor.css">
+    <link rel="stylesheet" href="../../../css/nav.css">
     <link rel="stylesheet" href="../../../ob.css"/>
     <title>Pagina Principal</title>
 </head>
@@ -27,14 +27,13 @@ if (!isset($_SESSION['user'])) {
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">EDUFAST</div>
             <div class="list-group list-group-flush my-3">
 
-                <a href="../../publicaciones/vistas/publicaciones_crear.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Publicaciones</a>
-<a href="../../jornadas/vistas/jornadas.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Jornadas</a>
-<a href="../../grados/vistas/grados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Grados</a>
-<a href="../../observador/vistas/alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observadores</a>
-<a href="../../materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
-<a href="../../asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencias</a>
-<a href="../../notas/listado.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
-<a href="../../dashboard.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>
+                
+                <a href="../../registro/view/perfil.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">perfil</a>
+                <a href="../../asistencia/listados.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Asistencia</a>
+                <a href="../../Materiaphp/materia.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Materias</a>
+                <a href="alumnos.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Observadores</a>
+                <a href="../../notas/listado.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Notas</a>
+                <a href="../../dashboard.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">Principal</a>  
             </div>
         </div>
 
@@ -123,7 +122,7 @@ if (!isset($_SESSION['user'])) {
             <h2><b>OBSERVADOR DEL ESTUDIANTE</b></h2>
         </div>
 
-        <form action='../funciones/actualizar.php' method='post'>
+        <form action='../funciones/crearObservacion.php' method='post'>
         <input type='hidden' class='form-control text-center bg-white' id='director' name='num_doc' value='{$datosEstudiante['num_doc']}'>
             <!-- Información Básica -->
             <h3 class='text-center'>Información Básica</h3>
@@ -285,7 +284,7 @@ if (!isset($_SESSION['user'])) {
 
                      <div class='col-md-4'>
                         <label for='telefono_padre' class='form-label'>Direccion del acudiente </label>
-                        <input type='text' class='form-control bg-white text-center' id='telefono_padre' name='direccion_acudiente' value='{$observador['acudiente_direccion']}'  disabled>
+                        <input type='text' class='form-control bg-white text-center' id='telefono_padre' name='acudiente_direccion' value='{$observador['acudiente_direccion']}'  disabled>
                     </div>
                      <div class='col-md-4'>
                         <label for='telefono_padre' class='form-label'>Telefono del acudiente </label>
@@ -301,7 +300,7 @@ if (!isset($_SESSION['user'])) {
                     }
 
        
-            echo "<div class='mb-4'>
+            echo "<div class='mb-4>
                  <!-- Compromisos -->
                 <h5 class='text-center'>Compromisos Académicos y Convivenciales</h5>
                 <table class='table table-bordered '>
@@ -311,7 +310,6 @@ if (!isset($_SESSION['user'])) {
                             <th>Observación</th>
                             <th>Compromiso</th>
                             <th>Nombre Docente</th>
-                            <th>firma estudiante</th>
                         </tr>
                     </thead>
                     <tbody>";
@@ -321,7 +319,6 @@ if (!isset($_SESSION['user'])) {
         <td>{$compromiso['observacion']}</td>
         <td>{$compromiso['compromiso']}</td>
         <td>{$compromiso['nombre_docente']}</td>
-        <td>{$compromiso['firma_alumno']}</td>
     
     </tr>";
 }
@@ -331,11 +328,36 @@ if (!isset($_SESSION['user'])) {
                 </table>
                
             </div>
+            <!-- Formulario de Compromisos -->
+             <h5 class='text-center'>Compromisos Académicos y Convivenciales</h5>
+                <table class='table table-bordered '>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Observación</th>
+                            <th>Compromiso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    <tr>
+        <td> <input type='date' class='form-control bg-white text-center '  name='fechaCompromiso' value=''></td>
+        <td> <input type='text' class='form-control bg-white text-center '  name='Observacion' value=''></td>
+        <td>  <input type='text' class='form-control bg-white text-center '  name='Compromiso' value=''></td>";
+         echo "<input type='hidden' class='form-control' name='nombre' value='{$_SESSION['nombres']}'>
+        <input type='hidden' name='estudiante_id_estudiante' value='{$datosEstudiante['id_estudiante']}'>";
+        
+
+         
+    echo"</tr>
+
+                    </tbody>
+                     
+                </table>
+           
 
             <!-- Botones -->
             <div class='text-center'>
                 <button type='submit' class='btn btn-primary'>Enviar</button>
-                <button type='reset' class='btn btn-danger'>Borrar</button>
             </div>
         </form>
         <form>
